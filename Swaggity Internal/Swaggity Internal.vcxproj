@@ -73,8 +73,8 @@
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28August 2009%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28August 2009%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28August 2009%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28August 2009%29\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28August 2009%29\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,6 +130,7 @@
     <ClCompile Include="Cheat.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="CreateMove.cpp" />
+    <ClCompile Include="D3D.cpp" />
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FrameStageNotify.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Offsets.cpp" />
     <ClCompile Include="OverrideView.cpp" />
     <ClCompile Include="PaintTraverse.cpp" />
+    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VMTSwag.cpp" />
   </ItemGroup>
@@ -151,6 +153,7 @@
     <ClInclude Include="Cheat.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CUserCmd.h" />
+    <ClInclude Include="D3D.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Hooks.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="RayTrace.h" />
     <ClInclude Include="SDK.h" />
     <ClInclude Include="ShitTalk.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="VMTSwag.h" />
   </ItemGroup>
