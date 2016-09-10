@@ -31,8 +31,8 @@ namespace Config
     extern int                  width;
 
 
-    extern vector<lbool>           BoolSettings;
-    extern vector<lint>             IntSettings;
+   extern vector<lbool>           BoolSettings;
+   extern vector<lint>             IntSettings;
 
     extern bool enableovr;
 

@@ -26,12 +26,15 @@ enum COLORS {  // Normal Colors
 void printmenu()
 {
     
-    int i = 100;
+    int i = 50;
 
     for (int j = 0; j < Config::BoolSettings.size(); ++j) {
 
        
-        pD3D.DrawString(100, i + 20 * j, Config::BoolSettings[i].first + ' ' + to_string(Config::BoolSettings[i].second), WHITE, true, BLACK, true);
+       pD3D.DrawString(100, i + 20 * j, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, true);
+
+       if(Config::BoolSettings[j].second)pD3D.DrawString(190, i + 20 * j,  "Enabled", GREEN, true, BLACK, true);
+       else pD3D.DrawString(190 , i + 20 * j,  "Disabled", RED, true, BLACK, true);
 
        /* pD3D.DrawString(100, i, "|||Swaggity 'Internal Menu: |||", WHITE, true, BLACK, true);
        
@@ -50,7 +53,7 @@ void printmenu()
 
         */
 
-    }
+   }
   
    
   

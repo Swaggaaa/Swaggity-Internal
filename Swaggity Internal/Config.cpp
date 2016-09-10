@@ -22,10 +22,7 @@ vector<bool>            Config::ESPFeatures(5, false);
 int                     Config::Ovrkey             = 0x30;  // KEY 0
 int                     Config::height             = 0;
 int                     Config::width              = 0;
-vector<lbool>           Config::BoolSettings {make_pair("RageRCS",true), make_pair("LegitRCS",false), make_pair("RageAim",true), 
-                                                      make_pair("LegitAim",false),make_pair("SilentAim",false),make_pair("NoVisRecoil",true),
-                                                      make_pair("CrosshairRecoil",false),make_pair("NoFlash",true),make_pair("Bhop",true),make_pair("Trigger",true),
-                                                      make_pair("ESP",false),make_pair("ShitTalk",false),make_pair("TriggerSilent",true) };
+vector<lbool>           Config::BoolSettings = {pair<string,bool>("RageRCS",true), pair<string,bool>("LegitRCS",false), pair<string,bool>("RageAim",true), pair<string,bool>("LegitAim",false),pair<string,bool>("SilentAim",false),pair<string,bool>("NoVisRecoil",true), pair<string,bool>("CrosshairRecoil",false),pair<string,bool>("NoFlash",true),pair<string,bool>("Bhop",true),pair<string,bool>("Trigger",true),pair<string,bool>("ESP",false),pair<string,bool>("ShitTalk",false),pair<string,bool>("TriggerSilent",true) };
 
-vector<lint>                 Config::IntSettings { make_pair("Trigger",0x30)};
+ vector<pair<string, int>>           Config::IntSettings = { pair<string,int>("Trigger",0x30)};
 
