@@ -8,7 +8,9 @@
 #include "Config.h"
 #include "IEngineTrace.h"
 #include "OnDeath.h"
+#include "D3D.h"
 
+D3D pD3D;
 
 
 using namespace std;
@@ -252,6 +254,8 @@ void printMenu(HANDLE& hOut)
 
 void Setup()
 {
+init:
+
     AllocConsole();
     freopen("CONOUT$", "w", stdout);
     freopen("CONIN$", "r", stdin);
@@ -261,7 +265,7 @@ void Setup()
     LoadOffsets();
     LoadHooks();
     LoadSettings();
-
+    Interfaces::Engine->GetScreenSize(Config::width, Config::height);
     cout << "\n\n\n";
     system("pause");
     while (!Config::kill)
@@ -407,7 +411,7 @@ void Setup()
     cout << "#1 -> Exit" << endl;
     cin >> n;
 
-    if(n == 0)goto 
+    if (n == 0)goto init;
     
 }
 

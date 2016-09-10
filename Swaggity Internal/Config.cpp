@@ -17,4 +17,7 @@ bool                    Config::ESP                = false;
 vector<bool>            Config::ESPFeatures(5, false);
 bool                    Config::ShitTalk           = false;
 bool                    Config::TriggerSilent      = true;
-bool                    kill                       = false;
+bool                    Config::kill               = false;
+int                     Config::Ovrkey             = 0x30;  // KEY 0
+int                     Config::height             = 0;
+int                     Config::width              = 0;

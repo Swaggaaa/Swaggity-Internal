@@ -23,4 +23,7 @@ namespace Config
     extern bool                 ShitTalk;
     extern bool                 TriggerSilent;
     extern bool                 kill;
+    extern int                  Ovrkey;
+    extern int                  height;
+    extern int                  width;
 }
