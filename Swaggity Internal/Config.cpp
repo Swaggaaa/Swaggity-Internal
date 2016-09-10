@@ -4,6 +4,8 @@ bool                    Config::RageRCS            = true;
 bool                    Config::LegitRCS           = false;
 bool                    Config::RageAimbot         = true;
 bool                    Config::LegitAimbot        = false;
+uint                    Config::AimbotFOV;
+uint                    Config::SmoothFactor;
 bool                    Config::SilentAim          = false;
 bool                    Config::NoVisRecoil        = true;
 bool                    Config::CrosshairRecoil    = false;

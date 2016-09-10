@@ -72,7 +72,6 @@ void Cheat::NoRecoil()
     case WEAPON_MP7:
     case WEAPON_MP9:
     case WEAPON_M4A1_SILENCER:
-    case WEAPON_TEC9:
     case WEAPON_CZ75A:
         break;
     default:
@@ -123,7 +122,6 @@ void Cheat::RageNoRecoil()
     case WEAPON_MP7:
     case WEAPON_MP9:
     case WEAPON_M4A1_SILENCER:
-    case WEAPON_TEC9:
     case WEAPON_CZ75A:
         break;
     default:
@@ -250,7 +248,7 @@ void Cheat::TriggerBot()
 void Cheat::RageAimbot()
 {
     float distance = 1337.f;
-    uint id = -1;
+    uint id = 1337;
 
     for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
     {
@@ -260,7 +258,7 @@ void Cheat::RageAimbot()
             continue;
 
         Vector dist = entity->GetOrigin() - Global::LocalPlayer->GetOrigin();
-        float tmp = sqrt(pow(dist.x, 2) + pow(dist.y, 2) + pow(dist.z, 2));
+        float tmp = dist.Length();
 
         if (distance == 1337.f || tmp < distance)
         {
@@ -270,7 +268,7 @@ void Cheat::RageAimbot()
     }
 
     CBaseEntity* ent = Interfaces::EntityList->GetClientEntity(id);
-    if (!ent || id == -1)
+    if (!ent || id == -1337)
         return;
     //Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
     Vector headPos = ent->GetBonePosition(6);
@@ -294,5 +292,44 @@ void Cheat::RageAimbot()
 
 void Cheat::LegitAimbot()
 {
-    
+    float fov = 1337.f;
+    uint id = 1337;
+   
+    for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
+    {
+        CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
+
+        if (!entity->IsValid() || !entity->IsVisible(6))
+            continue;
+
+        Vector headPos = entity->GetBonePosition(6);
+        QAngle angles = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+        float tmp = Utils::GetFOV(Vector(angles.x, angles.y, angles.z));
+
+        if (fov == 1337.f || tmp < fov)
+        {
+            id = i;
+            fov = tmp;
+        }
+    }
+
+    CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(id);
+
+    if (!entity || id == 1337)
+        return;
+
+    if (fov > Config::AimbotFOV)
+        return;
+
+    QAngle dst = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
+    dst -= Global::LocalPlayer->GetPunch() * 2.f;
+    dst.Clamp();
+    QAngle origin = Global::UserCmd->viewangles;
+    QAngle delta = dst - origin;
+
+    dst = origin + delta / 10.f;
+    dst.Clamp();
+    Vector vAngles(dst.x, dst.y, dst.z);
+    Interfaces::Engine->SetViewAngles(dst);
+    Global::UserCmd->viewangles = vAngles;
 }
