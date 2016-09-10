@@ -22,28 +22,35 @@ enum COLORS {  // Normal Colors
 
 #pragma warning (disable : 4244)
 
+
 void printmenu()
 {
-    int i, j;
-    i = 100;
-    j = 20;
-    pD3D.DrawString(100, i , "|||Swaggity 'Internal Menu: |||", WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i+ j, "Toggle Rage Recoil "+ to_string(Config::RageRCS), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j*2, "Toggle Legit Recoil " + to_string(Config::LegitRCS), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j*3, "Toggle NoVis Recoil " + to_string(Config::NoVisRecoil), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j*4, "Toggle Rage Aimbot "+ to_string(Config::RageAimbot), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 5, "Toggle Legit Aimbot " + to_string(Config::LegitAimbot), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 6, "Toggle Silent Aim " + to_string(Config::SilentAim), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 7, "Toggle Recoil Crosshair " + to_string(Config::CrosshairRecoil), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 8, "Toggle NoFlash " + to_string(Config::NoFlash), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 9, "Toggle BunnyHop " + to_string(Config::Bhop), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 10, "Toggle ESP " + to_string(Config::ESP), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 11, "Toggle TriggerBot " + to_string(Config::Trigger), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 12, "Toggle ShitTalk " + to_string(Config::ShitTalk), WHITE, true, BLACK, true);
-    pD3D.DrawString(100, i + j * 13, "Toggle TriggerBot PSilent " + to_string(Config::TriggerSilent) , WHITE, true, BLACK, true);
+    
+    int i = 100;
 
-  
+    for (int j = 0; j < Config::BoolSettings.size(); ++j) {
 
+       
+        pD3D.DrawString(100, i + 20 * j, Config::BoolSettings[i].first + ' ' + to_string(Config::BoolSettings[i].second), WHITE, true, BLACK, true);
+
+       /* pD3D.DrawString(100, i, "|||Swaggity 'Internal Menu: |||", WHITE, true, BLACK, true);
+       
+        pD3D.DrawString(100, i + j * 2, "Toggle Legit Recoil " + to_string(Config::LegitRCS), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 3, "Toggle NoVis Recoil " + to_string(Config::NoVisRecoil), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 4, "Toggle Rage Aimbot " + to_string(Config::RageAimbot), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 5, "Toggle Legit Aimbot " + to_string(Config::LegitAimbot), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 6, "Toggle Silent Aim " + to_string(Config::SilentAim), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 7, "Toggle Recoil Crosshair " + to_string(Config::CrosshairRecoil), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 8, "Toggle NoFlash " + to_string(Config::NoFlash), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 9, "Toggle Bhop " + to_string(Config::Bhop), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 10, "Toggle ESP " + to_string(Config::ESP), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 11, "Toggle TriggerBot " + to_string(Config::Trigger), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 12, "Toggle ShitTalk " + to_string(Config::ShitTalk), WHITE, true, BLACK, true);
+        pD3D.DrawString(100, i + j * 13, "Toggle TriggerBot PSilent " + to_string(Config::TriggerSilent), WHITE, true, BLACK, true);
+
+        */
+
+    }
   
    
   
@@ -74,11 +81,14 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9 *pDevice)
 
         if (GetAsyncKeyState(Config::Ovrkey) & 0x8000)
         {
+            while (GetAsyncKeyState(Config::Ovrkey) & 0x8000);
 
-            printmenu();
-
-
+            Config::enableovr = !Config::enableovr;
+       
         }
+
+        if(Config::enableovr)printmenu();
+
 
  
     return oEndScene(pDevice);

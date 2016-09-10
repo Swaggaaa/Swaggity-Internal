@@ -1,2 +1,6 @@
-﻿  EndScene.cpp
-  Swaggity Internal.vcxproj -> C:\Users\titan\Desktop\Swaggity-Internal\Debug\Swaggity Internal.dll
+﻿  Config.cpp
+c:\users\titan\desktop\swaggity-internal\swaggity internal\config.cpp(28): fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'f:\dd\vctools\compiler\cxxfe\sl\p1\c\constexpr.h', line 630)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information

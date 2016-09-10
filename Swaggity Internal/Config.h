@@ -2,6 +2,9 @@
 #include <vector>
 using namespace std;
 typedef unsigned int uint;
+typedef pair<string, bool> lbool;
+typedef pair<string, int> lint;
+
 
 namespace Config
 {
@@ -26,4 +29,11 @@ namespace Config
     extern int                  Ovrkey;
     extern int                  height;
     extern int                  width;
+
+
+    extern vector<lbool>           BoolSettings;
+    extern vector<lint>             IntSettings;
+
+    extern bool enableovr;
+
 }
