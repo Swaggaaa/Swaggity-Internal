@@ -1,5 +1,6 @@
-﻿Build started 09/09/2016 21:28:45.
+﻿Build started 10/09/2016 11:31:40.
      1>Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" on node 2 (Rebuild target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : Access to the path 'c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\debug\swaggity internal.dll' is denied.
      1>ClCompile:
          D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Cheat.cpp Config.cpp CreateMove.cpp EndScene.cpp Entity.cpp FrameStageNotify.cpp Global.cpp Hooks.cpp IBaseClientDll.cpp IClientModeShared.cpp Interfaces.cpp ISurface.cpp main.cpp NetVarManager.cpp Offsets.cpp OverrideView.cpp PaintTraverse.cpp Utils.cpp VMTSwag.cpp
          VMTSwag.cpp
@@ -49,4 +50,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:13.25
+Time Elapsed 00:00:12.45
