@@ -257,3 +257,16 @@ bool CBaseEntity::IsVisible(int bone)
 
     return false;
 }
+
+bool CBaseEntity::IsTargetingLocal()
+{
+    return false;
+}
+
+bool CBaseEntity::IsValid()
+{
+    if (!this || GetHealth() <= 0 || GetImmune() || GetDormant() || this == Global::LocalPlayer || GetTeam() == Global::LocalPlayer->GetTeam())
+        return false;
+
+    return true;
+}

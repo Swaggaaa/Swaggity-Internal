@@ -226,7 +226,7 @@ void printMenu(HANDLE& hOut)
     cout << "#7  -> Toggle Recoil Crosshair"; printStatus(hConsole, Config::CrosshairRecoil);
     cout << "#8  -> Toggle NoFlash"; printStatus(hConsole, Config::NoFlash);
     cout << "#9  -> Toggle BunnyHop"; printStatus(hConsole, Config::Bhop);
-    cout << "#10  -> Toggle ESP"; printStatus(hConsole, Config::ESP);
+    cout << "#10 -> Toggle ESP"; printStatus(hConsole, Config::ESP);
     cout << "#11 -> Toggle ESP Features" << endl;
     cout << "#12 -> Toggle TriggerBot"; printStatus(hConsole, Config::Trigger);
     cout << "#13 -> Toggle ShitTalk"; printStatus(hConsole, Config::ShitTalk);
@@ -305,6 +305,8 @@ void Setup()
 
         case 6:
             Config::SilentAim = !Config::SilentAim;
+            if (Config::SilentAim)
+                Config::LegitRCS = false;
             break;
 
         case 7:

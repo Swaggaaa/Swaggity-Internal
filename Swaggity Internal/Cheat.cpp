@@ -186,7 +186,7 @@ void Cheat::TriggerBot()
                 return;
                 */
 
-        if (trace.m_pEnt->GetTeam() != Global::LocalPlayer->GetTeam() && trace.m_pEnt->GetHealth() > 0 && !trace.m_pEnt->GetImmune())
+        if (trace.m_pEnt->IsValid())
         {
             float hitchance = 75.f + Config::TriggerChance / 4;
             if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= Config::TriggerDelay))
@@ -256,9 +256,7 @@ void Cheat::RageAimbot()
     {
         CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
 
-        if (!entity || entity == Global::LocalPlayer ||
-            entity->GetTeam() == Global::LocalPlayer->GetTeam() ||
-            entity->GetHealth() <= 0 || entity->GetDormant() || !entity->IsVisible(6))
+        if (!entity->IsValid() ||  !entity->IsVisible(6))
             continue;
 
         Vector dist = entity->GetOrigin() - Global::LocalPlayer->GetOrigin();
@@ -277,14 +275,18 @@ void Cheat::RageAimbot()
     //Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+
+    if (!Config::RageRCS)
+        angle -= Global::LocalPlayer->GetPunch() * 2.f;
+
     angle.Clamp();
 
     Vector vAngle(angle.x, angle.y, angle.z);
 
-    if (Config::SilentAim)
-        Global::UserCmd->viewangles = vAngle; //Seria silent si usan ragercs, legitrcs ya llamaria a engine->setviewangles
-    else
+    if (!Config::SilentAim)
         Interfaces::Engine->SetViewAngles(angle);
+
+    Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
 
     if (!(Global::UserCmd->buttons & IN_ATTACK))
         Global::UserCmd->buttons |= IN_ATTACK;
