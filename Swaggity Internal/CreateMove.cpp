@@ -59,8 +59,13 @@ bool __fastcall Hooks::CreateMove(void* thisptr, void* edx, float flInputSampleT
     if (Global::UserCmd->buttons & IN_ATTACK)
         Global::LastShot = GetTickCount();
 
-//    if (Config::Aimbot && Global::UserCmd->buttons & IN_ATTACK)
-  //      Cheat::Aimbot;
+    if (!Global::bSendPackets && Global::NextTick)
+    {
+        Global::UserCmd->buttons |= IN_ATTACK;
+        Global::UserCmd->viewangles = Global::OldAngles;
+        Global::bSendPackets = true;
+        Global::NextTick = false;
+    }
 
     if (Global::UserCmd->buttons & IN_ATTACK)
     {

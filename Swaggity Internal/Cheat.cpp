@@ -141,13 +141,7 @@ UINT tick = 0;
 
 void Cheat::TriggerBot()
 {
-    if (!Global::bSendPackets && Global::NextTick)
-    {
-        Global::UserCmd->buttons |= IN_ATTACK;
-        Global::UserCmd->viewangles = Global::OldAngles;
-        Global::bSendPackets = true;
-    }
-    else if (GetAsyncKeyState(Config::TriggerKey) & 0x8000)
+    if (GetAsyncKeyState(Config::TriggerKey) & 0x8000)
     {
         if (Config::RageAimbot) //Holding trigger makes it autofire when visible
         {
@@ -291,6 +285,9 @@ void Cheat::RageAimbot()
         Global::UserCmd->viewangles = vAngle; //Seria silent si usan ragercs, legitrcs ya llamaria a engine->setviewangles
     else
         Interfaces::Engine->SetViewAngles(angle);
+
+    if (!(Global::UserCmd->buttons & IN_ATTACK))
+        Global::UserCmd->buttons |= IN_ATTACK;
 }
 
 void Cheat::LegitAimbot()
