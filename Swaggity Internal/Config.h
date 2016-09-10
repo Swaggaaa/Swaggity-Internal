@@ -22,4 +22,5 @@ namespace Config
     extern vector<bool>         ESPFeatures;
     extern bool                 ShitTalk;
     extern bool                 TriggerSilent;
+    extern bool                 kill;
 }

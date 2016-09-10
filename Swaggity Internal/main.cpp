@@ -9,6 +9,8 @@
 #include "IEngineTrace.h"
 #include "OnDeath.h"
 
+
+
 using namespace std;
 
 void WelcomeMessage()
@@ -106,6 +108,16 @@ void LoadHooks()
     cout << "oFrameStageNotify -> 0x" << DWORD(oFrameStageNotify) << endl;
     cout << "oPaintTraverse -> 0x" << DWORD(oPaintTraverse) << endl;
     cout << "oEndScene -> 0x" << DWORD(oEndScene) << endl;
+}
+
+void unHook()
+{
+    delete Hooks::Client;
+    delete Hooks::ClientMode;
+    delete Hooks::Surface;
+    delete Hooks::VPanel;
+    delete Hooks::D3D9;
+
 }
 
 void writeFile(ofstream& ofs)
@@ -234,6 +246,8 @@ void printMenu(HANDLE& hOut)
     cout << "#15 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay, false);
     cout << "#16 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance, false);
     cout << "#17 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey, true);
+    cout << "#50 ->Exit " << endl; 
+
 }
 
 void Setup()
@@ -250,7 +264,7 @@ void Setup()
 
     cout << "\n\n\n";
     system("pause");
-    while (true)
+    while (!Config::kill)
     {
         int n;
         HANDLE h;
@@ -373,6 +387,11 @@ void Setup()
             cin.setf(ios::dec, ios::basefield);
             break;
 
+        case 50:
+            unHook();
+            Config::kill = true;
+
+
         default:
             break;
         }
@@ -382,6 +401,14 @@ void Setup()
 
         cout << endl;
     }
+    int n;
+    
+    cout << "#0 -> Load Cheat" << endl;
+    cout << "#1 -> Exit" << endl;
+    cin >> n;
+
+    if(n == 0)goto 
+    
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

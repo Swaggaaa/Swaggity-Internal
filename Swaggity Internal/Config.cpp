@@ -17,3 +17,4 @@ bool                    Config::ESP                = false;
 vector<bool>            Config::ESPFeatures(5, false);
 bool                    Config::ShitTalk           = false;
 bool                    Config::TriggerSilent      = true;
+bool                    kill                       = false;

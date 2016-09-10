@@ -42,6 +42,12 @@ VMTSwag::~VMTSwag()
         *tableBase = oldVMT; //Point to old VMT
 }
 
+void VMTSwag::unhook()
+{
+    if (tableBase) //Initialized?
+        *tableBase = oldVMT; //Point to old VMT
+}
+
 DWORD VMTSwag::getFuncAddress(UINT index) const
 {
     if (index >= size)

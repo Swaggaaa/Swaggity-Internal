@@ -15,4 +15,6 @@ namespace Global
     extern bool         NextTick;
 
     extern Vector       OldAngles;
+
+  
 }
