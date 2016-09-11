@@ -5,6 +5,7 @@ bool                    Config::LegitRCS           = false;
 bool                    Config::RageAimbot         = true;
 bool                    Config::LegitAimbot        = false;
 uint                    Config::AimbotFOV;
+bool                    Config::DistanceBasedFOV   = true;
 uint                    Config::SmoothFactor;
 bool                    Config::SilentAim          = false;
 bool                    Config::NoVisRecoil        = true;

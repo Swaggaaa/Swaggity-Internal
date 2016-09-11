@@ -21,6 +21,9 @@ extern FrameStageNotifyFn oFrameStageNotify;
 typedef long(__stdcall *EndSceneFn)(IDirect3DDevice9*);
 extern EndSceneFn oEndScene;
 
+typedef long(__stdcall *ResetFn)(IDirect3DDevice9*, DWORD, CONST D3DRECT*, DWORD, D3DCOLOR, float, DWORD);
+extern ResetFn oReset;
+
 namespace Hooks
 {
     extern VMTSwag* Client;
@@ -34,4 +37,5 @@ namespace Hooks
     void __fastcall FrameStageNotify(void* ecx, void* edx, ClientFrameStage_t frameStage);
     void __fastcall PaintTraverse(void* thisptr, void* edx, unsigned int panel, bool forceRepaint, bool allowForce);
     long __stdcall EndScene(IDirect3DDevice9* pDevice);
+    long __stdcall Reset(IDirect3DDevice9* pDevice, DWORD Count, CONST D3DRECT* pRects, DWORD Flags, D3DCOLOR Color, float Z, DWORD Stencil);
 }
