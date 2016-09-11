@@ -319,11 +319,18 @@ void Setup()
             cout << "Specify a new Aimbot Smooth Factor: ";
             cin >> n;
             Config::SmoothFactor = n;
+            break;
 
         case 8:
             Config::SilentAim = !Config::SilentAim;
             if (Config::SilentAim)
-                Config::LegitRCS = false;
+            {
+                if (Config::LegitRCS)
+                {
+                    Config::LegitRCS = false;
+                    Config::RageRCS = true;
+                }
+            }
             break;
 
         case 9:
