@@ -82,18 +82,21 @@ void Utils::VectorAngles(const Vector& forward, QAngle& angles) //Converts Vecto
     angles[2] = 0.0f;
 }
 
-QAngle Utils::CalcAngle(const Vector& source, const Vector& destination) //Not normalized tho
+QAngle Utils::CalcAngle(const Vector& source, const Vector& destination)
 {
     QAngle angles;
     Vector direction = source - destination;
     VectorAngles(direction, angles);
+    angles.Normalize();
     return angles;
 }
 
 float Utils::GetFOV(const Vector& aimAngle)
 {
     Vector ang, aim;
-    AngleVectors(Global::UserCmd->viewangles, &ang);
+    QAngle punch = Global::LocalPlayer->GetPunch() * 2.f;
+    Vector vPunch(punch.x, punch.y, punch.z);
+    AngleVectors(Global::UserCmd->viewangles + vPunch, &ang);
     AngleVectors(aimAngle, &aim);
 
     return RAD2DEG(acos(aim.Dot(ang) / aim.LengthSqr()));

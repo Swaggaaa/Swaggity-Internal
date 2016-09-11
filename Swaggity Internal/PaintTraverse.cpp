@@ -98,10 +98,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
             CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
 
 
-            if (!entity || entity == Global::LocalPlayer ||
-                entity->GetTeam() == Global::LocalPlayer->GetTeam() ||
-                entity->GetHealth() <= 0 || entity->GetDormant() ||
-                entity->GetEyePosition() == Global::LocalPlayer->GetEyePosition())
+            if (!entity->IsValid())
                 continue;
 
             Vector max = entity->GetCollideable()->OBBMaxs();

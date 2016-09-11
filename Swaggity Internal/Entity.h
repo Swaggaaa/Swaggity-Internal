@@ -49,6 +49,7 @@ public:
     bool				IsVisible(int bone);
     bool				m_visible;
     bool				IsBroken();
+    bool                IsValid();
     bool				HasHelmet();
     bool				IsFlashed();
     bool				IsTargetingLocal();
