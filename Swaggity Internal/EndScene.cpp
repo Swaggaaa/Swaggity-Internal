@@ -41,14 +41,16 @@ void printmenu()
         xx = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].xx;
         yy = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].yy;
         middle = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].middle;
+       
+            pD3D.DrawRect(x, y, xx - x, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
+            pD3D.DrawRect(middle, y, xx - middle, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
+            pD3D.DrawString(x + 10, y, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
 
-        pD3D.DrawRect(x, y, xx - x, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
-        pD3D.DrawRect(middle, y, xx - middle, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
-        pD3D.DrawString(x + 10, y, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
 
+            if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);
+            else pD3D.DrawString(middle, y, "Disabled", RED, true, BLACK, false);
 
-        if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);
-        else pD3D.DrawString(middle, y, "Disabled", RED, true, BLACK, false);
+       
 
         /*
           pD3D.DrawString(x, i + 20 * j, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
@@ -79,9 +81,10 @@ void printmenu()
 
 long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 {
-    int height, width;
-    Interfaces::Engine->GetScreenSize(width, height);
+  
     if (Config::NeoESP) {
+        int height, width;
+        Interfaces::Engine->GetScreenSize(width, height);
         if (pD3D.Device != pDevice or (!pD3D.Line))
         {
             pD3D.init(pDevice);
@@ -101,8 +104,9 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 1");
             }
         }
-        if (Config::enableovr and  width != 0 and height != 0)
+        if (Config::enableovr and Config::NeoESP and  width != 0 and height != 0)
         {
+
             printmenu();
 
 
@@ -122,6 +126,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                             int middle, xx, y, yy;
                             if (i < pD3D.p1.vpages[pD3D.p1.actpage].boxes.size())
                             {
+
                                 middle = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].middle;
                                 xx = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].xx;
                                 y = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].y;

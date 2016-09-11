@@ -18,10 +18,6 @@ long __stdcall Hooks::Reset(IDirect3DDevice9* pDevice, DWORD Count, CONST D3DREC
         }
         if(pD3D.Device)pD3D.Destruct();
 
-        pD3D.init(pDevice); 
-       
-        Config::width = width;
-        Config::height = height;
         if (b4)Config::NeoESP = true;
     }
 
