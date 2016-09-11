@@ -251,6 +251,33 @@ void Cheat::RageAimbot()
     float distance = 1337.f;
     uint id = 1337;
 
+    switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
+    {
+        case WEAPON_USP_SILENCER:
+        case WEAPON_P250:
+        case WEAPON_DEAGLE:
+        case WEAPON_FIVESEVEN:
+        case WEAPON_TEC9:
+        case WEAPON_SSG08:
+        case WEAPON_AWP:
+        case WEAPON_SCAR20:
+        case WEAPON_KNIFE:
+        case WEAPON_KNIFE_T:
+        case WEAPON_DECOY:
+        case WEAPON_HEGRENADE:
+        case WEAPON_FLASHBANG:
+        case WEAPON_SMOKEGRENADE:
+        case WEAPON_MOLOTOV:
+        case WEAPON_C4:
+        case WEAPON_INCGRENADE:
+        case WEAPON_G3SG1:
+            return;
+
+        default:
+            break;
+    }
+      
+
     for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
     {
         CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
