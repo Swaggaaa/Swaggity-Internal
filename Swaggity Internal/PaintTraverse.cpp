@@ -129,7 +129,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
             {
                 Vector headPos;
                 int crouchModifier = entity->GetFlags() & FL_DUCKING ? height / 4 : 0;
-                Utils::WorldToScreen(entity->GetEyePosition(), headPos);
+                Utils::WorldToScreen(entity->GetBonePosition(6), headPos);
 
                 Interfaces::Surface->DrawOutlinedCircle(headPos.x, headPos.y + crouchModifier, 3, 10); //Head Pos
                 Interfaces::Surface->DrawSetColor(0, 0, 0, 255);
