@@ -41,7 +41,7 @@ public:
     int					GetCollisionGroup();
     int					PhysicsSolidMaskForEntity();
     int					GetOwner();
-    int					GetGlowIndex(); 
+    int					GetGlowIndex();
     bool				GetAlive();
     bool				GetDormant();
     bool				GetImmune();
@@ -49,6 +49,7 @@ public:
     bool				IsVisible(int bone);
     bool				m_visible;
     bool				IsBroken();
+    bool                IsValid();
     bool				HasHelmet();
     bool				IsFlashed();
     bool				IsTargetingLocal();

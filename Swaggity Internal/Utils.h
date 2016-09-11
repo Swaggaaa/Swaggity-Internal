@@ -15,4 +15,6 @@ namespace Utils
     QAngle CalcAngle(const Vector &source, const Vector &destination);
 
     float GetFOV(const Vector & aimAngle);
+
+    extern bool controlmenu;
 }

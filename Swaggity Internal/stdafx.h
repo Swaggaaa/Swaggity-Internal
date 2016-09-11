@@ -24,6 +24,7 @@
 #include <iostream>
 #include <algorithm>
 #include <future>
+#include <vector>
 
 #include "D3D.h"
 #include "IO.h"

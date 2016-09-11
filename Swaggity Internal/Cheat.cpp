@@ -72,13 +72,12 @@ void Cheat::NoRecoil()
     case WEAPON_MP7:
     case WEAPON_MP9:
     case WEAPON_M4A1_SILENCER:
-    case WEAPON_TEC9:
     case WEAPON_CZ75A:
         break;
     default:
         return;
     }
-    
+
     if (Global::UserCmd->buttons & IN_ATTACK)
     {
         Vector newPunch = Global::LocalPlayer->GetPunch() * 2.f;
@@ -98,7 +97,7 @@ void Cheat::NoRecoil()
     {
         oldPunch.Zero();
     }
-    
+
 }
 
 void Cheat::RageNoRecoil()
@@ -123,7 +122,6 @@ void Cheat::RageNoRecoil()
     case WEAPON_MP7:
     case WEAPON_MP9:
     case WEAPON_M4A1_SILENCER:
-    case WEAPON_TEC9:
     case WEAPON_CZ75A:
         break;
     default:
@@ -179,21 +177,21 @@ void Cheat::TriggerBot()
             return;
 
         /*if ((Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AWP &&
-            Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_SSG08 &&
-            Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_G3SG1 &&
-            Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AUG) &&
-            trace.hitgroup != HITGROUP_HEAD)
-                return;
-                */
+        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_SSG08 &&
+        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_G3SG1 &&
+        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AUG) &&
+        trace.hitgroup != HITGROUP_HEAD)
+        return;
+        */
 
-        if (trace.m_pEnt->GetTeam() != Global::LocalPlayer->GetTeam() && trace.m_pEnt->GetHealth() > 0 && !trace.m_pEnt->GetImmune())
+        if (trace.m_pEnt->IsValid())
         {
             float hitchance = 75.f + Config::TriggerChance / 4;
             if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= Config::TriggerDelay))
             {
                 /*if (Global::LocalPlayer->GetShotsFired() == 0)
                 {
-                    Interfaces::Engine->
+                Interfaces::Engine->
                 }
                 */
                 tick = GetTickCount();
@@ -250,19 +248,17 @@ void Cheat::TriggerBot()
 void Cheat::RageAimbot()
 {
     float distance = 1337.f;
-    uint id = -1;
+    uint id = 1337;
 
     for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
     {
         CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
 
-        if (!entity || entity == Global::LocalPlayer ||
-            entity->GetTeam() == Global::LocalPlayer->GetTeam() ||
-            entity->GetHealth() <= 0 || entity->GetDormant() || !entity->IsVisible(6))
+        if (!entity->IsValid() || !entity->IsVisible(6))
             continue;
 
         Vector dist = entity->GetOrigin() - Global::LocalPlayer->GetOrigin();
-        float tmp = sqrt(pow(dist.x, 2) + pow(dist.y, 2) + pow(dist.z, 2));
+        float tmp = dist.Length();
 
         if (distance == 1337.f || tmp < distance)
         {
@@ -272,19 +268,23 @@ void Cheat::RageAimbot()
     }
 
     CBaseEntity* ent = Interfaces::EntityList->GetClientEntity(id);
-    if (!ent || id == -1)
+    if (!ent || id == -1337)
         return;
     //Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+
+    if (!Config::RageRCS)
+        angle -= Global::LocalPlayer->GetPunch() * 2.f;
+
     angle.Clamp();
 
     Vector vAngle(angle.x, angle.y, angle.z);
 
-    if (Config::SilentAim)
-        Global::UserCmd->viewangles = vAngle; //Seria silent si usan ragercs, legitrcs ya llamaria a engine->setviewangles
-    else
+    if (!Config::SilentAim)
         Interfaces::Engine->SetViewAngles(angle);
+
+    Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
 
     if (!(Global::UserCmd->buttons & IN_ATTACK))
         Global::UserCmd->buttons |= IN_ATTACK;
@@ -292,5 +292,44 @@ void Cheat::RageAimbot()
 
 void Cheat::LegitAimbot()
 {
-    
+    float fov = 1337.f;
+    uint id = 1337;
+
+    for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
+    {
+        CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
+
+        if (!entity->IsValid() || !entity->IsVisible(6))
+            continue;
+
+        Vector headPos = entity->GetBonePosition(6);
+        QAngle angles = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+        float tmp = Utils::GetFOV(Vector(angles.x, angles.y, angles.z));
+
+        if (fov == 1337.f || tmp < fov)
+        {
+            id = i;
+            fov = tmp;
+        }
+    }
+
+    CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(id);
+
+    if (!entity || id == 1337)
+        return;
+
+    if (fov > Config::AimbotFOV)
+        return;
+
+    QAngle dst = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
+    dst -= Global::LocalPlayer->GetPunch() * 2.f;
+    dst.Clamp();
+    QAngle origin = Global::UserCmd->viewangles;
+    QAngle delta = dst - origin;
+
+    dst = origin + delta / 10.f;
+    dst.Clamp();
+    Vector vAngles(dst.x, dst.y, dst.z);
+    Interfaces::Engine->SetViewAngles(dst);
+    Global::UserCmd->viewangles = vAngles;
 }

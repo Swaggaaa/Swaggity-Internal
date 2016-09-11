@@ -12,6 +12,8 @@ namespace Config
     extern bool                 LegitRCS;
     extern bool                 RageAimbot;
     extern bool                 LegitAimbot;
+    extern uint                 AimbotFOV;
+    extern uint                 SmoothFactor;
     extern bool                 SilentAim;
     extern bool                 NoVisRecoil;
     extern bool                 CrosshairRecoil;

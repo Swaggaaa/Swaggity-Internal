@@ -31,6 +31,39 @@ void D3D::DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR L
     pD3D.Line->Draw(Points, 50, LineColor);
 }
 
+void D3D::DrawCheck(float X, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Checked, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
+{
+    if (Checked)
+    {
+        if (Outlined)
+        {
+            DrawLine(X - OutlineWidth, X + Height / 2, X + Width + OutlineWidth, X + Height / 2.f, Height, OutlineColor, true, OutlineWidth, OutlineColor);
+        }
+        DrawLine(X, X + Height / 2.f, X + Width, X + Height / 2, Height, LineColor, false, 0, 0);
+    }
+    else
+    {
+        if (Outlined)
+        {
+            OutlineWidth *= 2.f + LineWidth;
+            DrawLine(X, X, X, X + Height, OutlineWidth, OutlineColor, false, 0, 0);
+            DrawLine(X, X + Height, X + Width, X + Height, OutlineWidth, OutlineColor, false, 0, 0);
+            DrawLine(X + Width, X + Height, X + Width, X, OutlineWidth, OutlineColor, false, 0, 0);
+            DrawLine(X + Width, X, X, X, OutlineWidth, OutlineColor, false, 0, 0);
+            DrawLine(X, X, X, X + Height, LineWidth, LineColor, false, 0, 0);
+            DrawLine(X, X + Height, X + Width, X + Height, LineWidth, LineColor, false, 0, 0);
+            DrawLine(X + Width, X + Height, X + Width, X, LineWidth, LineColor, false, 0, 0);
+            DrawLine(X + Width, X, X, X, LineWidth, LineColor, false, 0, 0);
+        }
+        else
+        {
+            DrawLine(X, X, X, X + Height, LineWidth, LineColor, false, 0, 0);
+            DrawLine(X, X + Height, X + Width, X + Height, LineWidth, LineColor, false, 0, 0);
+            DrawLine(X + Width, X + Height, X + Width, X, LineWidth, LineColor, false, 0, 0);
+            DrawLine(X + Width, X, X, X, LineWidth, LineColor, false, 0, 0);
+        }
+    }
+}
 
 void D3D::DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
 {
@@ -164,12 +197,78 @@ bool D3D::init(IDirect3DDevice9 *pDevice)
                     MessageBoxW(NULL, L"CreateDeviceEx failed!", L"Fatal Error", MB_OK);
                 }
 
+    
+
+}
+
+void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle)
+{
+     if (p1.vpages.size() <= 0)return;
+
+    for (int i = 0; i < howmany; ++i)
+    {
+        element el1;
+        if (horizontal)
+        {
+            if (middle < (xx - x))middle = xx - x;
+            el1.x = x+ middle*i;
+            el1.y = y;
+            el1.xx = xx+ middle*i;
+            el1.yy = yy;
+            el1.whotis = whatis;
+        }
+        else
+        {
+            if (middle < (yy - y))middle = yy - y;
+            el1.x = x;
+            el1.y = y+ middle*i;
+            el1.xx = xx;
+            el1.yy = yy + middle*i;
+            el1.whotis = whatis;
+        }
+        if(whatis == LABEL)p1.vpages[p1.actpage].labels.push_back(el1);
+        if(whatis == BOX)p1.vpages[p1.actpage].boxes.push_back(el1);
+
+    }
+
+}
+
+void D3D::addpage(int howmany)
+{
+    for (int i = 0; i < howmany; ++i)
+    {
+        page page1;
+        p1.vpages.push_back(page1);
+    }
+}
+
+void D3D::setpage(int page)
+{
+    if (page > p1.vpages.size())return;
+
+    p1.actpage = page-1;
+
+}
+
+void D3D::initui()
+{
+    addpage(1);
+    setpage(1);
+
+    addelement(13, LABEL, 35, 50, 95, 70, false, 20);
+    addelement(13, LABEL, 130, 50, 180, 70, false, 20);
+
+}
+
+void D3D::DestructUI()
+{
+    p1.vpages = std::vector<page>(0);
 }
 
 void D3D::Destruct()
 {
     pD3D.Line->Release();
     pD3D.Font->Release();
-    
-  
 }
+
+
