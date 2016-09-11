@@ -261,7 +261,7 @@ void printMenu(HANDLE& hOut)
 void Setup()
 {
 init:
-
+    pD3D.initui();
     AllocConsole();
     freopen("CONOUT$", "w", stdout);
     freopen("CONIN$", "r", stdin);

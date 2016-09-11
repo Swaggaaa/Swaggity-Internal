@@ -201,7 +201,7 @@ bool D3D::init(IDirect3DDevice9 *pDevice)
 
 }
 
-void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle)
+void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle, int whr)
 {
      if (p1.vpages.size() <= 0)return;
 
@@ -216,6 +216,7 @@ void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, boo
             el1.xx = xx+ middle*i;
             el1.yy = yy;
             el1.whotis = whatis;
+            el1.middle = whr;
         }
         else
         {
@@ -225,6 +226,7 @@ void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, boo
             el1.xx = xx;
             el1.yy = yy + middle*i;
             el1.whotis = whatis;
+            el1.middle = whr;
         }
         if(whatis == LABEL)p1.vpages[p1.actpage].labels.push_back(el1);
         if(whatis == BOX)p1.vpages[p1.actpage].boxes.push_back(el1);
@@ -254,10 +256,7 @@ void D3D::initui()
 {
     addpage(1);
     setpage(1);
-
-    addelement(13, LABEL, 35, 50, 95, 70, false, 20);
-    addelement(13, LABEL, 130, 50, 180, 70, false, 20);
-
+    addelement(13, BOX, 20, 50, 180, 70, false, 20,120);
 }
 
 void D3D::DestructUI()

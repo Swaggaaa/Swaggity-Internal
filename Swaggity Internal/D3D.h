@@ -16,13 +16,13 @@ struct element
 {
     rolf whotis;
     int x, y, xx, yy;
+    int middle;
 };
 
 struct page
 {
     std::vector<element> boxes;
     std::vector<element> labels;
-
 };
 
 struct pages
@@ -50,7 +50,7 @@ struct D3D
 
     bool init(IDirect3DDevice9* pDevice);
 
-    void addelement(int howmany, rolf whatis,int x, int y, int xx, int yy, bool horizontal, int middle);
+    void addelement(int howmany, rolf whatis,int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
 
     void addpage(int howmany);
 
