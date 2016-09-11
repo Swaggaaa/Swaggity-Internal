@@ -94,7 +94,9 @@ QAngle Utils::CalcAngle(const Vector& source, const Vector& destination)
 float Utils::GetFOV(const Vector& aimAngle)
 {
     Vector ang, aim;
-    AngleVectors(Global::UserCmd->viewangles, &ang);
+    QAngle punch = Global::LocalPlayer->GetPunch() * 2.f;
+    Vector vPunch(punch.x, punch.y, punch.z);
+    AngleVectors(Global::UserCmd->viewangles + vPunch, &ang);
     AngleVectors(aimAngle, &aim);
 
     return RAD2DEG(acos(aim.Dot(ang) / aim.LengthSqr()));
