@@ -82,11 +82,12 @@ void Utils::VectorAngles(const Vector& forward, QAngle& angles) //Converts Vecto
     angles[2] = 0.0f;
 }
 
-QAngle Utils::CalcAngle(const Vector& source, const Vector& destination) //Not normalized tho
+QAngle Utils::CalcAngle(const Vector& source, const Vector& destination)
 {
     QAngle angles;
     Vector direction = source - destination;
     VectorAngles(direction, angles);
+    angles.Normalize();
     return angles;
 }
 

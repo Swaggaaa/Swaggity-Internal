@@ -224,7 +224,6 @@ void Cheat::TriggerBot()
                                 Global::bSendPackets = false;
                                 Global::NextTick = true;
                                 Global::UserCmd->viewangles = tmp;
-                                ClampAngles();
                             }
                             else
                                 Global::UserCmd->buttons |= IN_ATTACK;
@@ -287,7 +286,6 @@ void Cheat::RageAimbot()
         Interfaces::Engine->SetViewAngles(angle);
 
     Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
-    ClampAngles();
     if (!(Global::UserCmd->buttons & IN_ATTACK))
         Global::UserCmd->buttons |= IN_ATTACK;
 }
@@ -327,11 +325,11 @@ void Cheat::LegitAimbot()
     dst -= Global::LocalPlayer->GetPunch() * 2.f;
     QAngle origin = Global::UserCmd->viewangles;
     QAngle delta = dst - origin;
+    delta.Clamp();
 
-    dst = origin + delta / 10.f;
+    dst = origin + delta / float(Config::SmoothFactor);
     dst.Clamp();
     Vector vAngles(dst.x, dst.y, dst.z);
     Interfaces::Engine->SetViewAngles(dst);
     Global::UserCmd->viewangles = vAngles;
-    ClampAngles();
 }
