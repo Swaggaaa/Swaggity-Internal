@@ -98,6 +98,9 @@ void LoadHooks()
     oEndScene = reinterpret_cast<EndSceneFn>(
         Hooks::D3D9->hookFunc(reinterpret_cast<DWORD>(
             Hooks::EndScene), 42));
+    oReset = reinterpret_cast<ResetFn>(
+        Hooks::D3D9->hookFunc(reinterpret_cast<DWORD>(
+            Hooks::Reset), 43));
     /*
     oPlaySound = reinterpret_cast<PlaySoundFn>(
         Hooks::Surface->hookfunc(reinterpret_cast<DWORD>(
@@ -110,6 +113,7 @@ void LoadHooks()
     cout << "oFrameStageNotify -> 0x" << DWORD(oFrameStageNotify) << endl;
     cout << "oPaintTraverse -> 0x" << DWORD(oPaintTraverse) << endl;
     cout << "oEndScene -> 0x" << DWORD(oEndScene) << endl;
+    height != Config::height
 }
 
 void unHook()

@@ -1,5 +1,6 @@
 
 #include "D3D.h"
+#include <iso646.h>
 
 void D3D::DrawLine(float X, float Y, float XX, float YY, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
 {
@@ -266,8 +267,10 @@ void D3D::DestructUI()
 
 void D3D::Destruct()
 {
-    pD3D.Line->Release();
-    pD3D.Font->Release();
+    if (pD3D.Line and pD3D.Font) {
+        pD3D.Line->Release();
+        pD3D.Font->Release();
+    }
 }
 
 

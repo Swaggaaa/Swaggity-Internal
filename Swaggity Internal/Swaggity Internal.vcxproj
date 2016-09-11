@@ -145,6 +145,7 @@
     <ClCompile Include="Offsets.cpp" />
     <ClCompile Include="OverrideView.cpp" />
     <ClCompile Include="PaintTraverse.cpp" />
+    <ClCompile Include="Reset.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VMTSwag.cpp" />

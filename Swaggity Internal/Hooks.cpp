@@ -11,3 +11,4 @@ OverrideViewFn oOverrideView;
 FrameStageNotifyFn oFrameStageNotify;
 PaintTraverseFn oPaintTraverse;
 EndSceneFn oEndScene;
+ResetFn oReset;
