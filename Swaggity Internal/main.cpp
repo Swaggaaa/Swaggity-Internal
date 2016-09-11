@@ -113,7 +113,7 @@ void LoadHooks()
     cout << "oFrameStageNotify -> 0x" << DWORD(oFrameStageNotify) << endl;
     cout << "oPaintTraverse -> 0x" << DWORD(oPaintTraverse) << endl;
     cout << "oEndScene -> 0x" << DWORD(oEndScene) << endl;
-    height != Config::height
+    cout << "oReset -> 0x" << DWORD(oReset) << endl;
 }
 
 void unHook()

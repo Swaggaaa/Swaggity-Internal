@@ -81,55 +81,56 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 {
     int height, width;
     Interfaces::Engine->GetScreenSize(width, height);
-
-    if (pD3D.Device != pDevice or (!pD3D.Line))
-    {
-         pD3D.init(pDevice);
-        Config::width = width;
-        Config::height = height;
-    }
-
-    if ((GetAsyncKeyState(Config::Ovrkey) & 0x0001) and width != 0 and height != 0)
-    {
-        Config::enableovr = !Config::enableovr;
-        if (Config::enableovr)
+    if (Config::NeoESP) {
+        if (pD3D.Device != pDevice or (!pD3D.Line))
         {
-            if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 0");
+            pD3D.init(pDevice);
+            Config::width = width;
+            Config::height = height;
         }
-        else
+
+        if ((GetAsyncKeyState(Config::Ovrkey) & 0x0001) and width != 0 and height != 0)
         {
-            if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 1");
-        }
-    }
-    if (Config::enableovr and  width != 0 and height != 0)
-    {
-        printmenu();
-
-
-        POINT pep;
-        if (GetCursorPos(&pep))
-        {
-            HWND hWnd = GetForegroundWindow();
-
-            if (ScreenToClient(hWnd, &pep))
+            Config::enableovr = !Config::enableovr;
+            if (Config::enableovr)
             {
-                pD3D.DrawCross(pep.x, pep.y, 50,5, ORANGE, true, 1, BLACK);
+                if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 0");
+            }
+            else
+            {
+                if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 1");
+            }
+        }
+        if (Config::enableovr and  width != 0 and height != 0)
+        {
+            printmenu();
 
-                if (GetAsyncKeyState(0x01) & 0x0001)
+
+            POINT pep;
+            if (GetCursorPos(&pep))
+            {
+                HWND hWnd = GetForegroundWindow();
+
+                if (ScreenToClient(hWnd, &pep))
                 {
-                    for (int i = 0; i < Config::BoolSettings.size(); ++i)
-                    {
-                        int middle, xx, y, yy;
-                        if (i < pD3D.p1.vpages[pD3D.p1.actpage].boxes.size())
-                        {
-                            middle = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].middle;
-                            xx = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].xx;
-                            y = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].y;
-                            yy = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].yy;
+                    pD3D.DrawCross(pep.x, pep.y, 50, 5, ORANGE, true, 1, BLACK);
 
-                            if (pep.x > middle and pep.x < xx and pep.y > y and pep.y < yy)
+                    if (GetAsyncKeyState(0x01) & 0x0001)
+                    {
+                        for (int i = 0; i < Config::BoolSettings.size(); ++i)
+                        {
+                            int middle, xx, y, yy;
+                            if (i < pD3D.p1.vpages[pD3D.p1.actpage].boxes.size())
                             {
-                                Config::BoolSettings[i].second = !Config::BoolSettings[i].second;
+                                middle = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].middle;
+                                xx = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].xx;
+                                y = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].y;
+                                yy = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].yy;
+
+                                if (pep.x > middle and pep.x < xx and pep.y > y and pep.y < yy)
+                                {
+                                    Config::BoolSettings[i].second = !Config::BoolSettings[i].second;
+                                }
                             }
                         }
                     }
@@ -137,7 +138,6 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
             }
         }
     }
-
 
     return oEndScene(pDevice);
 }

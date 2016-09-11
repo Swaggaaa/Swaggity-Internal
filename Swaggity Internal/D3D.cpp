@@ -267,10 +267,10 @@ void D3D::DestructUI()
 
 void D3D::Destruct()
 {
-    if (pD3D.Line and pD3D.Font) {
+    
         pD3D.Line->Release();
         pD3D.Font->Release();
-    }
+    
 }
 
 

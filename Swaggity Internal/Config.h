@@ -31,6 +31,7 @@ namespace Config
     extern int                  Ovrkey;
     extern int                  height;
     extern int                  width;
+    extern bool                 NeoESP;
 
 
    extern vector<lbool>           BoolSettings;
