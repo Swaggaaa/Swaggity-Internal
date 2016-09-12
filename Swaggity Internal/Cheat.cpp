@@ -94,7 +94,7 @@ void Cheat::NoRecoil()
         oldPunch = newPunch;
         ClampAngles();
     }
-    else
+    else if (Global::LastShot > 250)  //Temporary fix
     {
         oldPunch.Zero();
     }
