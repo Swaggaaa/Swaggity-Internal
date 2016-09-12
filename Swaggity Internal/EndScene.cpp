@@ -95,6 +95,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 
         if ((GetAsyncKeyState(Config::Ovrkey) & 0x0001) and width != 0 and height != 0)
         {
+            if( Config::enableovr)pD3D.Destruct();
             Config::enableovr = !Config::enableovr;
             if (Config::enableovr)
             {
