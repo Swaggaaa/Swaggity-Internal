@@ -16,4 +16,6 @@ namespace Cheat
     void RageAimbot();
 
     void LegitAimbot();
+    
+    void AutoPistol();
 }
