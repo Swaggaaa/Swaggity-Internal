@@ -217,6 +217,8 @@ void Cheat::TriggerBot()
                         case WEAPON_TEC9:
                         case WEAPON_CZ75A:
                         case WEAPON_SSG08:
+                        case WEAPON_NOVA:
+                        case WEAPON_MAG7:
                         {
                             if (Utils::GetFOV(tmp) < 1.5f)
                             {
