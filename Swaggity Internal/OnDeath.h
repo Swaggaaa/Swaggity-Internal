@@ -41,7 +41,7 @@ namespace GameEvents
 
         virtual void FireGameEvent(IGameEvent *pEvent)
         {
-            if (!enabled || !pEvent || !Config::ShitTalk)
+            if (!enabled || !pEvent || !Config::configuration[5].lbool[2].second)
             {
                 return;
             }

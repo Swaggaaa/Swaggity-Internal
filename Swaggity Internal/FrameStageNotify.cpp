@@ -6,7 +6,7 @@
 void __fastcall Hooks::FrameStageNotify(void* ecx, void* edx, ClientFrameStage_t frameStage)
 {
 
-    if (Config::NoVisRecoil && Interfaces::Engine->IsInGame() && frameStage == FRAME_RENDER_START && Global::LocalPlayer->GetAlive())
+    if (Config::configuration[2].lbool[3].second && Interfaces::Engine->IsInGame() && frameStage == FRAME_RENDER_START && Global::LocalPlayer->GetAlive())
     {
         switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
         {

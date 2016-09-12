@@ -36,11 +36,11 @@ void printmenu()
         int x, y, xx, yy, middle;
 
 
-        x = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].x;
-        y = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].y;
-        xx = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].xx;
-        yy = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].yy;
-        middle = pD3D.p1.vpages[pD3D.p1.actpage].boxes[j].middle;
+        x = pD3D.vpages[pD3D.actpage].boxes[j].x;
+        y = pD3D.vpages[pD3D.actpage].boxes[j].y;
+        xx = pD3D.vpages[pD3D.actpage].boxes[j].xx;
+        yy = pD3D.vpages[pD3D.actpage].boxes[j].yy;
+        middle = pD3D.vpages[pD3D.actpage].boxes[j].middle;
        
             pD3D.DrawRect(x, y, xx - x, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
             pD3D.DrawRect(middle, y, xx - middle, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
@@ -62,17 +62,17 @@ void printmenu()
 
         /* pD3D.DrawString(100, i, "|||Swaggity 'Internal Menu: |||", WHITE, true, BLACK, true);
         
-         pD3D.DrawString(100, i + j * 2, "Toggle Legit Recoil " + to_string(Config::LegitRCS), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 3, "Toggle NoVis Recoil " + to_string(Config::NoVisRecoil), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 4, "Toggle Rage Aimbot " + to_string(Config::RageAimbot), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 2, "Toggle Legit Recoil " + to_string(Config::configuration[2].lbool[2].second), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 3, "Toggle NoVis Recoil " + to_string(Config::configuration[2].lbool[3].second), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 4, "Toggle Rage Aimbot " + to_string(Config::configuration[3].lbool[1].second), WHITE, true, BLACK, true);
          pD3D.DrawString(100, i + j * 5, "Toggle Legit Aimbot " + to_string(Config::LegitAimbot), WHITE, true, BLACK, true);
          pD3D.DrawString(100, i + j * 6, "Toggle Silent Aim " + to_string(Config::SilentAim), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 7, "Toggle Recoil Crosshair " + to_string(Config::CrosshairRecoil), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 8, "Toggle NoFlash " + to_string(Config::NoFlash), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 9, "Toggle Bhop " + to_string(Config::Bhop), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 7, "Toggle Recoil Crosshair " + to_string(Config::configuration[2].lbool[4].second), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 8, "Toggle NoFlash " + to_string(Config::configuration[5].lbool[0].second), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 9, "Toggle Bhop " + to_string(Config::configuration[5].lbool[1].second), WHITE, true, BLACK, true);
          pD3D.DrawString(100, i + j * 10, "Toggle ESP " + to_string(Config::ESP), WHITE, true, BLACK, true);
          pD3D.DrawString(100, i + j * 11, "Toggle TriggerBot " + to_string(Config::Trigger), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 12, "Toggle ShitTalk " + to_string(Config::ShitTalk), WHITE, true, BLACK, true);
+         pD3D.DrawString(100, i + j * 12, "Toggle ShitTalk " + to_string(Config::configuration[5].lbool[2].second), WHITE, true, BLACK, true);
          pD3D.DrawString(100, i + j * 13, "Toggle TriggerBot PSilent " + to_string(Config::TriggerSilent), WHITE, true, BLACK, true);
  
          */
@@ -89,16 +89,16 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
         {
             if(pD3D.Device)pD3D.Destruct();
             pD3D.init(pDevice);
-            Config::width = width;
-            Config::height = height;
+            Config::configuration[0].lbool[3].second = width;
+            Config::configuration[0].lbool[2].second = height;
         }
 
-        if ((GetAsyncKeyState(Config::Ovrkey) & 0x0001) and width != 0 and height != 0)
+        if ((GetAsyncKeyState(0x30) & 0x0001) and width != 0 and height != 0)
         {
-            if( Config::enableovr)pD3D.Destruct();
-            Config::enableovr = !Config::enableovr;
-            if (Config::enableovr)pD3D.init(pDevice);
-            if (Config::enableovr)
+            if( Config::configuration[1].lbool[0].second)pD3D.Destruct();
+            Config::configuration[1].lbool[0].second = !Config::configuration[1].lbool[0].second;
+            if (Config::configuration[1].lbool[0].second)pD3D.init(pDevice);
+            if (Config::configuration[1].lbool[0].second)
             {
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 0");
             }
@@ -107,7 +107,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 1");
             }
         }
-        if (Config::enableovr and Config::NeoESP and  width != 0 and height != 0)
+        if (Config::configuration[1].lbool[0].second and Config::NeoESP and  width != 0 and height != 0)
         {
 
             printmenu();
@@ -127,13 +127,13 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                         for (int i = 0; i < Config::BoolSettings.size(); ++i)
                         {
                             int middle, xx, y, yy;
-                            if (i < pD3D.p1.vpages[pD3D.p1.actpage].boxes.size())
+                            if (i < pD3D.vpages[pD3D.actpage].boxes.size())
                             {
 
-                                middle = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].middle;
-                                xx = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].xx;
-                                y = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].y;
-                                yy = pD3D.p1.vpages[pD3D.p1.actpage].boxes[i].yy;
+                                middle = pD3D.vpages[pD3D.actpage].boxes[i].middle;
+                                xx = pD3D.vpages[pD3D.actpage].boxes[i].xx;
+                                y = pD3D.vpages[pD3D.actpage].boxes[i].y;
+                                yy = pD3D.vpages[pD3D.actpage].boxes[i].yy;
 
                                 if (pep.x > middle and pep.x < xx and pep.y > y and pep.y < yy)
                                 {

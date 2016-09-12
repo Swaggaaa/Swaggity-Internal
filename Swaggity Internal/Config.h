@@ -2,41 +2,139 @@
 #include <vector>
 using namespace std;
 typedef unsigned int uint;
-typedef pair<string, bool> lbool;
-typedef pair<string, int> lint;
+
 
 
 namespace Config
 {
-    extern bool                 RageRCS;
-    extern bool                 LegitRCS;
-    extern bool                 RageAimbot;
-    extern bool                 LegitAimbot;
-    extern uint                 AimbotFOV;
-    extern uint                 SmoothFactor;
-    extern bool                 SilentAim;
-    extern bool                 NoVisRecoil;
-    extern bool                 CrosshairRecoil;
-    extern bool                 NoFlash;
-    extern bool                 Bhop;
-    extern bool                 Trigger;
-    extern uint                 TriggerDelay;
-    extern uint                 TriggerChance;
-    extern uint                 TriggerKey;
-    extern bool                 ESP;
-    extern vector<bool>         ESPFeatures;
-    extern bool                 ShitTalk;
+
+
+    struct Conf
+    {
+        string name;
+        /* extern bool                    active;
+        extern bool                    RageRCS;
+        extern bool                    LegitRCS;
+        extern bool                    NoVisRecoil;
+        extern bool                    CrosshairRecoil;
+
+        */
+
+         vector<pair<string, bool> > lbool;
+         vector<pair<string, uint> > luint;
+
+    };
+
+   extern vector<Conf> configuration;
+
+
+    namespace RCS
+    {
+       /* extern bool                    active;
+        extern bool                    RageRCS;
+        extern bool                    LegitRCS;
+        extern bool                    NoVisRecoil;
+        extern bool                    CrosshairRecoil;
+
+        */
+
+        extern vector<pair<string, bool> > lbool;
+    };
+
+    namespace Misc
+    {
+       /* extern bool                 active;
+
+       extern bool                 kill;
+       extern int                  Ovrkey;
+       extern int                  height;
+       extern int                  width;
+       */
+       extern vector<pair<string, bool> > lbool;
+    }
+
+    namespace Visual
+    {
+       /* extern bool                 ESP;
+        extern bool                 UI;
+        extern bool                 ESPv2;
+        extern bool enableovr;
+
+        */
+        extern vector<pair<string, bool> > lbool;
+    }
+
+    namespace Aimbot
+    {
+        /*
+        extern bool                 active;
+        extern bool                 RageAimbot;
+        extern bool                 LegitAimbot;
+        extern uint                 AimbotFOV;
+
+        */
+        extern vector<pair<string, uint> > luint;
+        extern vector<pair<string, bool> > lbool;
+    }
+
+    namespace Stuff
+    {
+        /*
+        extern bool                 NoFlash;
+        extern bool                 Bhop;
+        extern bool                 ShitTalk;
+
+        */
+
+        extern vector<pair<string, bool> > lbool;
+    }
+
+    namespace Trigger
+    {
+        /*
+        extern bool                 active;
+        extern uint                 TriggerDelay;
+        extern uint                 TriggerChance;
+        extern uint                 TriggerKey;
+
+        */
+
+        extern vector<pair<string, bool> > lbool;
+        extern vector<pair<string, uint> > luint;
+
+    }
+
+    namespace Menu
+    {
+        extern bool showMisc;
+        extern bool showRCS;
+        extern bool showStuff;
+        extern bool showAim;
+        extern bool showMisc;
+        extern bool showTrigger;
+    }
+
+
+
+    extern bool                 DistanceBasedFOV;
+  
     extern bool                 TriggerSilent;
-    extern bool                 kill;
-    extern int                  Ovrkey;
-    extern int                  height;
-    extern int                  width;
-    extern bool                 NeoESP;
+    extern bool                 SilentAim;
+   
+   
+    extern uint                 SmoothFactor;
+    extern uint                 AimbotFOV;
+   
+    
+    extern vector<bool>         ESPFeatures;
+    
 
 
-   extern vector<lbool>           BoolSettings;
-   extern vector<lint>             IntSettings;
 
-    extern bool enableovr;
+   
+   
+
+
+    void init();
 
 }

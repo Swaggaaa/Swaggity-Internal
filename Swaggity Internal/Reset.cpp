@@ -9,16 +9,16 @@ long __stdcall Hooks::Reset(IDirect3DDevice9* pDevice, DWORD Count, CONST D3DREC
     int height, width;
     Interfaces::Engine->GetScreenSize(width, height);
     
-    if (pD3D.Device != pDevice or (!pD3D.Line)  or width != Config::width or height != Config::height)
+    if (pD3D.Device != pDevice or (!pD3D.Line)  or width != Config::configuration[0].lbool[3].second or height != Config::configuration[0].lbool[2].second)
     { 
         bool b4 = false;
-        if (Config::NeoESP) {
-            Config::NeoESP = false;
+        if (Config::configuration[1].lbool[2].second) {
+            Config::configuration[1].lbool[2].second = false;
             b4 = true;
         }
       //  if(pD3D.Device)pD3D.Destruct();
 
-        if (b4)Config::NeoESP = true;
+        if (b4)Config::configuration[1].lbool[2].second = true;
     }
 
     return oReset(pDevice, Count, pRects, Flags, Color, Z, Stencil);

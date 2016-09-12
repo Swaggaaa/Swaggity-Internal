@@ -82,7 +82,7 @@ WeaponInfo_t* CBaseCombatWeapon::GetCSWpnData()
 
 void CBaseEntity::SetFlashDuration()
 {
-    *reinterpret_cast<float*>(DWORD(this) + offsets.m_flFlashDuration) = Config::NoFlash ? 0.f : 25.f;
+    *reinterpret_cast<float*>(DWORD(this) + offsets.m_flFlashDuration) = Config::configuration[5].lbool[0].second ? 0.f : 25.f;
 
 }
 

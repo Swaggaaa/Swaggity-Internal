@@ -141,7 +141,7 @@ void Cheat::TriggerBot()
 {
     if (GetAsyncKeyState(Config::TriggerKey) & 0x8000)
     {
-        if (Config::RageAimbot) //Holding trigger makes it autofire when visible
+        if (Config::configuration[3].lbool[1].second) //Holding trigger makes it autofire when visible
         {
             RageAimbot();
             return;
@@ -152,7 +152,7 @@ void Cheat::TriggerBot()
         CTraceFilter filter;
 
         Vector viewAngle = Global::UserCmd->viewangles;
-        if (!Config::RageRCS)
+        if (!Config::configuration[2].lbool[1].second)
             viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
         float cy, sy, cx, sx;
@@ -274,7 +274,7 @@ void Cheat::RageAimbot()
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
 
-    if (!Config::RageRCS)
+    if (!Config::configuration[2].lbool[1].second)
         angle -= Global::LocalPlayer->GetPunch() * 2.f;
 
     angle.Clamp();

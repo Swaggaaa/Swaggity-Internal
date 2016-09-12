@@ -34,7 +34,7 @@ void CrosshairRecoil()
     CTraceFilter filter;
 
     Vector viewAngle = Global::UserCmd->viewangles;
-    if (Config::LegitRCS)
+    if (Config::configuration[2].lbool[2].second)
         viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
 
@@ -149,7 +149,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
         }
     }
 
-    if (Config::CrosshairRecoil && Global::LocalPlayer->GetAlive())
+    if (Config::configuration[2].lbool[4].second && Global::LocalPlayer->GetAlive())
         CrosshairRecoil();
     oPaintTraverse(thisptr, edx, panel, forceRepaint, allowForce);
 }

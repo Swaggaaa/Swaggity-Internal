@@ -127,31 +127,32 @@ void unHook()
 }
 
 void writeFile(ofstream& ofs)
-{
+{ 
     ofs << "[General]" << endl;
-    ofs << "RageRCS=" << Config::RageRCS << endl;
-    ofs << "LegitRCS=" << Config::LegitRCS << endl;
-    ofs << "NoVisRecoil=" << Config::NoVisRecoil << endl;
-    ofs << "RageAimbot=" << Config::RageAimbot << endl;
-    ofs << "LegitAimbot=" << Config::LegitAimbot << endl;
+    ofs << "RageRCS=" << Config::configuration[2].lbool[1].second << endl;
+    ofs << "LegitRCS=" << Config::configuration[2].lbool[2].second << endl;
+    ofs << "NoVisRecoil=" << Config::configuration[2].lbool[3].second << endl;
+    ofs << "CrosshairRecoil=" << Config::configuration[2].lbool[4].second << endl;
+    ofs << "RageAimbot=" << Config::configuration[3].lbool[1].second << endl;
+    ofs << "LegitAimbot=" <<Config::configuration[3].lbool[2].second << endl;
     ofs << "AimbotFOV=" << Config::AimbotFOV << endl;
     ofs << "SmoothFactor=" << Config::SmoothFactor << endl;
     ofs << "SilentAim=" << Config::SilentAim << endl;
-    ofs << "CrosshairRecoil=" << Config::CrosshairRecoil << endl;
-    ofs << "NoFlash=" << Config::NoFlash << endl;
-    ofs << "BunnyHop=" << Config::Bhop << endl;
-    ofs << "ESP=" << Config::ESP << endl;
+   
+    ofs << "NoFlash=" << Config::configuration[5].lbool[0].second << endl;
+    ofs << "BunnyHop=" << Config::configuration[5].lbool[1].second << endl;
+    ofs << "ESP=" <<Config::configuration[1].lbool[1].second << endl;
     ofs << "ESPName=" << Config::ESPFeatures[0] << endl;
     ofs << "ESPHealth=" << Config::ESPFeatures[1] << endl;
     ofs << "ESPDistance=" << Config::ESPFeatures[2] << endl;
     ofs << "ESPGun=" << Config::ESPFeatures[3] << endl;
     ofs << "ESPHead=" << Config::ESPFeatures[4] << endl;
-    ofs << "ShitTalk=" << Config::ShitTalk << endl;
-    ofs << "TriggerBot=" << Config::Trigger << endl;
-    ofs << "TriggerBot_Delay=" << Config::TriggerDelay << endl;
-    ofs << "TriggerBot_HitChance=" << Config::TriggerChance << endl;
-    ofs << "TriggerBot_Key=" << Config::TriggerKey << endl;
-    ofs << "TriggerBot_PSilent=" << Config::TriggerSilent << endl;
+    ofs << "ShitTalk=" << Config::configuration[5].lbool[2].second << endl;
+    ofs << "TriggerBot=" << Config::configuration[4].lbool[0].second<< endl;
+ //   ofs << "TriggerBot_Delay=" << Config::TriggerDelay << endl;
+   // ofs << "TriggerBot_HitChance=" << Config::TriggerChance << endl;
+   // ofs << "TriggerBot_Key=" << Config::TriggerKey << endl;
+  //  ofs << "TriggerBot_PSilent=" << Config::TriggerSilent << endl;
 }
 
 void LoadSettings()
@@ -170,28 +171,28 @@ void LoadSettings()
     }
     else
     {
-        Config::RageRCS         = GetPrivateProfileInt("General", "RageRCS", 1, settings.c_str())           != 0;
-        Config::LegitRCS        = GetPrivateProfileInt("General", "LegitRCS", 0, settings.c_str())          != 0;
-        Config::NoVisRecoil     = GetPrivateProfileInt("General", "NoVisRecoil", 1, settings.c_str())       != 0;
-        Config::RageAimbot      = GetPrivateProfileInt("General", "RageAimbot", 1, settings.c_str()) != 0;
-        Config::LegitAimbot     = GetPrivateProfileInt("General", "LegitAimbot", 0, settings.c_str()) != 0;
+        Config::configuration[2].lbool[1].second         = GetPrivateProfileInt("General", "RageRCS", 1, settings.c_str())           != 0;
+        Config::configuration[2].lbool[2].second        = GetPrivateProfileInt("General", "LegitRCS", 0, settings.c_str())          != 0;
+        Config::configuration[2].lbool[3].second     = GetPrivateProfileInt("General", "NoVisRecoil", 1, settings.c_str())       != 0;
+        Config::configuration[3].lbool[1].second      = GetPrivateProfileInt("General", "RageAimbot", 1, settings.c_str()) != 0;
+       Config::configuration[3].lbool[2].second     = GetPrivateProfileInt("General", "LegitAimbot", 0, settings.c_str()) != 0;
         Config::AimbotFOV       = GetPrivateProfileInt("General", "AimbotFOV", 6, settings.c_str());
         Config::SmoothFactor    = GetPrivateProfileInt("General", "SmoothFactor", 8, settings.c_str());
         Config::SilentAim       = GetPrivateProfileInt("General", "SilentAim", 1, settings.c_str())         != 0;
-        Config::CrosshairRecoil = GetPrivateProfileInt("General", "CrosshairRecoil", 0, settings.c_str())   != 0;
-        Config::NoFlash         = GetPrivateProfileInt("General", "NoFlash", 1, settings.c_str())           != 0;
-        Config::Bhop            = GetPrivateProfileInt("General", "BunnyHop", 1, settings.c_str())          != 0;
+        Config::configuration[2].lbool[4].second = GetPrivateProfileInt("General", "CrosshairRecoil", 0, settings.c_str())   != 0;
+        Config::configuration[5].lbool[0].second         = GetPrivateProfileInt("General", "NoFlash", 1, settings.c_str())           != 0;
+        Config::configuration[5].lbool[1].second            = GetPrivateProfileInt("General", "BunnyHop", 1, settings.c_str())          != 0;
         Config::ESPFeatures[0]  = GetPrivateProfileInt("General", "ESPName", 1, settings.c_str())           != 0;  //Name
         Config::ESPFeatures[1]  = GetPrivateProfileInt("General", "ESPHealth", 1, settings.c_str())         != 0;  //Health
         Config::ESPFeatures[2]  = GetPrivateProfileInt("General", "ESPDistance", 1, settings.c_str())       != 0;  //Distance
         Config::ESPFeatures[3]  = GetPrivateProfileInt("General", "ESPGun", 1, settings.c_str())            != 0;  //Gun
         Config::ESPFeatures[4]  = GetPrivateProfileInt("General", "ESPHead", 1, settings.c_str())           != 0;  //Gun
-        Config::ESP             = GetPrivateProfileInt("General", "ESP", 0, settings.c_str())               != 0;
-        Config::ShitTalk        = GetPrivateProfileInt("General", "ShitTalk", 0, settings.c_str())          != 0;
-        Config::Trigger         = GetPrivateProfileInt("General", "TriggerBot", 1, settings.c_str())        != 0;
-        Config::TriggerDelay    = GetPrivateProfileInt("General", "TriggerBot_Delay", 7, settings.c_str());
-        Config::TriggerChance   = GetPrivateProfileInt("General", "TriggerBot_HitChance", 90, settings.c_str());
-        Config::TriggerKey      = GetPrivateProfileInt("General", "TriggerBot_Key", 0x05, settings.c_str());
+       Config::configuration[1].lbool[1].second            = GetPrivateProfileInt("General", "ESP", 0, settings.c_str())               != 0;
+        Config::configuration[5].lbool[2].second        = GetPrivateProfileInt("General", "ShitTalk", 0, settings.c_str())          != 0;
+        Config::configuration[4].lbool[0].second        = GetPrivateProfileInt("General", "TriggerBot", 1, settings.c_str())        != 0;
+    //    Config::TriggerDelay    = GetPrivateProfileInt("General", "TriggerBot_Delay", 7, settings.c_str());
+    //    Config::TriggerChance   = GetPrivateProfileInt("General", "TriggerBot_HitChance", 90, settings.c_str());
+  //      Config::TriggerKey      = GetPrivateProfileInt("General", "TriggerBot_Key", 0x05, settings.c_str());
         Config::TriggerSilent   = GetPrivateProfileInt("General", "TriggerBot_Silent", 1, settings.c_str()) != 0;
     }
 
@@ -239,25 +240,25 @@ void printMenu(HANDLE& hOut)
 
     system("cls");
     cout << "|||Swaggity 'Internal Menu: |||" << endl;
-    cout << "#1  -> Toggle Rage Recoil"; printStatus(hConsole, Config::RageRCS);
-    cout << "#2  -> Toggle Legit Recoil"; printStatus(hConsole, Config::LegitRCS);
-    cout << "#3  -> Toggle NoVis Recoil"; printStatus(hConsole, Config::NoVisRecoil);
-    cout << "#4  -> Toggle Rage Aimbot"; printStatus(hConsole, Config::RageAimbot);
-    cout << "#5  -> Toggle Legit Aimbot"; printStatus(hConsole, Config::LegitAimbot);
+    cout << "#1  -> Toggle Rage Recoil"; printStatus(hConsole, Config::configuration[2].lbool[1].second);
+    cout << "#2  -> Toggle Legit Recoil"; printStatus(hConsole, Config::configuration[2].lbool[2].second);
+    cout << "#3  -> Toggle NoVis Recoil"; printStatus(hConsole, Config::configuration[2].lbool[3].second);
+    cout << "#4  -> Toggle Rage Aimbot"; printStatus(hConsole, Config::configuration[3].lbool[1].second);
+    cout << "#5  -> Toggle Legit Aimbot"; printStatus(hConsole,Config::configuration[3].lbool[2].second);
     cout << "#6  -> Set Aimbot FOV"; printStatus(hConsole, false, true, Config::AimbotFOV, false);
     cout << "#7  -> Set Smooth Factor"; printStatus(hConsole, false, true, Config::SmoothFactor, false);
     cout << "#8  -> Toggle Silent Aim"; printStatus(hConsole, Config::SilentAim);
-    cout << "#9 -> Toggle Recoil Crosshair"; printStatus(hConsole, Config::CrosshairRecoil);
-    cout << "#10 -> Toggle NoFlash"; printStatus(hConsole, Config::NoFlash);
-    cout << "#11 -> Toggle BunnyHop"; printStatus(hConsole, Config::Bhop);
-    cout << "#12  -> Toggle ESP"; printStatus(hConsole, Config::ESP);
+    cout << "#9 -> Toggle Recoil Crosshair"; printStatus(hConsole, Config::configuration[2].lbool[4].second);
+    cout << "#10 -> Toggle NoFlash"; printStatus(hConsole, Config::configuration[5].lbool[0].second);
+    cout << "#11 -> Toggle BunnyHop"; printStatus(hConsole, Config::configuration[5].lbool[1].second);
+    cout << "#12  -> Toggle ESP"; printStatus(hConsole, Config::configuration[1].lbool[1].second);
     cout << "#13 -> Toggle ESP Features" << endl;
-    cout << "#14 -> Toggle TriggerBot"; printStatus(hConsole, Config::Trigger);
-    cout << "#15 -> Toggle ShitTalk"; printStatus(hConsole, Config::ShitTalk);
+    cout << "#14 -> Toggle TriggerBot"; printStatus(hConsole, Config::configuration[4].lbool[0].second);
+    cout << "#15 -> Toggle ShitTalk"; printStatus(hConsole, Config::configuration[5].lbool[2].second);
     cout << "#16 -> Toggle TriggerBot PSilent"; printStatus(hConsole, Config::TriggerSilent);
-    cout << "#17 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay, false);
-    cout << "#18 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance, false);
-    cout << "#19 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey, true);
+  //  cout << "#17 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay, false);
+  //  cout << "#18 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance, false);
+    //cout << "#19 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey, true);
     cout << "#50 ->Exit " << endl; 
 
 }
@@ -275,10 +276,14 @@ init:
     LoadOffsets();
     LoadHooks();
     LoadSettings();
-    Interfaces::Engine->GetScreenSize(Config::width, Config::height);
+    int width, height;
+
+    Interfaces::Engine->GetScreenSize(width, height);
+    Config::configuration[0].lbool[3].second = width;
+    Config::configuration[0].lbool[2].second = height;
     cout << "\n\n\n";
     system("pause");
-    while (!Config::kill)
+    while (true)
     {
         int n;
         HANDLE h;
@@ -288,46 +293,46 @@ init:
         switch (n)
         {
         case 1:
-            if (Config::RageRCS)
-                Config::RageRCS = false;
+            if (Config::configuration[2].lbool[1].second)
+                Config::configuration[2].lbool[1].second = false;
             else
             {
-                Config::LegitRCS = false;
-                Config::RageRCS = true;
+                Config::configuration[2].lbool[2].second = false;
+                Config::configuration[2].lbool[1].second = true;
             }
             break;
 
         case 2:
-            if (Config::LegitRCS)
-                Config::LegitRCS = false;
+            if (Config::configuration[2].lbool[2].second)
+                Config::configuration[2].lbool[2].second = false;
             else
             {
-                Config::RageRCS = false;
-                Config::LegitRCS = true;
+                Config::configuration[2].lbool[1].second = false;
+                Config::configuration[2].lbool[2].second = true;
             }
             break;
 
         case 3:
-            Config::NoVisRecoil = !Config::NoVisRecoil;
+            Config::configuration[2].lbool[3].second = !Config::configuration[2].lbool[3].second;
             break;
 
         case 4:
-            if (Config::RageAimbot)
-                Config::RageAimbot = false;
+            if (Config::configuration[3].lbool[1].second)
+                Config::configuration[3].lbool[1].second = false;
             else
             {
-                Config::LegitAimbot = false;
-                Config::RageAimbot = true;
+               Config::configuration[3].lbool[2].second = false;
+                Config::configuration[3].lbool[1].second = true;
             }
             break;
 
         case 5:
-            if (Config::LegitAimbot)
-                Config::LegitAimbot = false;
+            if (Config::configuration[3].lbool[2].second)
+               Config::configuration[3].lbool[2].second = false;
             else
             {
-                Config::RageAimbot = false;
-                Config::LegitAimbot = true;
+                Config::configuration[3].lbool[1].second = false;
+               Config::configuration[3].lbool[2].second = true;
             }
             break;
         case 6:
@@ -342,25 +347,25 @@ init:
         case 8:
                     Config::SilentAim = !Config::SilentAim;
                     if (Config::SilentAim)
-                         Config::LegitRCS = false;
+                         Config::configuration[2].lbool[2].second = false;
                     break;
                     
                case 9:
 
        
-            Config::CrosshairRecoil = !Config::CrosshairRecoil;
+            Config::configuration[2].lbool[4].second = !Config::configuration[2].lbool[4].second;
             break;
 
         case 10:
-            Config::NoFlash = !Config::NoFlash;
+            Config::configuration[5].lbool[0].second = !Config::configuration[5].lbool[0].second;
             break;
 
         case 11:
-            Config::Bhop = !Config::Bhop;
+            Config::configuration[5].lbool[1].second = !Config::configuration[5].lbool[1].second;
             break;
 
         case 12:
-            Config::ESP = !Config::ESP;
+           Config::configuration[1].lbool[1].second= !Config::configuration[1].lbool[1].second;
             break;
 
         case 13:
@@ -382,11 +387,11 @@ init:
             break;
 
         case 14:
-            Config::Trigger = !Config::Trigger;
+            Config::configuration[4].lbool[0].second= !Config::configuration[4].lbool[0].second;
             break;
 
         case 15:
-            Config::ShitTalk = !Config::ShitTalk;
+            Config::configuration[5].lbool[2].second = !Config::configuration[5].lbool[2].second;
             break;
 
         case 16:
@@ -396,26 +401,26 @@ init:
         case 17:
             cout << "Specify a new trigger delay: ";
             cin >> n;
-            Config::TriggerDelay = n;
+           // Config::TriggerDelay = n;
             break;
 
         case 18:
             cout << "Specify a new trigger hitchance: ";
             cin >> n;
-            Config::TriggerChance = n;
+          //  Config::TriggerChance = n;
             break;
 
         case 19:
             cout << "Specify a new trigger key: ";
             cin.setf(ios::hex, ios::basefield);
             cin >> n;
-            Config::TriggerKey = n;
+          //  Config::TriggerKey = n;
             cin.setf(ios::dec, ios::basefield);
             break;
 
         case 50:
             unHook();
-            Config::kill = true;
+//   Config::kill = true;
 
 
         default:

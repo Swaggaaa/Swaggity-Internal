@@ -69,21 +69,21 @@ bool __fastcall Hooks::CreateMove(void* thisptr, void* edx, float flInputSampleT
 
     if (Global::UserCmd->buttons & IN_ATTACK)
     {
-        if (Config::RageAimbot)
+        if (Config::configuration[3].lbool[1].second)
             Cheat::RageAimbot();
         else if (Config::LegitAimbot)
             Cheat::LegitAimbot();
     }
 
-    if (Config::Bhop && Global::UserCmd->buttons & IN_JUMP)
+    if (Config::configuration[5].lbool[1].second && Global::UserCmd->buttons & IN_JUMP)
         Cheat::BunnyHop();
 
     if (Config::Trigger)
         Cheat::TriggerBot();
 
-    if (Config::LegitRCS)
+    if (Config::configuration[2].lbool[2].second)
         Cheat::NoRecoil();
-    else if (Config::RageRCS)
+    else if (Config::configuration[2].lbool[1].second)
         Cheat::RageNoRecoil();
 
     Global::LocalPlayer->SetFlashDuration();

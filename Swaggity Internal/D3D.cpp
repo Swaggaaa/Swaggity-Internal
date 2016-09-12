@@ -1,6 +1,7 @@
 
 #include "D3D.h"
 #include <iso646.h>
+#include "Config.h"
 
 void D3D::DrawLine(float X, float Y, float XX, float YY, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
 {
@@ -204,10 +205,11 @@ bool D3D::init(IDirect3DDevice9 *pDevice)
 
 void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle, int whr)
 {
-     if (p1.vpages.size() <= 0)return;
+     if (vpages.size() <= 0)return;
 
     for (int i = 0; i < howmany; ++i)
     {
+        
         element el1;
         if (horizontal)
         {
@@ -229,8 +231,8 @@ void D3D::addelement(int howmany, rolf whatis, int x, int y, int xx, int yy, boo
             el1.whotis = whatis;
             el1.middle = whr;
         }
-        if(whatis == LABEL)p1.vpages[p1.actpage].labels.push_back(el1);
-        if(whatis == BOX)p1.vpages[p1.actpage].boxes.push_back(el1);
+        if(whatis == LABEL)vpages[actpage].labels.push_back(el1);
+        if(whatis == BOX)vpages[actpage].boxes.push_back(el1);
 
     }
 
@@ -241,15 +243,56 @@ void D3D::addpage(int howmany)
     for (int i = 0; i < howmany; ++i)
     {
         page page1;
-        p1.vpages.push_back(page1);
+        vpages.push_back(page1);
     }
 }
 
 void D3D::setpage(int page)
 {
-    if (page > p1.vpages.size())return;
+    if (page > vpages.size())return;
 
-    p1.actpage = page-1;
+    actpage = page-1;
+
+}
+
+void D3D::makeovr()
+{
+    element l1;
+    l1.x = 10;
+    l1.xx = 210;
+    l1.y = 10;
+    l1.yy = 200;
+    l1.whotis = BOX;
+    l1.colourin = BLACK_NOTMUCH;
+
+    vpages[actpage].boxes.push_back(l1);
+
+    l1.x = 10;
+    l1.xx = 200;
+    l1.y = 30;
+    l1.yy = 180;
+    l1.whotis = BOX;
+    l1.colourin = GREY;
+    vpages[actpage].boxes.push_back(l1);
+
+    element l3; 
+
+    l3.x = 15;
+    l3.y = 20;
+    l3.write = "ESPv2";
+
+    for (int i = 0; i < Config::configuration.size();++i)
+    {
+        element pp;
+        pp.x = 20;
+        pp.y = 40 + i * 30;
+        pp.whotis = LABEL;
+        pp.write = Config::configuration[i].name;
+    }
+
+    
+  //  pD3D.DrawRect(10, 30, 200, 150, 1, GREY, true, true, 1, BLACK);
+
 
 }
 
@@ -257,12 +300,16 @@ void D3D::initui()
 {
     addpage(1);
     setpage(1);
+    makeovr();
+
+    addpage(1);
+    setpage(2);
     addelement(13, BOX, 20, 50, 180, 70, false, 20,120);
 }
 
 void D3D::DestructUI()
 {
-    p1.vpages = std::vector<page>(0);
+    vpages = std::vector<page>(0);
 }
 
 void D3D::Destruct()
