@@ -97,6 +97,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
         {
             if( Config::enableovr)pD3D.Destruct();
             Config::enableovr = !Config::enableovr;
+            if (Config::enableovr)pD3D.init(pDevice);
             if (Config::enableovr)
             {
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 0");

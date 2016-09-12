@@ -16,7 +16,7 @@ long __stdcall Hooks::Reset(IDirect3DDevice9* pDevice, DWORD Count, CONST D3DREC
             Config::NeoESP = false;
             b4 = true;
         }
-        if(pD3D.Device)pD3D.Destruct();
+      //  if(pD3D.Device)pD3D.Destruct();
 
         if (b4)Config::NeoESP = true;
     }
