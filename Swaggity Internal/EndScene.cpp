@@ -87,6 +87,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
         Interfaces::Engine->GetScreenSize(width, height);
         if (pD3D.Device != pDevice or (!pD3D.Line))
         {
+            if(pD3D.Device)pD3D.Destruct();
             pD3D.init(pDevice);
             Config::width = width;
             Config::height = height;
