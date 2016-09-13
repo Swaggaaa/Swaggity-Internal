@@ -256,7 +256,9 @@ void printMenu(HANDLE& hOut)
 
 void Setup()
 {
+    pD3D.makeovr();
 	AllocConsole();
+    //pD3D.initui();
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONIN$", "r", stdin);
 	cout.setf(ios::hex, ios::basefield);

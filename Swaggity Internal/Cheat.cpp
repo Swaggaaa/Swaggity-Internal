@@ -255,7 +255,7 @@ UINT tick = 0;
 
 void Cheat::TriggerBot()
 {
-    General.setTriggerKey(0x50);
+   // General.setTriggerKey(0x50);
     if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
     {
         if (General.getRageAimbot()) //Holding trigger makes it autofire when visible

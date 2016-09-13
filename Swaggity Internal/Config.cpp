@@ -336,6 +336,7 @@ void Config::setTriggerKey(uint dep)
 
 Config::Config()
  {
+     movex = movey = 0;
       showMisc = true;
       showRCS = false;
       showAim = false;
@@ -403,8 +404,8 @@ Config::Config()
 	 
 	  Visual = {
 		  pair<string, bool>("UI", true),
-		  pair<string, bool>("ESP", true),
-		  pair<string, bool>("ESPv2", false),
+		  pair<string, bool>("ESP", false),
+		  pair<string, bool>("ESPv2", true),
 		  pair<string,bool>("ESPName",true),
 		  pair<string,bool>("ESPHealth",true),
 		  pair<string,bool>("ESPDistance",true),

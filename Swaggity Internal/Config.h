@@ -310,6 +310,9 @@ public:
 		 bool showStuff = false;
 		 bool showTrigger = false;
 
+         int movex, movey;
+
+
 
 		  Config();
 

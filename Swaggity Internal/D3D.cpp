@@ -101,8 +101,10 @@ void D3D::DrawRect(float X, float Y, float Width, float Height, float LineWidth,
         }
 }
 
-void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered)
+void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge)
 {
+
+    
     RECT Rect;
     Rect.top = Y;
     Rect.left = X;
@@ -132,17 +134,38 @@ void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, boo
 			OutlineRectBottom.right = X;
             if (Centered)
                 {
-					pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectTop, DT_CENTER | DT_NOCLIP, OutlineColor);
-					pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectLeft, DT_CENTER | DT_NOCLIP, OutlineColor);
-					pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectRight, DT_CENTER | DT_NOCLIP, OutlineColor);
-					pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectBottom, DT_CENTER | DT_NOCLIP, OutlineColor);
+                    if (huge == 20) {
+                       
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectTop, DT_CENTER | DT_NOCLIP, OutlineColor);
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectLeft, DT_CENTER | DT_NOCLIP, OutlineColor);
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectRight, DT_CENTER | DT_NOCLIP, OutlineColor);
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectBottom, DT_CENTER | DT_NOCLIP, OutlineColor);
+                    }
+                    else
+                    {
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectTop, DT_CENTER | DT_NOCLIP, OutlineColor);
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectLeft, DT_CENTER | DT_NOCLIP, OutlineColor);
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectRight, DT_CENTER | DT_NOCLIP, OutlineColor);
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectBottom, DT_CENTER | DT_NOCLIP, OutlineColor);
+                    }
                 }
             else
                 {
-                    pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectTop, DT_NOCLIP, OutlineColor);
-                    pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectLeft, DT_NOCLIP, OutlineColor);
-                    pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectRight, DT_NOCLIP, OutlineColor);
-                    pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectBottom, DT_NOCLIP, OutlineColor);
+                    if (huge == 20) {
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectTop, DT_NOCLIP, OutlineColor);
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectLeft, DT_NOCLIP, OutlineColor);
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectRight, DT_NOCLIP, OutlineColor);
+                        pD3D.Font20->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectBottom, DT_NOCLIP, OutlineColor);
+
+                    }
+                    else
+                    {
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectTop, DT_NOCLIP, OutlineColor);
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectLeft, DT_NOCLIP, OutlineColor);
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectRight, DT_NOCLIP, OutlineColor);
+                        pD3D.Font->DrawTextA(nullptr, Text.c_str(), strlen(Text.c_str()), &OutlineRectBottom, DT_NOCLIP, OutlineColor);
+
+                    }
                 }
         }
     if (Centered)
@@ -172,13 +195,15 @@ void D3D::DrawCross(float X, float Y, float Size, float WidthL, D3DCOLOR CrossCo
 
 bool D3D::init(IDirect3DDevice9 *pDevice)
 {
-    if (pD3D.Device != pDevice)pD3D.Device = pDevice;
-     if (pD3D.Device)
+    if (this->Device != pDevice)this->Device = pDevice;
+     if (this->Device)
                 {
-                    D3DXCreateLine(pD3D.Device, &pD3D.Line);
-                    if (pD3D.Line)
+                    D3DXCreateLine(this->Device, &this->Line);
+                    if (this->Line)
                         {
-							D3DXCreateFont(pD3D.Device, 18, NULL, FW_NORMAL, NULL, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, "Calibri", &pD3D.Font);
+							D3DXCreateFont(this->Device, 18, NULL, FW_NORMAL, NULL, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, "Calibri", &this->Font);
+                            D3DXCreateFont(this->Device, 20, NULL, FW_NORMAL, NULL, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, "Calibri", &this->Font20);
+
                             if (pD3D.Font)
                                 {
                                     pD3D.Line->SetAntialias(TRUE);
@@ -258,36 +283,46 @@ void D3D::setpage(int page)
 void D3D::makeovr()
 {
     element l1;
-    l1.x = 10;
-    l1.xx = 210;
-    l1.y = 10;
-    l1.yy = 200;
+    l1.x = 15;
+    l1.xx = 600;
+    l1.y = 30;
+    l1.yy = 300;
+    l1.whotis = BOX;
+    l1.colourin = BLUE2;
+
+    overlay.boxes.push_back(l1);
+
+    l1.x = 15;
+    l1.xx = 600;
+    l1.y = 60;
+    l1.yy = 270;
     l1.whotis = BOX;
     l1.colourin = BLACK_NOTMUCH;
 
-    vpages[actpage].boxes.push_back(l1);
-
-    l1.x = 10;
-    l1.xx = 200;
-    l1.y = 30;
-    l1.yy = 180;
-    l1.whotis = BOX;
-    l1.colourin = GREY;
-    vpages[actpage].boxes.push_back(l1);
+    overlay.boxes.push_back(l1);
 
     element l3; 
 
-    l3.x = 15;
-    l3.y = 20;
-    l3.write = "ESPv2";
+    l3.x = 20;
+    l3.y = 35;
+    l3.colourin = BLACK;
+    l3.whotis = LABEL;
+    l3.write = "ESP v2";
+
+    overlay.labels.push_back(l3);
+    
+
 
     for (int i = 0; i < General.veiwoptions.size();++i)
     {
         element pp;
-        pp.x = 20;
-        pp.y = 40 + i * 30;
+        pp.x = 25;
+        pp.y = 70 + i * 30;
         pp.whotis = LABEL;
-        pp.write = General.veiwoptions[i].second;
+        pp.write = General.veiwoptions[i].first;
+        pp.colourin = WHITE;
+
+        overlay.labels.push_back(pp);
     }
 
     
@@ -298,13 +333,15 @@ void D3D::makeovr()
 
 void D3D::initui()
 {
-    addpage(1);
-    setpage(1);
+   // addpage(1);
+  //  setpage(1);
     makeovr();
 
-    addpage(1);
-    setpage(2);
-    addelement(13, BOX, 20, 50, 180, 70, false, 20,120);
+  //  addpage(1);
+   // setpage(2);
+   // addelement(13, BOX, 20, 50, 180, 70, false, 20,120);
+
+    
 }
 
 void D3D::DestructUI()
@@ -317,8 +354,9 @@ void D3D::Destruct()
   // pD3D.Line* = NULL;
  //  pD3D.Font* = NULL;
 
-        pD3D.Line->Release();
-        pD3D.Font->Release();
+        this->Line->Release();
+        this->Font->Release();
+        this->Font20->Release();
 }
 
 

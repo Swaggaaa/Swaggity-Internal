@@ -29,24 +29,37 @@ enum COLORS
 #pragma warning (disable : 4244)
 
 
-void printmenu()
+
+void printoverlay()
 {
-    for (int j = 0; j < pD3D.vpages[pD3D.actpage].boxes.size(); ++j)
+    
+    for (int j = 0; j < pD3D.overlay.boxes.size(); ++j)
     {
         int x, y, xx, yy, middle;
-
-
-        x = pD3D.vpages[pD3D.actpage].boxes[j].x;
-        y = pD3D.vpages[pD3D.actpage].boxes[j].y;
-        xx = pD3D.vpages[pD3D.actpage].boxes[j].xx;
-        yy = pD3D.vpages[pD3D.actpage].boxes[j].yy;
-        middle = pD3D.vpages[pD3D.actpage].boxes[j].middle;
+        x = pD3D.overlay.boxes[j].x + General.movex;
+        y = pD3D.overlay.boxes[j].y + General.movey;
+        xx = pD3D.overlay.boxes[j].xx + General.movex;
+        yy = pD3D.overlay.boxes[j].yy + General.movey;
+        middle = pD3D.overlay.boxes[j].middle;
        
-            pD3D.DrawRect(x, y, xx - x, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
-            pD3D.DrawRect(middle, y, xx - middle, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
-          //  pD3D.DrawString(x + 10, y, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
+
+        pD3D.DrawRect(x, y, xx -x , yy-y, 1, pD3D.overlay.boxes[j].colourin, true, true, 1, BLACK);
+    }
+
+    for (int i = 0; i < pD3D.overlay.labels.size(); ++i) {
+
+        int x, y, xx, yy, middle;
+        x = pD3D.overlay.labels[i].x + General.movex;
+        y = pD3D.overlay.labels[i].y + General.movey;
+        xx = pD3D.overlay.labels[i].xx + General.movex;
+        yy = pD3D.overlay.labels[i].yy + General.movey;
+        middle = pD3D.overlay.labels[i].middle;
+        string kek = pD3D.overlay.labels[i].write;
 
 
+        pD3D.DrawString(x, y, kek, pD3D.overlay.labels[i].colourin, false, BLACK,false,20);
+
+    }
             //if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);
           //  else pD3D.DrawString(middle, y, "Disabled", RED, true, BLACK, false);
 
@@ -76,7 +89,7 @@ void printmenu()
          pD3D.DrawString(100, i + j * 13, "Toggle TriggerBot PSilent " + to_string(Config::TriggerSilent), WHITE, true, BLACK, true);
  
          */
-    }
+    
 }
 
 long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
@@ -111,7 +124,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
         if (General.getUI() and  width != 0 and height != 0)
         {
 
-            printmenu();
+            printoverlay();
 
 
             POINT pep;
@@ -121,31 +134,30 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 
                 if (ScreenToClient(hWnd, &pep))
                 {
-                    pD3D.DrawCross(pep.x, pep.y, 50, 5, ORANGE, true, 1, BLACK);
-
+                    pD3D.DrawCross(pep.x, pep.y, 10, 5, D3D::BLUE2, true, 1, BLACK);
+                    /*
                     if (GetAsyncKeyState(0x01) & 0x0001)
                     {
-						/*
-                        for (int i = 0; i < Config::BoolSettings.size(); ++i)
+						
+                        for (int i = 0; i < pD3D.overlay.boxes.size(); ++i)
                         {
                             int middle, xx, y, yy;
-                            if (i < pD3D.vpages[pD3D.actpage].boxes.size())
-                            {
+                            
 
-                                middle = pD3D.vpages[pD3D.actpage].boxes[i].middle;
-                                xx = pD3D.vpages[pD3D.actpage].boxes[i].xx;
-                                y = pD3D.vpages[pD3D.actpage].boxes[i].y;
-                                yy = pD3D.vpages[pD3D.actpage].boxes[i].yy;
+                                middle = pD3D.overlay.boxes[i].middle;
+                                xx = pD3D.overlay.boxes[i].xx;
+                                y = pD3D.overlay.boxes[i].y;
+                                yy = pD3D.overlay.boxes[i].yy;
 
                                 if (pep.x > middle and pep.x < xx and pep.y > y and pep.y < yy)
                                 {
-                                    Config::BoolSettings[i].second = !Config::BoolSettings[i].second;
+                                  //  Config::BoolSettings[i].second = !Config::BoolSettings[i].second;
                                 }
-                            }
+                            
                         }
                     
-					*/
-					}
+					
+					}*/
                 }
             }
         }

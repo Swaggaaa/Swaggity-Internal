@@ -12,9 +12,6 @@ enum rolf
     LABEL
 };
 
-
-
-
 struct element
 {
     rolf whotis;
@@ -23,8 +20,6 @@ struct element
     D3DCOLOR colourin;
     std::string write;
 };
-
-
 
 struct page
 {
@@ -37,7 +32,8 @@ struct D3D
     IDirect3DDevice9* Device;
     ID3DXLine* Line;
     ID3DXFont* Font;
-
+    ID3DXFont* Font20;
+    page overlay;
     std::vector<page> vpages;
     int actpage = 0;
 
@@ -46,7 +42,7 @@ struct D3D
     void DrawCheck(float X, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
-    void DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered);
+    void DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge);
 
     bool init(IDirect3DDevice9* pDevice);
 
@@ -63,7 +59,7 @@ struct D3D
     enum COLORS
     { // Normal Colors
         WHITE = D3DCOLOR_ARGB(255, 255, 255, 255),
-        BLACK_NOTMUCH = D3DCOLOR_ARGB(255, 30, 30, 30),
+        BLACK_NOTMUCH = D3DCOLOR_ARGB(255,60, 60, 60),
         RED = D3DCOLOR_ARGB(255, 220, 20, 60),
         GREEN = D3DCOLOR_ARGB(255, 0, 255, 0),
         BLUE = D3DCOLOR_ARGB(255, 0, 0, 255),
@@ -71,7 +67,8 @@ struct D3D
         PURPLE = D3DCOLOR_ARGB(255, 125, 0, 255),
         GREY = D3DCOLOR_ARGB(255, 128, 128, 128),
         YELLOW = D3DCOLOR_ARGB(255, 255, 255, 0),
-        ORANGE = D3DCOLOR_ARGB(255, 255, 125, 0)
+        ORANGE = D3DCOLOR_ARGB(255, 255, 125, 0),
+        BLUE2 = D3DCOLOR_ARGB(255, 0, 200,180)
     };
 
     void makeovr();
