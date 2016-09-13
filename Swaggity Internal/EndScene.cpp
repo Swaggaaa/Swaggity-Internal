@@ -31,7 +31,7 @@ enum COLORS
 
 void printmenu()
 {
-    for (int j = 0; j < Config::BoolSettings.size(); ++j)
+    for (int j = 0; j < pD3D.vpages[pD3D.actpage].boxes.size(); ++j)
     {
         int x, y, xx, yy, middle;
 
@@ -44,11 +44,11 @@ void printmenu()
        
             pD3D.DrawRect(x, y, xx - x, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
             pD3D.DrawRect(middle, y, xx - middle, yy - y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
-            pD3D.DrawString(x + 10, y, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
+          //  pD3D.DrawString(x + 10, y, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
 
 
-            if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);
-            else pD3D.DrawString(middle, y, "Disabled", RED, true, BLACK, false);
+            //if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);
+          //  else pD3D.DrawString(middle, y, "Disabled", RED, true, BLACK, false);
 
        
 
@@ -82,24 +82,25 @@ void printmenu()
 long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 {
   
-    if (Config::NeoESP) {
+    if (General.getESPv2()) {
         int height, width;
         Interfaces::Engine->GetScreenSize(width, height);
         if (pD3D.Device != pDevice or (!pD3D.Line))
         {
             if(pD3D.Device)pD3D.Destruct();
             pD3D.init(pDevice);
-            Config::configuration[0].lbool[3].second = width;
-            Config::configuration[0].lbool[2].second = height;
+            General.setwidth(width);
+            General.setheight(height);
         }
 
         if ((GetAsyncKeyState(0x30) & 0x0001) and width != 0 and height != 0)
         {
-            if( Config::configuration[1].lbool[0].second)pD3D.Destruct();
-            Config::configuration[1].lbool[0].second = !Config::configuration[1].lbool[0].second;
-            if (Config::configuration[1].lbool[0].second)pD3D.init(pDevice);
-            if (Config::configuration[1].lbool[0].second)
+            if( General.getUI())pD3D.Destruct();
+			General.setUI(!General.getUI());
+        
+            if (General.getUI())
             {
+				pD3D.init(pDevice);
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 0");
             }
             else
@@ -107,7 +108,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 1");
             }
         }
-        if (Config::configuration[1].lbool[0].second and Config::NeoESP and  width != 0 and height != 0)
+        if (General.getUI() and  width != 0 and height != 0)
         {
 
             printmenu();
@@ -124,6 +125,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 
                     if (GetAsyncKeyState(0x01) & 0x0001)
                     {
+						/*
                         for (int i = 0; i < Config::BoolSettings.size(); ++i)
                         {
                             int middle, xx, y, yy;
@@ -141,7 +143,9 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                                 }
                             }
                         }
-                    }
+                    
+					*/
+					}
                 }
             }
         }

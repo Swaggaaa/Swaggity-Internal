@@ -281,13 +281,13 @@ void D3D::makeovr()
     l3.y = 20;
     l3.write = "ESPv2";
 
-    for (int i = 0; i < Config::configuration.size();++i)
+    for (int i = 0; i < General.veiwoptions.size();++i)
     {
         element pp;
         pp.x = 20;
         pp.y = 40 + i * 30;
         pp.whotis = LABEL;
-        pp.write = Config::configuration[i].name;
+        pp.write = General.veiwoptions[i].second;
     }
 
     

@@ -139,9 +139,9 @@ UINT tick = 0;
 
 void Cheat::TriggerBot()
 {
-    if (GetAsyncKeyState(Config::TriggerKey) & 0x8000)
+    if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
     {
-        if (Config::configuration[3].lbool[1].second) //Holding trigger makes it autofire when visible
+        if (General.getRageAimbot()) //Holding trigger makes it autofire when visible
         {
             RageAimbot();
             return;
@@ -152,7 +152,7 @@ void Cheat::TriggerBot()
         CTraceFilter filter;
 
         Vector viewAngle = Global::UserCmd->viewangles;
-        if (!Config::configuration[2].lbool[1].second)
+        if (!General.getLegitRCS())
             viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
         float cy, sy, cx, sx;
@@ -186,8 +186,8 @@ void Cheat::TriggerBot()
 
         if (trace.m_pEnt->IsValid())
         {
-            float hitchance = 75.f + Config::TriggerChance / 4;
-            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= Config::TriggerDelay))
+            float hitchance = 75.f + General.getTriggerChance() / 4;
+            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= General.getTriggerDelay()))
             {
                 /*if (Global::LocalPlayer->GetShotsFired() == 0)
                 {
@@ -199,7 +199,7 @@ void Cheat::TriggerBot()
                     Global::UserCmd->buttons |= IN_ATTACK2;
                 else
                 {
-                    if (Config::TriggerSilent)
+                    if (General.getRageRCS())
                     {
                         Vector headPos = trace.m_pEnt->GetBonePosition(6); //HEAD
                         QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
@@ -274,14 +274,14 @@ void Cheat::RageAimbot()
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
 
-    if (!Config::configuration[2].lbool[1].second)
+    if (!General.getSilentAim())
         angle -= Global::LocalPlayer->GetPunch() * 2.f;
 
     angle.Clamp();
 
     Vector vAngle(angle.x, angle.y, angle.z);
 
-    if (!Config::SilentAim)
+    if (!General.getSilentAim())
         Interfaces::Engine->SetViewAngles(angle);
 
     Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
@@ -318,7 +318,7 @@ void Cheat::LegitAimbot()
     if (!entity || id == 1337)
         return;
 
-    if (fov > Config::AimbotFOV)
+    if (fov > General.getAimbotFOV())
         return;
 
     QAngle dst = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));

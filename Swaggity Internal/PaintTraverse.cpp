@@ -34,7 +34,7 @@ void CrosshairRecoil()
     CTraceFilter filter;
 
     Vector viewAngle = Global::UserCmd->viewangles;
-    if (Config::configuration[2].lbool[2].second)
+    if (General.getLegitRCS())
         viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
 
@@ -91,7 +91,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
         return;
     }
 
-    if (Config::ESP)
+    if (General.getESP())
     {
         for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
         {
@@ -128,7 +128,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
             }
             */
 
-            if (Config::ESPFeatures[4]) //HeadPos
+            if (General.getESPHead()) //HeadPos
             {
                 Vector headPos;
                 int crouchModifier = entity->GetFlags() & FL_DUCKING ? height / 4 : 0;
@@ -149,7 +149,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
         }
     }
 
-    if (Config::configuration[2].lbool[4].second && Global::LocalPlayer->GetAlive())
+    if (General.getCorsshairRecoil() && Global::LocalPlayer->GetAlive())
         CrosshairRecoil();
     oPaintTraverse(thisptr, edx, panel, forceRepaint, allowForce);
 }
