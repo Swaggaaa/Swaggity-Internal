@@ -89,6 +89,8 @@ void Cheat::NoRecoil()
         angles.y = tmp.y;
         angles.z = tmp.z;
 
+        angles.Clamp();
+
         Interfaces::Engine->SetViewAngles(angles);
         oldPunch = newPunch;
         ClampAngles();
@@ -135,10 +137,11 @@ void Cheat::RageNoRecoil()
     }
 }
 
-UINT tick = 0;
 
+/*
 void Cheat::TriggerBot()
 {
+    int dep = General.getTriggerKey();
     if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
     {
         if (General.getRageAimbot()) //Holding trigger makes it autofire when visible
@@ -152,7 +155,121 @@ void Cheat::TriggerBot()
         CTraceFilter filter;
 
         Vector viewAngle = Global::UserCmd->viewangles;
-        if (!General.getLegitRCS())
+        if (!General.getRageRCS())
+            viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
+
+        float cy, sy, cx, sx;
+        Vector forward, src, dst;
+
+        SinCos(DEG2RAD(viewAngle.y), &sx, &cx);
+        SinCos(DEG2RAD(viewAngle.x), &sy, &cy);
+
+        forward.x = cy*cx;
+        forward.y = cy*sx;
+        forward.z = -sy;
+
+        forward *= 8192;
+        filter.pSkip = Global::LocalPlayer;
+        src = Global::LocalPlayer->GetEyePosition();
+        dst = src + forward;
+
+        ray.Init(src, dst);
+        Interfaces::EngineTrace->TraceRay(ray, 0x4600400B, &filter, &trace);
+
+        if (!trace.m_pEnt)
+            return;
+
+        /*if ((Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AWP &&
+        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_SSG08 &&
+        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_G3SG1 &&
+        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AUG) &&
+        trace.hitgroup != HITGROUP_HEAD)
+        return;
+        
+
+        if (trace.m_pEnt->IsValid())
+        {
+            float hitchance = 75.f + General.getTriggerChance() / 4;
+            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= General.getTriggerDelay()))
+            {
+                /*if (Global::LocalPlayer->GetShotsFired() == 0)
+                {
+                Interfaces::Engine->
+                }
+                
+                tick = GetTickCount();
+                if (Global::LocalPlayer->GetWeapon()->GetWeaponID() == WEAPON_KNIFE || Global::LocalPlayer->GetWeapon()->GetWeaponID() == WEAPON_KNIFE_T)
+                    Global::UserCmd->buttons |= IN_ATTACK2;
+                else
+                {
+                    if (General.getTriggerSilent())
+                    {
+                        Vector headPos = trace.m_pEnt->GetBonePosition(6); //HEAD
+                        QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+                        QAngle origin = Global::UserCmd->viewangles;
+                        destination.Clamp();
+                        Vector tmp(destination.x, destination.y, destination.z);
+
+                        switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
+                        {
+                        case WEAPON_USP_SILENCER:
+                        case WEAPON_P250:
+                        case WEAPON_DEAGLE:
+                        case WEAPON_FIVESEVEN:
+                        case WEAPON_TEC9:
+                        case WEAPON_CZ75A:
+                        case WEAPON_SSG08:
+                        {
+                            if (Utils::GetFOV(tmp) < 1.5f)
+                            {
+                                Global::OldAngles = Global::UserCmd->viewangles;
+                                Global::bSendPackets = false;
+                                Global::NextTick = true;
+                                Global::UserCmd->viewangles = tmp;
+                            }
+                            else
+                                Global::UserCmd->buttons |= IN_ATTACK;
+                            break;
+                        }
+                        default:
+                            Global::UserCmd->buttons |= IN_ATTACK;
+                            break;
+                        }
+                    }
+                    else
+                        Global::UserCmd->buttons |= IN_ATTACK;
+                }
+
+                Global::LastShot = tick;
+            }
+            else if (tick == 0)
+                tick = GetTickCount();
+        }
+    }
+}
+
+*/
+
+
+UINT tick = 0;
+
+void Cheat::TriggerBot()
+{
+    General.setTriggerKey(0x50);
+    if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
+    {
+        if (General.getRageAimbot()) //Holding trigger makes it autofire when visible
+        {
+            RageAimbot();
+            return;
+        }
+
+        trace_t trace;
+        Ray_t ray;
+        CTraceFilter filter;
+
+        Vector viewAngle = Global::UserCmd->viewangles;
+        if (!General.getRageRCS())
             viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
         float cy, sy, cx, sx;
@@ -199,7 +316,7 @@ void Cheat::TriggerBot()
                     Global::UserCmd->buttons |= IN_ATTACK2;
                 else
                 {
-                    if (General.getRageRCS())
+                    if (General.getTriggerSilent())
                     {
                         Vector headPos = trace.m_pEnt->GetBonePosition(6); //HEAD
                         QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
@@ -270,11 +387,11 @@ void Cheat::RageAimbot()
     CBaseEntity* ent = Interfaces::EntityList->GetClientEntity(id);
     if (!ent || id == -1337)
         return;
-    //Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
+ //   Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
 
-    if (!General.getSilentAim())
+    if (!General.getRageRCS())
         angle -= Global::LocalPlayer->GetPunch() * 2.f;
 
     angle.Clamp();

@@ -125,7 +125,7 @@ void writeFile(ofstream& ofs)
 	ofs << "NoVisRecoil=" << General.getNoVisRecoil() << endl;
 	ofs << "RageAimbot=" << General.getRageAimbot() << endl;
 	ofs << "LegitAimbot=" << General.getLegitAimbot() << endl;
-//	ofs << "AimbotFOV=" << General.getAimbotFOV << endl;
+	ofs << "AimbotFOV=" << General.getAimbotFOV() << endl;
 //	ofs << "DistanceBasedFOV=" << General.getDistanceBasedFOV << endl;
 //	ofs << "SmoothFactor=" << General.getSmoothFactor << endl;
 	ofs << "SilentAim=" << General.getSilentAim() << endl;
@@ -167,7 +167,7 @@ void LoadSettings()
 		General.setNoVisRecoil(GetPrivateProfileInt("General", "NoVisRecoil", 1, settings.c_str()) != 0);
 		General.setRageAimbot( GetPrivateProfileInt("General", "RageAimbot", 1, settings.c_str()) != 0);
 		General.setLegitAimbot(GetPrivateProfileInt("General", "LegitAimbot", 0, settings.c_str()) != 0);
-		//General.getAimbot = GetPrivateProfileInt("General", "AimbotFOV", 6, settings.c_str());
+		General.setAimbotFOV(GetPrivateProfileInt("General", "AimbotFOV", 6, settings.c_str()));
 		//General.getDistanceBasedFOV = GetPrivateProfileInt("General", "DistanceBasedFOV", 1, settings.c_str()) != 0;
 		//General.getSmoothFactor = GetPrivateProfileInt("General", "SmoothFactor", 8, settings.c_str());
 		General.setSilentAim( GetPrivateProfileInt("General", "SilentAim", 1, settings.c_str()) != 0);
@@ -282,7 +282,7 @@ void Setup()
 				General.setRageRCS(false);
 			else
 			{
-				General.setRageRCS(false);
+				General.setLegitRCS(false);
 				General.setRageRCS(true);
 			}
 			break;
@@ -324,7 +324,7 @@ void Setup()
 		case 6:
 			cout << "Specify a new Aimbot FOV: ";
 			cin >> n;
-			//Config::AimbotFOV = n;
+			General.setAimbotFOV(n);
 			break;
 
 		case 7:

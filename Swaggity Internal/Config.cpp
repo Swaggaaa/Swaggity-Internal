@@ -442,9 +442,9 @@ Config::Config()
       };
       
       Triggerint = {
-		  pair<string, uint>("TriggerDelay", true),
-		  pair<string, uint>("TriggerChance", true),
-		  pair<string, uint>("TriggerKey", true)
+		  pair<string, uint>("TriggerDelay", 7),
+		  pair<string, uint>("TriggerChance", 25),
+		  pair<string, uint>("TriggerKey", 0x05)
       };
 
       Trigger = {
