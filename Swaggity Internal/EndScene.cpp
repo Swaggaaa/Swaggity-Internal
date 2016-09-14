@@ -41,10 +41,27 @@ void printoverlay()
         xx = pD3D.overlay.boxes[j].xx + General.movex;
         yy = pD3D.overlay.boxes[j].yy + General.movey;
         middle = pD3D.overlay.boxes[j].middle;
-       
+		bool line = pD3D.overlay.boxes[j].line;
+		D3DCOLOR rolm = pD3D.overlay.boxes[j].linecolourin;
 
-        pD3D.DrawRect(x, y, xx -x , yy-y, 1, pD3D.overlay.boxes[j].colourin, true, true, 1, BLACK);
+        pD3D.DrawRect(x, y, xx -x , yy-y, 1, pD3D.overlay.boxes[j].colourin, true, line, 1, rolm);
     }
+
+	for (int j = 0; j < pD3D.overlay.boxes5.size(); ++j)
+	{
+		int x, y, xx, yy, middle;
+		x = pD3D.overlay.boxes5[j].x + General.movex;
+		y = pD3D.overlay.boxes5[j].y + General.movey;
+		xx = pD3D.overlay.boxes5[j].xx + General.movex;
+		yy = pD3D.overlay.boxes5[j].yy + General.movey;
+		middle = pD3D.overlay.boxes5[j].middle;
+		bool line = pD3D.overlay.boxes5[j].line;
+		D3DCOLOR rolm = pD3D.overlay.boxes5[j].linecolourin;
+		if(General.veiwoptions[j].second)pD3D.DrawRect(x, y, xx - x, yy - y, 1, D3D::BLUE2, true, line, 1, rolm);
+		else pD3D.DrawRect(x, y, xx - x, yy - y, 1, pD3D.overlay.boxes5[j].colourin, true, line, 1, rolm);
+	}
+
+	pD3D.DrawString(pD3D.overlay.Titulo.x, pD3D.overlay.Titulo.y, pD3D.overlay.Titulo.write, pD3D.overlay.Titulo.colourin, pD3D.overlay.Titulo.line, pD3D.overlay.Titulo.linecolourin, false, 20);
 
     for (int i = 0; i < pD3D.overlay.labels.size(); ++i) {
 
@@ -55,9 +72,11 @@ void printoverlay()
         yy = pD3D.overlay.labels[i].yy + General.movey;
         middle = pD3D.overlay.labels[i].middle;
         string kek = pD3D.overlay.labels[i].write;
+		bool line = pD3D.overlay.labels[i].line;
+		D3DCOLOR rolm = pD3D.overlay.labels[i].linecolourin;
 
 
-        pD3D.DrawString(x, y, kek, pD3D.overlay.labels[i].colourin, false, BLACK,false,20);
+        pD3D.DrawString(x, y, kek, pD3D.overlay.labels[i].colourin, line, rolm,false,20);
 
     }
             //if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);

@@ -1,6 +1,7 @@
 ﻿  EndScene.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(36): warning C4018: '<': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(49): warning C4018: '<': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(105): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(106): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-  Swaggity Internal.vcxproj -> C:\Users\titan\Desktop\Swaggity-Internal\Debug\Swaggity Internal.dll
+c:\users\neo\documents\github\swaggity-internal\swaggity internal\endscene.cpp(36): warning C4018: '<': signed/unsigned mismatch
+c:\users\neo\documents\github\swaggity-internal\swaggity internal\endscene.cpp(50): warning C4018: '<': signed/unsigned mismatch
+c:\users\neo\documents\github\swaggity-internal\swaggity internal\endscene.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\neo\documents\github\swaggity-internal\swaggity internal\endscene.cpp(124): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\neo\documents\github\swaggity-internal\swaggity internal\endscene.cpp(125): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+  Swaggity Internal.vcxproj -> C:\Users\neo\Documents\GitHub\Swaggity-Internal\Debug\Swaggity Internal.dll

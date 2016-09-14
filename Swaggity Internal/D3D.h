@@ -19,12 +19,17 @@ struct element
     int middle;
     D3DCOLOR colourin;
     std::string write;
+	bool line;
+	D3DCOLOR linecolourin;
 };
 
 struct page
 {
     std::vector<element> boxes;
     std::vector<element> labels;
+	std::vector < element> boxes5;
+
+	element Titulo;
 };
 
 struct D3D
@@ -60,6 +65,7 @@ struct D3D
     { // Normal Colors
         WHITE = D3DCOLOR_ARGB(255, 255, 255, 255),
         BLACK_NOTMUCH = D3DCOLOR_ARGB(255,60, 60, 60),
+		SRSLYNOTGBLACK = D3DCOLOR_ARGB(255, 30, 30, 30),
         RED = D3DCOLOR_ARGB(255, 220, 20, 60),
         GREEN = D3DCOLOR_ARGB(255, 0, 255, 0),
         BLUE = D3DCOLOR_ARGB(255, 0, 0, 255),

@@ -288,7 +288,9 @@ void D3D::makeovr()
     l1.y = 30;
     l1.yy = 300;
     l1.whotis = BOX;
-    l1.colourin = BLUE2;
+    l1.colourin = SRSLYNOTGBLACK;
+	l1.line = true;
+	l1.linecolourin = BLACK;
 
     overlay.boxes.push_back(l1);
 
@@ -298,19 +300,34 @@ void D3D::makeovr()
     l1.yy = 270;
     l1.whotis = BOX;
     l1.colourin = BLACK_NOTMUCH;
+	l1.line = false;
+	l1.linecolourin = BLACK;
 
     overlay.boxes.push_back(l1);
 
+	l1.x = 15;
+	l1.xx = 115;
+	l1.y = 60;
+	l1.yy = 220;
+	l1.whotis = BOX;
+	l1.colourin = SRSLYNOTGBLACK;
+	l1.line = false;
+	l1.linecolourin = BLACK;
+
+	overlay.boxes.push_back(l1);
+
     element l3; 
 
-    l3.x = 20;
+    l3.x = 35;
     l3.y = 35;
-    l3.colourin = BLACK;
+    l3.colourin = WHITE;
     l3.whotis = LABEL;
     l3.write = "ESP v2";
+	l3.line = false;
+	l3.linecolourin = WHITE;
 
-    overlay.labels.push_back(l3);
     
+	overlay.Titulo = l3;
 
 
     for (int i = 0; i < General.veiwoptions.size();++i)
@@ -321,9 +338,25 @@ void D3D::makeovr()
         pp.whotis = LABEL;
         pp.write = General.veiwoptions[i].first;
         pp.colourin = WHITE;
+		pp.line = false;
+		pp.linecolourin = BLACK;
 
+		element pa;
+
+		pa.x = 90;
+		pa.xx = 100;
+		pa.y = 70 + i * 30;
+		pa.yy = 90 + i * 30;
+		pa.whotis = BOX;
+		pa.colourin = BLACK;
+		pa.line = false;
+		pa.linecolourin = BLACK;
+		
+		overlay.boxes5.push_back(pa);
         overlay.labels.push_back(pp);
     }
+
+
 
     
   //  pD3D.DrawRect(10, 30, 200, 150, 1, GREY, true, true, 1, BLACK);
