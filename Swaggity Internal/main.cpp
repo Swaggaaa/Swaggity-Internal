@@ -121,6 +121,7 @@ void writeFile(ofstream& ofs)
     ofs << "NoVisRecoil=" << Config::NoVisRecoil << endl;
     ofs << "RageAimbot=" << Config::RageAimbot << endl;
     ofs << "LegitAimbot=" << Config::LegitAimbot << endl;
+    ofs << "MaxBullets=" << Config::MaxBullets << endl;
     ofs << "AimbotFOV=" << Config::AimbotFOV << endl;
     ofs << "DistanceBasedFOV=" << Config::DistanceBasedFOV << endl;
     ofs << "SmoothFactor=" << Config::SmoothFactor << endl;
@@ -163,6 +164,7 @@ void LoadSettings()
         Config::NoVisRecoil     = GetPrivateProfileInt("General", "NoVisRecoil", 1, settings.c_str())       != 0;
         Config::RageAimbot      = GetPrivateProfileInt("General", "RageAimbot", 1, settings.c_str()) != 0;
         Config::LegitAimbot     = GetPrivateProfileInt("General", "LegitAimbot", 0, settings.c_str()) != 0;
+        Config::MaxBullets      = GetPrivateProfileInt("General", "MaxBullets", 7, settings.c_str());
         Config::AimbotFOV       = GetPrivateProfileInt("General", "AimbotFOV", 6, settings.c_str());
         Config::DistanceBasedFOV = GetPrivateProfileInt("General", "DistanceBasedFOV", 1, settings.c_str()) != 0;
         Config::SmoothFactor    = GetPrivateProfileInt("General", "SmoothFactor", 8, settings.c_str());
@@ -233,21 +235,22 @@ void printMenu(HANDLE& hOut)
     cout << "#3  -> Toggle NoVis Recoil"; printStatus(hConsole, Config::NoVisRecoil);
     cout << "#4  -> Toggle Rage Aimbot"; printStatus(hConsole, Config::RageAimbot);
     cout << "#5  -> Toggle Legit Aimbot"; printStatus(hConsole, Config::LegitAimbot);
-    cout << "#6  -> Set Aimbot FOV"; printStatus(hConsole, false, true, Config::AimbotFOV, false);
-    cout << "#7  -> Set Distance Based FOV"; printStatus(hConsole, Config::DistanceBasedFOV);
-    cout << "#8  -> Set Smooth Factor"; printStatus(hConsole, false, true, Config::SmoothFactor, false);
-    cout << "#9  -> Toggle Silent Aim"; printStatus(hConsole, Config::SilentAim);
-    cout << "#10 -> Toggle Recoil Crosshair"; printStatus(hConsole, Config::CrosshairRecoil);
-    cout << "#11 -> Toggle NoFlash"; printStatus(hConsole, Config::NoFlash);
-    cout << "#12 -> Toggle BunnyHop"; printStatus(hConsole, Config::Bhop);
-    cout << "#13 -> Toggle ESP"; printStatus(hConsole, Config::ESP);
-    cout << "#14 -> Toggle ESP Features" << endl;
-    cout << "#15 -> Toggle TriggerBot"; printStatus(hConsole, Config::Trigger);
-    cout << "#16 -> Toggle ShitTalk"; printStatus(hConsole, Config::ShitTalk);
-    cout << "#17 -> Toggle TriggerBot PSilent"; printStatus(hConsole, Config::TriggerSilent);
-    cout << "#18 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay, false);
-    cout << "#19 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance, false);
-    cout << "#20 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey, true);
+    cout << "#6  -> Set Aimbot MaxBullets to Head"; printStatus(hConsole, false, true, Config::MaxBullets);
+    cout << "#7  -> Set Aimbot FOV"; printStatus(hConsole, false, true, Config::AimbotFOV);
+    cout << "#8  -> Set Distance Based FOV"; printStatus(hConsole, Config::DistanceBasedFOV);
+    cout << "#9  -> Set Smooth Factor"; printStatus(hConsole, false, true, Config::SmoothFactor);
+    cout << "#10  -> Toggle Silent Aim"; printStatus(hConsole, Config::SilentAim);
+    cout << "#11 -> Toggle Recoil Crosshair"; printStatus(hConsole, Config::CrosshairRecoil);
+    cout << "#12 -> Toggle NoFlash"; printStatus(hConsole, Config::NoFlash);
+    cout << "#13 -> Toggle BunnyHop"; printStatus(hConsole, Config::Bhop);
+    cout << "#14 -> Toggle ESP"; printStatus(hConsole, Config::ESP);
+    cout << "#15 -> Toggle ESP Features" << endl;
+    cout << "#16 -> Toggle TriggerBot"; printStatus(hConsole, Config::Trigger);
+    cout << "#17 -> Toggle ShitTalk"; printStatus(hConsole, Config::ShitTalk);
+    cout << "#18 -> Toggle TriggerBot PSilent"; printStatus(hConsole, Config::TriggerSilent);
+    cout << "#19 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay);
+    cout << "#20 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance);
+    cout << "#21 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey);
 }
 
 void Setup()
@@ -318,22 +321,28 @@ void Setup()
             break;
 
         case 6:
+            cout << "Specify Max Bullets to the Head when Aimbotting: ";
+            cin >> n;
+            Config::MaxBullets = n;
+            break;
+
+        case 7:
             cout << "Specify a new Aimbot FOV: ";
             cin >> n;
             Config::AimbotFOV = n;
             break;
 
-        case 7:
+        case 8:
             Config::DistanceBasedFOV = !Config::DistanceBasedFOV;
             break;
 
-        case 8:
+        case 9:
             cout << "Specify a new Aimbot Smooth Factor: ";
             cin >> n;
             Config::SmoothFactor = n;
             break;
 
-        case 9:
+        case 10:
             Config::SilentAim = !Config::SilentAim;
             if (Config::SilentAim)
             {
@@ -345,23 +354,23 @@ void Setup()
             }
             break;
 
-        case 10:
+        case 11:
             Config::CrosshairRecoil = !Config::CrosshairRecoil;
             break;
 
-        case 11:
+        case 12:
             Config::NoFlash = !Config::NoFlash;
             break;
 
-        case 12:
+        case 13:
             Config::Bhop = !Config::Bhop;
             break;
 
-        case 13:
+        case 14:
             Config::ESP = !Config::ESP;
             break;
 
-        case 14:
+        case 15:
             do
             {
                 system("cls");
@@ -379,31 +388,31 @@ void Setup()
             } while (n != 9);
             break;
 
-        case 15:
+        case 16:
             Config::Trigger = !Config::Trigger;
             break;
 
-        case 16:
+        case 17:
             Config::ShitTalk = !Config::ShitTalk;
             break;
 
-        case 17:
+        case 18:
             Config::TriggerSilent = !Config::TriggerSilent;
             break;
 
-        case 18:
+        case 19:
             cout << "Specify a new trigger delay: ";
             cin >> n;
             Config::TriggerDelay = n;
             break;
 
-        case 19:
+        case 20:
             cout << "Specify a new trigger hitchance: ";
             cin >> n;
             Config::TriggerChance = n;
             break;
 
-        case 20:
+        case 21:
             cout << "Specify a new trigger key: ";
             cin.setf(ios::hex, ios::basefield);
             cin >> n;
