@@ -9,14 +9,19 @@ long __stdcall Hooks::Reset(IDirect3DDevice9* pDevice, DWORD Count, CONST D3DREC
     int height, width;
     Interfaces::Engine->GetScreenSize(width, height);
     
-    if (pD3D.Device != pDevice or (!pD3D.Line)  or width != General.getwidth() or height != General.getheight())
+    if (width != General.getwidth() or height != General.getheight())
     { 
+        if (Direct3D.ini) {
+            Direct3D.Font->OnResetDevice();
+            Direct3D.Font20->OnResetDevice();
+            Direct3D.Line->OnResetDevice();
+        }
         bool b4 = false;
         if (General.getUI()) {
             General.setUI(false);
             b4 = true;
         }
-      //  if(pD3D.Device)pD3D.Destruct();
+     
 
         if (b4)General.setUI(true);
     }

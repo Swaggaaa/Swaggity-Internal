@@ -17,7 +17,7 @@ public:
     ~VMTSwag();
 
     void unhook();
-
+    void rehook();
     DWORD hookFunc(DWORD fn, UINT index) const;
 
     DWORD getFuncAddress(UINT index) const;

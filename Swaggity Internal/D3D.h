@@ -12,51 +12,92 @@ enum rolf
     LABEL
 };
 
-struct element
+struct box
 {
-    rolf whotis;
     int x, y, xx, yy;
-    int middle;
     D3DCOLOR colourin;
     std::string write;
 	bool line;
 	D3DCOLOR linecolourin;
 };
 
+struct checkbox
+{
+   
+    int x,y;
+
+    int size;
+    int checkedbox;
+    int distance;
+    std::string write;
+    D3DCOLOR colourin;
+    bool checked;
+
+   
+    D3DCOLOR boxcolor;
+    D3DCOLOR checkedcolor;
+    D3DCOLOR stringcolor;
+};
+
+
+struct label
+{
+   
+    int x, y;
+    D3DCOLOR colourin;
+    std::string write;
+    bool line;
+    D3DCOLOR linecolourin;
+};
+
+
+
 struct page
 {
-    std::vector<element> boxes;
-    std::vector<element> labels;
-	std::vector < element> boxes5;
+    std::vector<box> boxes;
+    std::vector<label> labels;
+	
+};
 
-	element Titulo;
+struct top
+{
+    std::vector<box> boxes;
+    std::vector<label> labels;
+    std::vector <box> boxes4;
+
+    label Titulo;
 };
 
 struct D3D
 {
     IDirect3DDevice9* Device;
     ID3DXLine* Line;
-    ID3DXFont* Font;
+    ID3DXFont* Font;//18
     ID3DXFont* Font20;
-    page overlay;
+    top overlay;
     std::vector<page> vpages;
     int actpage = 0;
 
     void DrawLine(float X, float Y, float XX, float YY, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
-    void DrawCheck(float X, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
+    void DrawCheck(checkbox ron, bool drawstring);
+   
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge);
 
     bool init(IDirect3DDevice9* pDevice);
 
-    void addelement(int howmany, rolf whatis,int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
+    void addbox(int howmany, rolf whatis,int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
+
+    void addlabel(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
 
     void addpage(int howmany);
 
     void setpage(int page);
 
+
+    bool ini = false;
     //page1 overlay
 
     //page2 misc
@@ -80,11 +121,13 @@ struct D3D
     void makeovr();
     void initui();
 
+    void makerage();
+
     
     void DestructUI();
     void Destruct();
     
 };
 
-extern D3D pD3D;
+extern D3D Direct3D;
 #endif

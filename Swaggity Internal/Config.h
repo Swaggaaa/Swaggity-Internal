@@ -65,7 +65,6 @@ namespace Confg
         */
         extern vector<pair<string, bool> > lbool;
     }
-
     namespace Aimbot
     {
         /*
@@ -90,7 +89,6 @@ namespace Confg
 
         extern vector<pair<string, bool> > lbool;
     }
-
     namespace Trigger
     {
         /*
@@ -105,7 +103,6 @@ namespace Confg
         extern vector<pair<string, uint> > luint;
 
     }
-
     namespace Menu
     {
         extern bool showMisc;
@@ -116,25 +113,20 @@ namespace Confg
         extern bool showTrigger;
     }
 
-
-
     extern bool                 DistanceBasedFOV;
   
     extern bool                 TriggerSilent;
     extern bool                 SilentAim;
    
-   
     extern uint                 SmoothFactor;
     extern uint                 AimbotFOV;
    
-    
     extern vector<bool>         ESPFeatures;
     
 
    // void init();
 
 }
-
 
 class Config
 {
@@ -146,11 +138,8 @@ private:
 		extern bool                    CrosshairRecoil;
 
 		*/
-
 		 vector<pair<string, bool> > RCS;
 		
-
-	
 		/* extern bool                 active;
 
 		extern bool                 kill;
@@ -160,11 +149,6 @@ private:
 		*/
 		 vector<pair<string, bool> > Misc;
 
-
-
-	
-
-	
 		/* extern bool                 ESP;
 		extern bool                 UI;
 		extern bool                 ESPv2;
@@ -172,9 +156,6 @@ private:
 
 		*/
 		vector<pair<string, bool> > Visual;
-	
-
-	
 	
 		/*
 		extern bool                 active;
@@ -184,15 +165,9 @@ private:
 
 		*/
 
-	
-		
 		 vector<pair<string, uint> > Aimbotuint;
 		 vector<pair<string, bool> > Aimbot;
-		 
-	
-	
-
-
+		
 		/*
 		extern bool                 NoFlash;
 		extern bool                 Bhop;
@@ -201,10 +176,8 @@ private:
 		*/
 
 		 vector<pair<string, bool> > Stuff;
-
 		 vector<pair<string, bool> > Trigger;
 		 vector<pair<string, uint> > Triggerint;
-
 
 public:
 		 bool getActiveRCS();
@@ -219,16 +192,15 @@ public:
 		 void setNoVisRecoil(bool dep);
 		 void setCorsshairRecoil(bool dep);
 
-
 		 bool getKill();
 		 bool getOvrkey();
-		 bool getwidth();
-		 bool getheight();
+		 int getwidth();
+		 int getheight();
 
 		 void setKill(bool dep);
 		 void setOvrkey(bool dep);
-		 void setwidth(bool dep);
-		 void setheight(bool dep);
+		 void setwidth(int dep);
+		 void setheight(int dep);
 
 		 bool getESP();
 		 bool getUI();
@@ -265,12 +237,9 @@ public:
 		 bool getBhop();
 		 bool getShitTalk();
 		 
-
-
 		 void setNoFlash(bool dep);
 		 void setBhop(bool dep);
 		 void setShitTalk(bool dep);
-
 
 		/*
 		extern bool                 active;
@@ -279,8 +248,6 @@ public:
 		extern uint                 TriggerKey;
 
 		*/
-
-		
 
 		 bool getActiveTrigger();
 		 void setActiveTrigger(bool dep);
@@ -297,20 +264,17 @@ public:
 		
 
 		
-			vector < pair<string, bool> > veiwoptions = { pair<string,bool>("Misc",true),
-			 pair<string, bool>("RCS",false),
-			 pair<string, bool>("Aim", false),
-			 pair<string, bool>("Stuff", false),
-			 pair<string, bool>("Trigger",false),
-		 };
+         vector < pair<string, bool> > viewoptions;
 
 		 bool showMisc = true;
-		 bool showRCS = false;
-		 bool showAim = false;
-		 bool showStuff = false;
-		 bool showTrigger = false;
+		 bool showLegit = false;
+		 bool showRage = false;
+		 bool showVisual = false;
+		
 
          int movex, movey;
+
+         int height, width;
 
 
 

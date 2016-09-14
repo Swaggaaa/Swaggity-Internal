@@ -90,14 +90,14 @@ bool Config::getOvrkey()
 	return Misc[1].second;
 }
 
-bool Config::getwidth()
+int Config::getwidth()
 {
-	return Misc[2].second;
+	return width;
 }
 
-bool Config::getheight()
+int Config::getheight()
 {
-	return Misc[3].second;
+	return height;
 }
 
 void Config::setKill(bool dep)
@@ -110,14 +110,14 @@ void Config::setOvrkey(bool dep)
 	Misc[1].second = dep;
 }
 
-void Config::setwidth(bool dep)
+void Config::setwidth(int dep)
 {
-	Misc[2].second = dep;
+	width = dep;
 }
 
-void Config::setheight(bool dep)
+void Config::setheight(int dep)
 {
-	Misc[3].second = dep;
+	height = dep;
 }
 
 bool Config::getESP()
@@ -338,10 +338,10 @@ Config::Config()
  {
      movex = movey = 0;
       showMisc = true;
-      showRCS = false;
-      showAim = false;
-      showStuff = false;
-      showTrigger = false;
+      showRage = false;
+      showLegit = false;
+      showVisual = false;
+      
       /*
      RCS::lbool = {
          pair<string, bool>("Active", true),
@@ -395,6 +395,7 @@ Config::Config()
      
     
       Misc = {
+          pair<string, bool>("EnableUI",true),
           pair<string, bool>("killAll", true),
           pair<string, bool>("OvrKey", true),
           pair<string, bool>("Height", true),
@@ -415,15 +416,15 @@ Config::Config()
    
       RCS = {
           pair<string, bool>("Active", true),
-          pair<string, bool>("RageRCS", true),
-          pair<string, bool>("LegitRCS", false),
+          pair<string, bool>("NoRecoil", false), //Rage
+          pair<string, bool>("RCS", true), //Legit
           pair<string, bool>("NoVisRecoil", true),
           pair<string, bool>("CrosshairRecoil", true),
 
       };
      
       Stuff = {
-          pair<string, bool>("NoFlash", true),
+          pair<string, bool>("NoFlash", false),
           pair<string, bool>("Bhop", true),
           pair<string, bool>("ShitTalk", false)
 
@@ -431,8 +432,8 @@ Config::Config()
      
 	  Aimbot = {
 		  pair<string, bool>("Active", true),
-		  pair<string, bool>("RageAimbot", false),
-		  pair<string, bool>("LegitAimbot", false),
+		  pair<string, bool>("Aimbot", false), //Rage
+		  pair<string, bool>("Aimbot", false), //Aimbot
 		  pair<string, bool>("SilentAim",false)
 		  
       };
@@ -453,33 +454,32 @@ Config::Config()
 		  pair<string,bool>("TriggerSilent",true)
       };
 
+      viewoptions  = { 
+          pair<string, bool>("Rage",true),
+          pair<string, bool>("Legit", false),
+          pair<string, bool>("Visual", false),
+          pair<string,bool>("Misc",false),
 
+      };
 
-
-
-     
-
-
-   
 
  }
 
  void Config::updateviewoptions()
  {
-	 showMisc = veiwoptions[0].second;
-	 showRCS = veiwoptions[1].second;
-	 showAim = veiwoptions[2].second;
-	 showStuff = veiwoptions[3].second;
-	 showTrigger = veiwoptions[4].second;
+     showRage = viewoptions[0].second;
+	 showLegit = viewoptions[1].second;
+	 showVisual = viewoptions[2].second;
+	 showMisc = viewoptions[3].second;
  }
 
  void Config::updatevectroveiw()
- {
-	 veiwoptions[0].second = showMisc;
-	 veiwoptions[1].second = showRCS;
-	 veiwoptions[2].second = showAim;
-	 veiwoptions[3].second = showStuff;
-	 veiwoptions[4].second = showTrigger;
+ { 
+     viewoptions[0].second = showRage;
+	 viewoptions[1].second = showLegit;
+	 viewoptions[2].second = showVisual;
+     viewoptions[3].second = showMisc;
+	
  }
 
 

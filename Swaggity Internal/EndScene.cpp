@@ -32,107 +32,115 @@ enum COLORS
 
 void printoverlay()
 {
-    
-    for (int j = 0; j < pD3D.overlay.boxes.size(); ++j)
+
+    for (int j = 0; j < Direct3D.overlay.boxes.size(); ++j)
     {
         int x, y, xx, yy, middle;
-        x = pD3D.overlay.boxes[j].x + General.movex;
-        y = pD3D.overlay.boxes[j].y + General.movey;
-        xx = pD3D.overlay.boxes[j].xx + General.movex;
-        yy = pD3D.overlay.boxes[j].yy + General.movey;
-        middle = pD3D.overlay.boxes[j].middle;
-		bool line = pD3D.overlay.boxes[j].line;
-		D3DCOLOR rolm = pD3D.overlay.boxes[j].linecolourin;
+        x = Direct3D.overlay.boxes[j].x + General.movex;
+        y = Direct3D.overlay.boxes[j].y + General.movey;
+        xx = Direct3D.overlay.boxes[j].xx + General.movex;
+        yy = Direct3D.overlay.boxes[j].yy + General.movey;
+        bool line = Direct3D.overlay.boxes[j].line;
+        D3DCOLOR rolm = Direct3D.overlay.boxes[j].linecolourin;
 
-        pD3D.DrawRect(x, y, xx -x , yy-y, 1, pD3D.overlay.boxes[j].colourin, true, line, 1, rolm);
+        Direct3D.DrawRect(x, y, xx - x, yy - y, 1, Direct3D.overlay.boxes[j].colourin, true, line, 1, rolm);
     }
 
-	for (int j = 0; j < pD3D.overlay.boxes5.size(); ++j)
-	{
-		int x, y, xx, yy, middle;
-		x = pD3D.overlay.boxes5[j].x + General.movex;
-		y = pD3D.overlay.boxes5[j].y + General.movey;
-		xx = pD3D.overlay.boxes5[j].xx + General.movex;
-		yy = pD3D.overlay.boxes5[j].yy + General.movey;
-		middle = pD3D.overlay.boxes5[j].middle;
-		bool line = pD3D.overlay.boxes5[j].line;
-		D3DCOLOR rolm = pD3D.overlay.boxes5[j].linecolourin;
-		if(General.veiwoptions[j].second)pD3D.DrawRect(x, y, xx - x, yy - y, 1, D3D::BLUE2, true, line, 1, rolm);
-		else pD3D.DrawRect(x, y, xx - x, yy - y, 1, pD3D.overlay.boxes5[j].colourin, true, line, 1, rolm);
-	}
+    for (int j = 0; j < Direct3D.overlay.boxes4.size(); ++j)
+    {
+        int x, y, xx, yy;
+        x = Direct3D.overlay.boxes4[j].x + General.movex;
+        y = Direct3D.overlay.boxes4[j].y + General.movey;
+        xx = Direct3D.overlay.boxes4[j].xx + General.movex;
+        yy = Direct3D.overlay.boxes4[j].yy + General.movey;
 
-	pD3D.DrawString(pD3D.overlay.Titulo.x, pD3D.overlay.Titulo.y, pD3D.overlay.Titulo.write, pD3D.overlay.Titulo.colourin, pD3D.overlay.Titulo.line, pD3D.overlay.Titulo.linecolourin, false, 20);
+        bool line = Direct3D.overlay.boxes4[j].line;
+        D3DCOLOR rolm = Direct3D.overlay.boxes4[j].linecolourin;
+        if (General.viewoptions[j].second)Direct3D.DrawRect(x, y, xx - x, yy - y, 1, D3D::BLUE2, true, line, 1, rolm);
+        else Direct3D.DrawRect(x, y, xx - x, yy - y, 1, Direct3D.overlay.boxes4[j].colourin, true, line, 1, rolm);
+    }
 
-    for (int i = 0; i < pD3D.overlay.labels.size(); ++i) {
+    Direct3D.DrawString(Direct3D.overlay.Titulo.x, Direct3D.overlay.Titulo.y, Direct3D.overlay.Titulo.write, Direct3D.overlay.Titulo.colourin, Direct3D.overlay.Titulo.line, Direct3D.overlay.Titulo.linecolourin, false, 20);
+
+    for (int i = 0; i < Direct3D.overlay.labels.size(); ++i) {
 
         int x, y, xx, yy, middle;
-        x = pD3D.overlay.labels[i].x + General.movex;
-        y = pD3D.overlay.labels[i].y + General.movey;
-        xx = pD3D.overlay.labels[i].xx + General.movex;
-        yy = pD3D.overlay.labels[i].yy + General.movey;
-        middle = pD3D.overlay.labels[i].middle;
-        string kek = pD3D.overlay.labels[i].write;
-		bool line = pD3D.overlay.labels[i].line;
-		D3DCOLOR rolm = pD3D.overlay.labels[i].linecolourin;
+        x = Direct3D.overlay.labels[i].x + General.movex;
+        y = Direct3D.overlay.labels[i].y + General.movey;
+
+        string kek = Direct3D.overlay.labels[i].write;
+        bool line = Direct3D.overlay.labels[i].line;
+        D3DCOLOR rolm = Direct3D.overlay.labels[i].linecolourin;
 
 
-        pD3D.DrawString(x, y, kek, pD3D.overlay.labels[i].colourin, line, rolm,false,20);
+        Direct3D.DrawString(x, y, kek, Direct3D.overlay.labels[i].colourin, line, rolm, false, 20);
 
     }
-            //if (Config::BoolSettings[j].second)pD3D.DrawString(middle, y, "Enabled", GREEN, true, BLACK, false);
-          //  else pD3D.DrawString(middle, y, "Disabled", RED, true, BLACK, false);
+    /*
+    checkbox rolf;
+    rolf.x = 500;
+    rolf.y = 500;
+    rolf.size = 30;
+    rolf.distance = 5;
+    rolf.boxcolor = BLACK;
+    rolf.checkedcolor = D3D::BLUE2;
+    rolf.checked = false;
+    rolf.write = "fucking boss";
+    Direct3D.DrawCheck(rolf,true);
 
-       
+    rolf.x = 600;
+    rolf.y = 600;
+    rolf.checked = true;
 
-        /*
-          pD3D.DrawString(x, i + 20 * j, Config::BoolSettings[j].first + ':', WHITE, true, BLACK, false);
-        pD3D.DrawRect(x, i + 20 * j, xx-x, yy-y, 1, BLACK_NOTMUCH, true, true, 1, BLACK);
-        if(Config::BoolSettings[j].second)pD3D.DrawString(middle, i + 20 * j,  "Enabled", GREEN, true, BLACK ,false);
-        else pD3D.DrawString(middle , i + 20 * j,  "Disabled", RED, true, BLACK, false);
-        */
+    Direct3D.DrawCheck(rolf,true);
+    */
+}
+
+void checkoverlay(POINT kek)
+{
+    for (int i = 0; i < Direct3D.overlay.boxes4.size();++i)
+    {
+       if(i >= Direct3D.overlay.labels.size()){}
+       if(kek.x > Direct3D.overlay.labels[i].x and kek.x < Direct3D.overlay.boxes4[i].xx and kek.y > Direct3D.overlay.boxes4[i].y and kek.y < Direct3D.overlay.boxes4[i].yy)
+       {
+           General.viewoptions[i].second = true;
+
+           for (int j = 0; j < General.viewoptions.size();++j)
+           {
+               if (j == i)continue;
+               General.viewoptions[j].second = false;
+           }
+
+       }
 
 
-        /* pD3D.DrawString(100, i, "|||Swaggity 'Internal Menu: |||", WHITE, true, BLACK, true);
-        
-         pD3D.DrawString(100, i + j * 2, "Toggle Legit Recoil " + to_string(Config::configuration[2].lbool[2].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 3, "Toggle NoVis Recoil " + to_string(Config::configuration[2].lbool[3].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 4, "Toggle Rage Aimbot " + to_string(Config::configuration[3].lbool[1].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 5, "Toggle Legit Aimbot " + to_string(Config::LegitAimbot), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 6, "Toggle Silent Aim " + to_string(Config::SilentAim), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 7, "Toggle Recoil Crosshair " + to_string(Config::configuration[2].lbool[4].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 8, "Toggle NoFlash " + to_string(Config::configuration[5].lbool[0].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 9, "Toggle Bhop " + to_string(Config::configuration[5].lbool[1].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 10, "Toggle ESP " + to_string(Config::ESP), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 11, "Toggle TriggerBot " + to_string(Config::Trigger), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 12, "Toggle ShitTalk " + to_string(Config::configuration[5].lbool[2].second), WHITE, true, BLACK, true);
-         pD3D.DrawString(100, i + j * 13, "Toggle TriggerBot PSilent " + to_string(Config::TriggerSilent), WHITE, true, BLACK, true);
- 
-         */
-    
+    }
+
+
 }
 
 long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 {
-  
-    if (General.getESPv2()) {
+    if (Direct3D.Device)Direct3D.Destruct();
+    Direct3D.init(pDevice);
+
+    if (General.getESPv2())
+    {
         int height, width;
         Interfaces::Engine->GetScreenSize(width, height);
-        if (pD3D.Device != pDevice or (!pD3D.Line))
-        {
-            if(pD3D.Device)pD3D.Destruct();
-            pD3D.init(pDevice);
-            General.setwidth(width);
-            General.setheight(height);
-        }
+        
+        // General.setwidth(width);
+        // General.setheight(height);
+
 
         if ((GetAsyncKeyState(0x30) & 0x0001) and width != 0 and height != 0)
         {
-            if( General.getUI())pD3D.Destruct();
-			General.setUI(!General.getUI());
-        
+            //  if( General.getUI())Direct3D.Destruct();
+            General.setUI(!General.getUI());
+
             if (General.getUI())
             {
-				pD3D.init(pDevice);
+                Direct3D.init(pDevice);
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 0");
             }
             else
@@ -140,11 +148,14 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                 if (Interfaces::Engine->IsInGame())Interfaces::Engine->ClientCmd("cl_mouseenable 1");
             }
         }
-        if (General.getUI() and  width != 0 and height != 0)
+        if (General.getUI() and width != 0 and height != 0)
         {
+       
 
             printoverlay();
+             Vector rekt = Global::LocalPlayer->GetVelocity();
 
+             
 
             POINT pep;
             if (GetCursorPos(&pep))
@@ -153,34 +164,20 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 
                 if (ScreenToClient(hWnd, &pep))
                 {
-                    pD3D.DrawCross(pep.x, pep.y, 10, 5, D3D::BLUE2, true, 1, BLACK);
-                    /*
+                    Direct3D.DrawCross(pep.x, pep.y, 10, 5, D3D::BLUE2, true, 1, BLACK);
+
+                    Direct3D.DrawString(10, 10, to_string(pep.x) + ' ' + to_string(pep.y), YELLOW, true, BLACK, false, 18);
+
                     if (GetAsyncKeyState(0x01) & 0x0001)
                     {
-						
-                        for (int i = 0; i < pD3D.overlay.boxes.size(); ++i)
-                        {
-                            int middle, xx, y, yy;
-                            
-
-                                middle = pD3D.overlay.boxes[i].middle;
-                                xx = pD3D.overlay.boxes[i].xx;
-                                y = pD3D.overlay.boxes[i].y;
-                                yy = pD3D.overlay.boxes[i].yy;
-
-                                if (pep.x > middle and pep.x < xx and pep.y > y and pep.y < yy)
-                                {
-                                  //  Config::BoolSettings[i].second = !Config::BoolSettings[i].second;
-                                }
-                            
-                        }
-                    
-					
-					}*/
+                        checkoverlay(pep);
+                    }
                 }
             }
+         
         }
+       
     }
-
+     Direct3D.Destruct();
     return oEndScene(pDevice);
 }

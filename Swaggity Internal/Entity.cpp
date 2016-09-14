@@ -223,6 +223,11 @@ bool CBaseEntity::SetupBones(matrix3x4_t *pBoneToWorldOut, int nMaxBones, int bo
     }
 }
 
+Vector CBaseEntity::GetVelocity()
+{
+    return *reinterpret_cast<Vector*>(DWORD(this) + offsets.m_vecVelocity);
+}
+
 bool CBaseEntity::IsVisible(int bone)
 {
     Ray_t ray;

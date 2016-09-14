@@ -13,7 +13,7 @@
 using namespace std;
 Config General;
 
-D3D pD3D;
+D3D Direct3D;
 
 void WelcomeMessage()
 {
@@ -256,7 +256,8 @@ void printMenu(HANDLE& hOut)
 
 void Setup()
 {
-    pD3D.makeovr();
+   
+    Direct3D.makeovr();
 	AllocConsole();
     //pD3D.initui();
 	freopen("CONOUT$", "w", stdout);
@@ -266,6 +267,10 @@ void Setup()
 	LoadInterfaces();
 	LoadOffsets();
 	LoadHooks();
+    int height, width;
+    Interfaces::Engine->GetScreenSize(width, height);
+    General.setwidth(width);
+    General.setheight(height);
 	LoadSettings();
 
 	cout << "\n\n\n";
@@ -415,7 +420,13 @@ void Setup()
 			cin >> n;
 			General.setTriggerKey(n);
 			cin.setf(ios::dec, ios::basefield);
-			break;
+        case 50:
+            delete Hooks::Client;
+            delete Hooks::ClientMode;
+            delete Hooks::VPanel;
+            delete Hooks::Surface;
+            delete Hooks::D3D9;
+            break;
 
 		default:
 			break;
@@ -426,6 +437,8 @@ void Setup()
 
 		cout << endl;
 	}
+
+   
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
