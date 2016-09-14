@@ -94,7 +94,7 @@ void Cheat::NoRecoil()
         oldPunch = newPunch;
         ClampAngles();
     }
-    else if (Global::LastShot > 250)  //Temporary fix
+    else
     {
         oldPunch.Zero();
     }
@@ -331,8 +331,11 @@ void Cheat::LegitAimbot()
         if (!entity->IsValid() || !entity->IsVisible(6))
             continue;
 
-        Vector headPos = entity->GetBonePosition(6);
-        QAngle angles = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+        Vector aimPos = Global::LocalPlayer->GetShotsFired() > Config::MaxBullets && entity->IsVisible(4) ?
+            entity->GetBonePosition(4) :
+            entity->GetBonePosition(6);
+
+        QAngle angles = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), aimPos);
         float tmp = Utils::GetFOV(Vector(angles.x, angles.y, angles.z));
 
         if (fov == 1337.f || tmp < fov)
@@ -350,7 +353,10 @@ void Cheat::LegitAimbot()
     if (fov > Config::AimbotFOV)
         return;
 
-    QAngle dst = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
+    QAngle dst = Global::LocalPlayer->GetShotsFired() > Config::MaxBullets && entity->IsVisible(4) ?
+        Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(4)) :
+        Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
+
     dst -= Global::LocalPlayer->GetPunch() * 2.f;
     QAngle origin = Global::UserCmd->viewangles;
     QAngle delta = dst - origin;
@@ -361,4 +367,8 @@ void Cheat::LegitAimbot()
     Vector vAngles(dst.x, dst.y, dst.z);
     Interfaces::Engine->SetViewAngles(dst);
     Global::UserCmd->viewangles = vAngles;
+}
+
+void Cheat::AutoPistol()
+{
 }

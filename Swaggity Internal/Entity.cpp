@@ -197,6 +197,44 @@ bool CBaseCombatWeapon::IsGun()
     }
 }
 
+bool CBaseCombatWeapon::IsPistol()
+{
+    if (!this)
+        return;
+
+    switch (this->GetWeaponID())
+    {
+        case WEAPON_GLOCK:
+        case WEAPON_USP_SILENCER:
+        case WEAPON_P250:
+        case WEAPON_TEC9:
+        case WEAPON_CZ75A:
+        case WEAPON_ELITE:
+        case WEAPON_DEAGLE:
+        case WEAPON_FIVESEVEN:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool CBaseCombatWeapon::IsSniper()
+{
+    if (!this)
+        return;
+
+    switch (this->GetWeaponID())
+    {
+        case WEAPON_AWP:
+        case WEAPON_SSG08:
+        case WEAPON_SCAR20:
+        case WEAPON_G3SG1:
+            return true;
+        default:
+            return false;
+    }
+}
+
 Vector CBaseEntity::GetBonePosition(int iBone)
 {
     matrix3x4_t boneMatrixes[128];
