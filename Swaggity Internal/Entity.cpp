@@ -200,7 +200,7 @@ bool CBaseCombatWeapon::IsGun()
 bool CBaseCombatWeapon::IsPistol()
 {
     if (!this)
-        return;
+        return false;
 
     switch (this->GetWeaponID())
     {
@@ -221,7 +221,7 @@ bool CBaseCombatWeapon::IsPistol()
 bool CBaseCombatWeapon::IsSniper()
 {
     if (!this)
-        return;
+        return false;
 
     switch (this->GetWeaponID())
     {

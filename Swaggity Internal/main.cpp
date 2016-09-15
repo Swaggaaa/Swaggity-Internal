@@ -11,6 +11,9 @@
 
 using namespace std;
 
+vector<VMTSwag*> vVmts;
+GameEvents::OnPlayerDeath* pEvent;
+
 void WelcomeMessage()
 {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -71,6 +74,9 @@ void LoadHooks()
     Hooks::D3D9         = new VMTSwag(reinterpret_cast<DWORD**>(offsets.d3d9Device));
 
     auto OnDeath = new GameEvents::OnPlayerDeath();
+
+    vVmts = { Hooks::Client, Hooks::ClientMode, Hooks::Surface, Hooks::VPanel, Hooks::D3D9 };
+    pEvent = OnDeath;
 
     if (!OnDeath)
         cout << "algo chungo ha pasao loko" << endl;
@@ -256,7 +262,7 @@ void printMenu(HANDLE& hOut)
     cout << "#22 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey);
 }
 
-void Setup()
+void Setup(HINSTANCE hinstDLL)
 {
     AllocConsole();
     freopen("CONOUT$", "w", stdout);
@@ -268,9 +274,10 @@ void Setup()
     LoadHooks();
     LoadSettings();
 
+    bool leave = false;
     cout << "\n\n\n";
     system("pause");
-    while (true)
+    while (!leave)
     {
         int n;
         HANDLE h;
@@ -430,6 +437,10 @@ void Setup()
             cin.setf(ios::dec, ios::basefield);
             break;
 
+
+        case 99:
+            leave = true;
+
         default:
             break;
         }
@@ -439,13 +450,27 @@ void Setup()
 
         cout << endl;
     }
+
+    FreeLibraryAndExitThread(hinstDLL, DLL_PROCESS_DETACH);
+    
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
     if (fdwReason == DLL_PROCESS_ATTACH)
-        CreateThread(0, 0, LPTHREAD_START_ROUTINE(Setup), 0, 0, 0);
+        CreateThread(0, 0, LPTHREAD_START_ROUTINE(Setup), hinstDLL, 0, 0);
+    else if (fdwReason == DLL_PROCESS_DETACH)
+    {
+        Sleep(100);
+        FreeConsole();
+        Sleep(50);
 
+        pEvent->Unhook();
+
+        for (int i = 0; i < vVmts.size(); ++i)
+            vVmts[i]->UnHook();
+
+    }
     return true;
 }
 

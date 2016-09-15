@@ -52,7 +52,7 @@ Vector oldPunch(0.f, 0.f, 0.f);
 
 void Cheat::NoRecoil()
 {
-    if (Global::LocalPlayer->GetShotsFired < Config::MinBullets)
+    if (Global::LocalPlayer->GetShotsFired() < Config::MinBullets)
         return;
 
     if (Global::LocalPlayer->GetWeapon() == nullptr)
@@ -324,7 +324,7 @@ void Cheat::RageAimbot()
 
 void Cheat::LegitAimbot()
 {
-    if (Global::LocalPlayer->GetShotsFired < Config::MinBullets)
+    if (Global::LocalPlayer->GetShotsFired() < Config::MinBullets)
         return;
 
     float fov = 1337.f;

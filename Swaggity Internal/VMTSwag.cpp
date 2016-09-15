@@ -38,8 +38,19 @@ VMTSwag::VMTSwag(DWORD ** base)
 
 VMTSwag::~VMTSwag()
 {
+    UnHook();
+}
+
+void VMTSwag::UnHook()
+{
     if (tableBase) //Initialized?
         *tableBase = oldVMT; //Point to old VMT
+}
+
+void VMTSwag::ReHook()
+{
+    if (tableBase)
+        *tableBase = newVMT;
 }
 
 DWORD VMTSwag::getFuncAddress(UINT index) const

@@ -1,19 +1,9 @@
-﻿Build started 14/09/2016 16:04:15.
+﻿Build started 15/09/2016 14:07:40.
      1>Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Cheat.cpp Config.cpp CreateMove.cpp Entity.cpp FrameStageNotify.cpp PaintTraverse.cpp main.cpp
+         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-         PaintTraverse.cpp
-         FrameStageNotify.cpp
-         Entity.cpp
-         CreateMove.cpp
-     1>c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\swaggity internal\createmove.cpp(50): warning C4101: 'oFrameTime': unreferenced local variable
-     1>c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\swaggity internal\createmove.cpp(50): warning C4101: 'oCurTime': unreferenced local variable
-         Config.cpp
-         Cheat.cpp
-     1>c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\swaggity internal\cheat.cpp(334): warning C4018: '>': signed/unsigned mismatch
-     1>c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\swaggity internal\cheat.cpp(356): warning C4018: '>': signed/unsigned mismatch
-         Generating Code...
+     1>c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\swaggity internal\main.cpp(470): warning C4018: '<': signed/unsigned mismatch
        Link:
          D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Debug\Swaggity Internal.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Debug\Swaggity Internal.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Debug\Swaggity Internal.lib" /MACHINE:X86 /DLL Debug\Cheat.obj
          Debug\Config.obj
@@ -40,4 +30,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.82
+Time Elapsed 00:00:02.17
