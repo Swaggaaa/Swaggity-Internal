@@ -57,7 +57,10 @@ bool __fastcall Hooks::CreateMove(void* thisptr, void* edx, float flInputSampleT
     //Prediction(oCurTime, oFrameTime);
 
     if (Global::UserCmd->buttons & IN_ATTACK)
+    {
         Global::LastShot = GetTickCount();
+    }
+
 
     if (!Global::bSendPackets && Global::NextTick)
     {

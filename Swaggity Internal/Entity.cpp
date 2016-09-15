@@ -91,6 +91,11 @@ int& CBaseCombatWeapon::GetWeaponID()
     return *reinterpret_cast<int*>(DWORD(this) + offsets.m_iItemDefinitionIndex);
 }
 
+float& CBaseCombatWeapon::GetNextPrimaryAttack()
+{
+    return *reinterpret_cast<float*>(DWORD(this) + offsets.m_flNextPrimaryAttack);
+}
+
 float & CBaseCombatWeapon::GetAccuracyPenalty()
 {
     return *reinterpret_cast<float*>(DWORD(this) + offsets.m_fAccuracyPenalty);

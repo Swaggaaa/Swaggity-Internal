@@ -228,15 +228,20 @@ void Cheat::TriggerBot()
                                 Global::OldAngles = Global::UserCmd->viewangles;
                                 Global::bSendPackets = false;
                                 Global::NextTick = true;
-                                Global::UserCmd->viewangles = tmp;
+                                Global::UserCmd->viewangles = tmp - Global::LocalPlayer->GetPunch() * 2.f;
                             }
                             else
-                                Global::UserCmd->buttons |= IN_ATTACK;
+                            {
+                                if (Global::UserCmd->buttons & IN_ATTACK)
+                                    Global::UserCmd->buttons &= ~IN_ATTACK;
+                                else
+                                    Global::UserCmd->buttons |= IN_ATTACK;
+                            }
                             break;
                         }
                         default:
-                            Global::UserCmd->buttons |= IN_ATTACK;
-                            break;
+                                Global::UserCmd->buttons |= IN_ATTACK;
+                                break;
                         }
                     }
                     else

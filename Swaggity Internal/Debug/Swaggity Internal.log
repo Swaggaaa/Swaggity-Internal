@@ -1,10 +1,6 @@
-﻿Build started 15/09/2016 14:07:40.
+﻿Build started 15/09/2016 16:11:53.
      1>Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
-     1>c:\users\sergi\documents\visual studio 2015\projects\swaggity internal\swaggity internal\main.cpp(470): warning C4018: '<': signed/unsigned mismatch
-       Link:
+     1>Link:
          D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Debug\Swaggity Internal.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Debug\Swaggity Internal.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Debug\Swaggity Internal.lib" /MACHINE:X86 /DLL Debug\Cheat.obj
          Debug\Config.obj
          Debug\CreateMove.obj
@@ -30,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.17
+Time Elapsed 00:00:00.43
