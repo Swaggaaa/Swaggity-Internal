@@ -224,6 +224,7 @@ public:
 		 bool getRageAimbot();
 		 bool getLegitAimbot();
 		 bool getSilentAim();
+		 bool getAutoShoot();
 
 		 uint getAimbotFOV();
 		 void setAimbotFOV(uint dep);
@@ -232,6 +233,7 @@ public:
 		 void setRageAimbot(bool dep);
 		 void setLegitAimbot(bool dep);
 		 void setSilentAim(bool dep);
+		 void setAutoShoot(bool dep);
 
 		 bool getNoFlash();
 		 bool getBhop();
@@ -271,10 +273,13 @@ public:
 		 bool showRage = false;
 		 bool showVisual = false;
 		
-
+		 bool move;
          int movex, movey;
+		 bool mpressed;
 
          int height, width;
+
+		 int xmouse, ymouse;
 
 
 

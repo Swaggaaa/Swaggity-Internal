@@ -259,7 +259,7 @@ void Setup()
    
     Direct3D.makeovr();
 	AllocConsole();
-    //pD3D.initui();
+    Direct3D.initui();
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONIN$", "r", stdin);
 	cout.setf(ios::hex, ios::basefield);

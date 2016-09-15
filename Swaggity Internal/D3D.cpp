@@ -33,27 +33,27 @@ void D3D::DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR L
     this->Line->Draw(Points, 50, LineColor);
 }
 
-void D3D::DrawCheck(checkbox ron,bool drawstring)
+void D3D::DrawCheck(checkbox chk,bool drawstring)
 {
-    if (ron.checked)
+    if (chk.checked)
     {
-        this->DrawRect(ron.x, ron.y, ron.size, ron.size, 1, ron.boxcolor, true, false, 1, BLACK);
-        this->DrawRect(ron.x + ron.distance, ron.y + ron.distance,ron.size - 2*ron.distance, ron.size - 2 * ron.distance, 1, ron.checkedcolor, true, false, 1, BLACK);
+        this->DrawRect(chk.x, chk.y, chk.size, chk.size, 1, chk.boxcolor, true, false, 1, BLACK);
+        this->DrawRect(chk.x + chk.distance, chk.y + chk.distance,chk.size - 2*chk.distance, chk.size - 2 * chk.distance, 1, chk.checkedcolor, true, false, 1, BLACK);
         if (drawstring) {
             int x, y;
-            x = ron.x + ron.size + 10;
-            y = ron.y + (ron.size) / 4;
-            this->DrawString(x, y, ron.write, ron.stringcolor, false, BLACK, false, 18);
+            x = chk.x + chk.size + 10;
+			y = chk.y;// +(chk.size / 5);
+            this->DrawString(x, y, chk.write, chk.stringcolor, false, BLACK, false, 18);
         }
     }
     else
     {
-        this->DrawRect(ron.x, ron.y, ron.size, ron.size, 1, ron.boxcolor, true, false, 1, BLACK);
+        this->DrawRect(chk.x, chk.y, chk.size, chk.size, 1, chk.boxcolor, true, false, 1, BLACK);
         if (drawstring){
             int x, y;
-            x = ron.x + ron.size + 10;
-            y = ron.y + (ron.size / 4) ;
-            this->DrawString(x, y, ron.write, ron.stringcolor, false, BLACK, false, 18);
+            x = chk.x + chk.size + 10;
+			y = chk.y;// +(chk.size / 5);
+            this->DrawString(x, y, chk.write, chk.stringcolor, false, BLACK, false, 18);
         }
 
     }
@@ -221,7 +221,7 @@ bool D3D::init(IDirect3DDevice9 *pDevice)
 
 }
 
-void D3D::addbox(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle, int whr)
+void D3D::addbox(int howmany, int x, int y, int xx, int yy, bool horizontal, int middle, int whr)
 {
      if (vpages.size() <= 0)return;
 
@@ -247,13 +247,13 @@ void D3D::addbox(int howmany, rolf whatis, int x, int y, int xx, int yy, bool ho
             el1.yy = yy + middle*i;
             
         }
-       if(whatis == BOX)vpages[actpage].boxes.push_back(el1);
+       vpages[actpage].boxes.push_back(el1);
 
     }
 
 }
 
-void D3D::addlabel(int howmany, rolf whatis, int x, int y, int xx, int yy, bool horizontal, int middle, int whr)
+void D3D::addlabel(int howmany, int x, int y, int xx, int yy, bool horizontal, int middle, int whr)
 {
     if (vpages.size() <= 0)return;
 
@@ -275,13 +275,49 @@ void D3D::addlabel(int howmany, rolf whatis, int x, int y, int xx, int yy, bool 
             el1.y = y + middle*i;
            
         }
-        if (whatis == LABEL)vpages[actpage].labels.push_back(el1);
+       vpages[actpage].labels.push_back(el1);
        
 
     }
 
 }
 
+void D3D::addcheckbox(int howmany, int x, int y, int size, D3DCOLOR boxcolor,D3DCOLOR checkcolor, D3DCOLOR labelcolor, bool horizontal, int middle)
+{
+	if (vpages.size() <= 0)return;
+
+	for (int i = 0; i < howmany; ++i)
+	{
+
+		checkbox el1;
+		if (horizontal)
+		{
+			el1.x = x + (middle+ size)*i;
+			el1.y = y;
+			el1.size = size;
+			el1.distance = 3;
+			el1.boxcolor = boxcolor;
+			el1.checkedcolor = checkcolor;
+			el1.stringcolor = labelcolor;
+
+		}
+		else
+		{
+			el1.x = x;
+			el1.y = y + i*(size + middle);
+			el1.size = size;
+			el1.distance = 3;
+			el1.boxcolor = boxcolor;
+			el1.checkedcolor = checkcolor;
+			el1.stringcolor = labelcolor;
+
+		}
+		vpages[actpage].checkboxes.push_back(el1);
+
+
+	}
+
+}
 void D3D::addpage(int howmany)
 {
     for (int i = 0; i < howmany; ++i)
@@ -389,9 +425,8 @@ void D3D::initui()
 
     setpage(1);
    
-  // addelement(13, BOX, 20, 50, 180, 70, false, 20,120);
-
-    
+   this->addcheckbox(1, 150,90, 15, BLACK, BLUE2, BLACK, false, 20);
+   this->addcheckbox(1, 150,130, 15, BLACK, BLUE2, BLACK, false, 20);
 }
 
 void D3D::makerage()

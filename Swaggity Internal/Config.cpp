@@ -221,6 +221,11 @@ bool Config::getSilentAim()
 	return Aimbot[3].second;
 }
 
+bool Config::getAutoShoot()
+{
+	return Aimbot[4].second;
+}
+
 uint Config::getAimbotFOV()
 {
 	return Aimbotuint[0].second;
@@ -249,6 +254,11 @@ void Config::setLegitAimbot(bool dep)
 void Config::setSilentAim(bool dep)
 {
 	Aimbot[3].second = dep;
+}
+
+void Config::setAutoShoot(bool dep)
+{
+	Aimbot[4].second = dep;
 }
 
 bool Config::getNoFlash()
@@ -434,7 +444,8 @@ Config::Config()
 		  pair<string, bool>("Active", true),
 		  pair<string, bool>("Aimbot", false), //Rage
 		  pair<string, bool>("Aimbot", false), //Aimbot
-		  pair<string, bool>("SilentAim",false)
+		  pair<string, bool>("SilentAim",false),
+		  pair<string,bool>("AutoShoot",false)
 		  
       };
 
