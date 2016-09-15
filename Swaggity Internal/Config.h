@@ -9,6 +9,7 @@ namespace Config
     extern bool                 LegitRCS;
     extern bool                 RageAimbot;
     extern bool                 LegitAimbot;
+    extern uint                 MinBullets;
     extern uint                 MaxBullets;
     extern uint                 AimbotFOV;
     extern bool                 DistanceBasedFOV;

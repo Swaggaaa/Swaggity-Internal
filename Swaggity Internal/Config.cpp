@@ -4,6 +4,7 @@ bool                    Config::RageRCS            = true;
 bool                    Config::LegitRCS           = false;
 bool                    Config::RageAimbot         = true;
 bool                    Config::LegitAimbot        = false;
+uint                    Config::MinBullets;
 uint                    Config::MaxBullets;
 uint                    Config::AimbotFOV;
 bool                    Config::DistanceBasedFOV   = true;

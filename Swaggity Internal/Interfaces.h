@@ -33,7 +33,10 @@ template<typename T>
 T CreateInterface(const std::string& sModule, const std::string& sInterface)
 {
     typedef T (*CreateInterfaceFn)(const char *pName, int *pReturnCode);
-    CreateInterfaceFn fn = CreateInterfaceFn(GetProcAddress(GetModuleHandleA(sModule.c_str()), "CreateInterface"));
+    CreateInterfaceFn fn = nullptr;
+    
+    while (!fn)
+        fn = CreateInterfaceFn(GetProcAddress(GetModuleHandleA(sModule.c_str()), "CreateInterface"));
 
     return fn(sInterface.c_str(), nullptr);
 }
