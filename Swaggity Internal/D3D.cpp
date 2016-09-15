@@ -33,27 +33,27 @@ void D3D::DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR L
     this->Line->Draw(Points, 50, LineColor);
 }
 
-void D3D::DrawCheck(checkbox chk,bool drawstring)
+void D3D::DrawCheck(checkbox chk, int movex, int movey ,bool drawstring)
 {
     if (chk.checked)
     {
-        this->DrawRect(chk.x, chk.y, chk.size, chk.size, 1, chk.boxcolor, true, false, 1, BLACK);
-        this->DrawRect(chk.x + chk.distance, chk.y + chk.distance,chk.size - 2*chk.distance, chk.size - 2 * chk.distance, 1, chk.checkedcolor, true, false, 1, BLACK);
+        this->DrawRect(chk.x+ movex, chk.y+ movey, chk.size, chk.size, 1, chk.boxcolor, true, false, 1, BLACK);
+        this->DrawRect(chk.x + chk.distance + movex, chk.y + chk.distance + movey,chk.size - 2*chk.distance, chk.size - 2 * chk.distance, 1, chk.checkedcolor, true, false, 1, BLACK);
         if (drawstring) {
             int x, y;
             x = chk.x + chk.size + 10;
 			y = chk.y;// +(chk.size / 5);
-            this->DrawString(x, y, chk.write, chk.stringcolor, false, BLACK, false, 18);
+            this->DrawString(x + movex, y + movey, chk.write, chk.stringcolor, false, BLACK, false, 18);
         }
     }
     else
     {
-        this->DrawRect(chk.x, chk.y, chk.size, chk.size, 1, chk.boxcolor, true, false, 1, BLACK);
+        this->DrawRect(chk.x+ movex, chk.y+ movey, chk.size, chk.size, 1, chk.boxcolor, true, false, 1, BLACK);
         if (drawstring){
             int x, y;
             x = chk.x + chk.size + 10;
 			y = chk.y;// +(chk.size / 5);
-            this->DrawString(x, y, chk.write, chk.stringcolor, false, BLACK, false, 18);
+            this->DrawString(x+movex, y+ movey, chk.write, chk.stringcolor, false, BLACK, false, 18);
         }
 
     }

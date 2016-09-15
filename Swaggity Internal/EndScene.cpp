@@ -32,12 +32,23 @@ void drawRage(){
 
 	Direct3D.vpages[0].checkboxes[0].checked = General.getRageAimbot();
 	Direct3D.vpages[0].checkboxes[0].write = "Aimbot";
-	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[0],true);
+	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[0],General.movex, General.movey,true);
 
 	Direct3D.vpages[0].checkboxes[1].checked = General.getAutoShoot();
 	Direct3D.vpages[0].checkboxes[1].write = "AutoShoot";
-	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[1], true);
+	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[1], General.movex, General.movey, true);
+}
 
+void checkRage(POINT kek)
+{
+    if(Direct3D.vpages[0].checkboxes[0].x + General.movex <= kek.x and (Direct3D.vpages[0].checkboxes[0].x + Direct3D.vpages[0].checkboxes[0].size + General.movex) >= kek.x and Direct3D.vpages[0].checkboxes[0].y + General.movey<= kek.y and (Direct3D.vpages[0].checkboxes[0].y + Direct3D.vpages[0].checkboxes[0].size + General.movey) >= kek.y)
+    {
+        General.setRageAimbot(!General.getRageAimbot());
+    }
+    else if (Direct3D.vpages[0].checkboxes[1].x + General.movex <= kek.x and (Direct3D.vpages[0].checkboxes[1].x + Direct3D.vpages[0].checkboxes[1].size + General.movex) >= kek.x and Direct3D.vpages[0].checkboxes[1].y + General.movey <= kek.y and (Direct3D.vpages[0].checkboxes[1].y + Direct3D.vpages[0].checkboxes[1].size + General.movey) >= kek.y)
+    {
+        General.setAutoShoot(!General.getAutoShoot());
+    }
 
 
 }
@@ -191,6 +202,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 					if (GetAsyncKeyState(0x01) & 0x0001)
 					{
 						checkoverlay(pep);
+                        checkRage(pep);
 					//	General.move = false;
 					}
 					else if (GetAsyncKeyState(0x01) & 0x8000)

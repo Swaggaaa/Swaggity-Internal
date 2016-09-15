@@ -181,6 +181,19 @@ struct label
 };
 
 
+struct slider
+{
+    int x, y, height;
+    D3DCOLOR color;
+    std::string write;
+    bool line;
+    D3DCOLOR linecolor;
+    D3DCOLOR slidecolor;
+    int pos;
+    int value;
+};
+
+
 
 struct page
 {
@@ -211,7 +224,8 @@ struct D3D
 
     void DrawLine(float X, float Y, float XX, float YY, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
-    void DrawCheck(checkbox ron, bool drawstring);
+    void DrawCheck(checkbox chk, int movex, int movey, bool drawstring);
+  //  void DrawCheck(checkbox ron, bool drawstring);
    
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
