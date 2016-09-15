@@ -185,6 +185,8 @@ public:
     float			GetWeaponCone();
     WeaponInfo_t*	GetCSWpnData();
     bool			IsGun();
+    bool IsPistol();
+    bool IsSniper();
     std::string		GetWeaponName();
 };
 

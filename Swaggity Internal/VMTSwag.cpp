@@ -38,18 +38,19 @@ VMTSwag::VMTSwag(DWORD ** base)
 
 VMTSwag::~VMTSwag()
 {
-    if (tableBase) //Initialized?
-        *tableBase = oldVMT; //Point to old VMT
+    UnHook();
 }
-void VMTSwag::unhook()
+
+void VMTSwag::UnHook()
 {
     if (tableBase) //Initialized?
         *tableBase = oldVMT; //Point to old VMT
 }
-void VMTSwag::rehook()
+
+void VMTSwag::ReHook()
 {
-    if (tableBase) //Initialized?
-        *tableBase = newVMT; //Point to old VMT
+    if (tableBase)
+        *tableBase = newVMT;
 }
 
 DWORD VMTSwag::getFuncAddress(UINT index) const
@@ -70,4 +71,3 @@ UINT VMTSwag::getFuncCount(DWORD * vmt)
     std::cout << std::uppercase << "Number of funcs is: 0x" << i << std::endl;
     return i;
 }
-

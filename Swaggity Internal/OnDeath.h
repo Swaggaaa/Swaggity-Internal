@@ -106,5 +106,14 @@ namespace GameEvents
 
             return Interfaces::Events->AddListener(this, this->szEventName.c_str(), false);
         }
+
+
+        void Unhook()
+             {
+            if (!Interfaces::Events)
+                 MessageBoxA(0, "ayy", "error", MB_OK);
+           
+                return Interfaces::Events->RemoveListener(this);
+            }
     };
 }

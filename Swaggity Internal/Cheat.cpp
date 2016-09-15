@@ -52,6 +52,9 @@ Vector oldPunch(0.f, 0.f, 0.f);
 
 void Cheat::NoRecoil()
 {
+    if (Global::LocalPlayer->GetShotsFired() < 2)
+        return;		        
+
     if (Global::LocalPlayer->GetWeapon() == nullptr)
         return;
 
@@ -364,6 +367,9 @@ void Cheat::TriggerBot()
 
 void Cheat::RageAimbot()
 {
+    if (Global::LocalPlayer->GetShotsFired() < 2)
+        return;		   
+
     float distance = 1337.f;
     uint id = 1337;
 

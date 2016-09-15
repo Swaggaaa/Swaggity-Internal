@@ -15,6 +15,9 @@ Config General;
 
 D3D Direct3D;
 
+vector<VMTSwag*> vVmts;
+GameEvents::OnPlayerDeath* pEvent;
+
 void WelcomeMessage()
 {
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -75,6 +78,10 @@ void LoadHooks()
 	Hooks::D3D9 = new VMTSwag(reinterpret_cast<DWORD**>(offsets.d3d9Device));
 
 	auto OnDeath = new GameEvents::OnPlayerDeath();
+
+
+    vVmts = { Hooks::Client, Hooks::ClientMode, Hooks::Surface, Hooks::VPanel, Hooks::D3D9 };
+    pEvent = OnDeath;
 
 	if (!OnDeath)
 		cout << "algo chungo ha pasao loko" << endl;
@@ -254,7 +261,7 @@ void printMenu(HANDLE& hOut)
 	cout << "#20 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, General.getTriggerKey(), true);
 }
 
-void Setup()
+void Setup(HINSTANCE hinstDLL)
 {
    
     Direct3D.makeovr();
@@ -272,10 +279,10 @@ void Setup()
     General.setwidth(width);
     General.setheight(height);
 	LoadSettings();
-
+    bool leave = false;
 	cout << "\n\n\n";
 	system("pause");
-	while (true)
+    while (!leave)
 	{
 		int n;
 		HANDLE h;
@@ -420,15 +427,14 @@ void Setup()
 			cin >> n;
 			General.setTriggerKey(n);
 			cin.setf(ios::dec, ios::basefield);
-        case 50:
-            delete Hooks::Client;
-            delete Hooks::ClientMode;
-            delete Hooks::VPanel;
-            delete Hooks::Surface;
-            delete Hooks::D3D9;
-            break;
+       
+        case 99:
+            cout << "Done" << endl;
+           leave = true;
+           break;
 
 		default:
+
 			break;
 		}
 
@@ -438,15 +444,28 @@ void Setup()
 		cout << endl;
 	}
 
+    FreeLibraryAndExitThread(hinstDLL, DLL_PROCESS_DETACH);
+
    
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-	if (fdwReason == DLL_PROCESS_ATTACH)
-		CreateThread(0, 0, LPTHREAD_START_ROUTINE(Setup), 0, 0, 0);
+    if (fdwReason == DLL_PROCESS_ATTACH)
+        CreateThread(0, 0, LPTHREAD_START_ROUTINE(Setup), hinstDLL, 0, 0);
+    else if (fdwReason == DLL_PROCESS_DETACH)
+    {
+        Sleep(100);
+        FreeConsole();
+        Sleep(50);
 
-	return true;
+        pEvent->Unhook();
+
+        for (int i = 0; i < vVmts.size(); ++i)
+            vVmts[i]->UnHook();
+
+    }
+    return true;
 }
 
 

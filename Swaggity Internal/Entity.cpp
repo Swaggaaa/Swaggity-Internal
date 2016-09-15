@@ -82,7 +82,7 @@ WeaponInfo_t* CBaseCombatWeapon::GetCSWpnData()
 
 void CBaseEntity::SetFlashDuration()
 {
-    *reinterpret_cast<float*>(DWORD(this) + offsets.m_flFlashDuration) = General.getNoFlash() ? 0.f : 25.f;
+    *reinterpret_cast<float*>(DWORD(this) + offsets.m_flFlashDuration) = GetFlashDuration() ? 0.f : 25.f;
 
 }
 
@@ -197,6 +197,44 @@ bool CBaseCombatWeapon::IsGun()
     }
 }
 
+bool CBaseCombatWeapon::IsPistol()
+{
+    if (!this)
+        return false;
+
+    switch (this->GetWeaponID())
+    {
+    case WEAPON_GLOCK:
+    case WEAPON_USP_SILENCER:
+    case WEAPON_P250:
+    case WEAPON_TEC9:
+    case WEAPON_CZ75A:
+    case WEAPON_ELITE:
+    case WEAPON_DEAGLE:
+    case WEAPON_FIVESEVEN:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool CBaseCombatWeapon::IsSniper()
+{
+    if (!this)
+        return false;
+
+    switch (this->GetWeaponID())
+    {
+    case WEAPON_AWP:
+    case WEAPON_SSG08:
+    case WEAPON_SCAR20:
+    case WEAPON_G3SG1:
+        return true;
+    default:
+        return false;
+    }
+}
+
 Vector CBaseEntity::GetBonePosition(int iBone)
 {
     matrix3x4_t boneMatrixes[128];
@@ -221,11 +259,6 @@ bool CBaseEntity::SetupBones(matrix3x4_t *pBoneToWorldOut, int nMaxBones, int bo
             push pBoneToWorldOut
             call dword ptr ds : [edx + 0x34]
     }
-}
-
-Vector CBaseEntity::GetVelocity()
-{
-    return *reinterpret_cast<Vector*>(DWORD(this) + offsets.m_vecVelocity);
 }
 
 bool CBaseEntity::IsVisible(int bone)
@@ -274,5 +307,4 @@ bool CBaseEntity::IsValid()
         return false;
 
     return true;
-
 }

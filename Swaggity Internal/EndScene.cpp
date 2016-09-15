@@ -163,7 +163,7 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
             printoverlay();
 			if (General.viewoptions[0].second)drawRage();
 			if (Global::LocalPlayer) {
-				Vector rekt = Global::LocalPlayer->GetVelocity();
+			//	Vector rekt = Global::LocalPlayer->GetVelocity();
 
 			}
 
