@@ -3,6 +3,16 @@
 
 #pragma warning (disable : 4244)
 
+int Utils::RandomNumber(int min, int max)
+{
+    std::random_device rd;
+    std::mt19937 eng(rd());
+    std::uniform_int_distribution<> distr(min, max);
+
+    return distr(eng);
+
+}
+
 bool Utils::ScreenTransform(const Vector &point, Vector &screen) // tots not pasted
 {
     float w;

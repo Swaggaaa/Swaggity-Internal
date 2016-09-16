@@ -14,6 +14,8 @@ bool                    Config::NoVisRecoil        = true;
 bool                    Config::CrosshairRecoil    = false;
 bool                    Config::NoFlash            = true;
 bool                    Config::Bhop               = true;
+uint                    Config::BhopMinJumps;
+uint                    Config::BhopMaxJumps;
 bool                    Config::Trigger            = true;
 uint                    Config::TriggerDelay       = 7;
 uint                    Config::TriggerChance      = 25;

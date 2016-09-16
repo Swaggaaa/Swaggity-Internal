@@ -19,6 +19,8 @@ namespace Config
     extern bool                 CrosshairRecoil;
     extern bool                 NoFlash;
     extern bool                 Bhop;
+    extern uint                 BhopMinJumps;
+    extern uint                 BhopMaxJumps;
     extern bool                 Trigger;
     extern uint                 TriggerDelay;
     extern uint                 TriggerChance;

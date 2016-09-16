@@ -136,6 +136,8 @@ void writeFile(ofstream& ofs)
     ofs << "CrosshairRecoil=" << Config::CrosshairRecoil << endl;
     ofs << "NoFlash=" << Config::NoFlash << endl;
     ofs << "BunnyHop=" << Config::Bhop << endl;
+    ofs << "BunnyHop_MinJumps=" << Config::BhopMinJumps << endl;
+    ofs << "BunnyHop_MaxJumps=" << Config::BhopMaxJumps << endl;
     ofs << "ESP=" << Config::ESP << endl;
     ofs << "ESPName=" << Config::ESPFeatures[0] << endl;
     ofs << "ESPHealth=" << Config::ESPFeatures[1] << endl;
@@ -180,6 +182,8 @@ void LoadSettings()
         Config::CrosshairRecoil = GetPrivateProfileInt("General", "CrosshairRecoil", 0, settings.c_str())   != 0;
         Config::NoFlash         = GetPrivateProfileInt("General", "NoFlash", 1, settings.c_str())           != 0;
         Config::Bhop            = GetPrivateProfileInt("General", "BunnyHop", 1, settings.c_str())          != 0;
+        Config::BhopMinJumps    = GetPrivateProfileInt("General", "BunnyHop_MinJumps", 3, settings.c_str());
+        Config::BhopMaxJumps    = GetPrivateProfileInt("General", "BunnyHop_MaxJumps", 5, settings.c_str());
         Config::ESPFeatures[0]  = GetPrivateProfileInt("General", "ESPName", 1, settings.c_str())           != 0;  //Name
         Config::ESPFeatures[1]  = GetPrivateProfileInt("General", "ESPHealth", 1, settings.c_str())         != 0;  //Health
         Config::ESPFeatures[2]  = GetPrivateProfileInt("General", "ESPDistance", 1, settings.c_str())       != 0;  //Distance
@@ -252,14 +256,16 @@ void printMenu(HANDLE& hOut)
     cout << "#12 -> Toggle Recoil Crosshair"; printStatus(hConsole, Config::CrosshairRecoil);
     cout << "#13 -> Toggle NoFlash"; printStatus(hConsole, Config::NoFlash);
     cout << "#14 -> Toggle BunnyHop"; printStatus(hConsole, Config::Bhop);
-    cout << "#15 -> Toggle ESP"; printStatus(hConsole, Config::ESP);
-    cout << "#16 -> Toggle ESP Features" << endl;
-    cout << "#17 -> Toggle TriggerBot"; printStatus(hConsole, Config::Trigger);
-    cout << "#18 -> Toggle ShitTalk"; printStatus(hConsole, Config::ShitTalk);
-    cout << "#19 -> Toggle TriggerBot PSilent"; printStatus(hConsole, Config::TriggerSilent);
-    cout << "#20 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay);
-    cout << "#21 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance);
-    cout << "#22 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey);
+    cout << "#15 -> Set BunnyHop Minimum Successful Jumps"; printStatus(hConsole, false, true, Config::BhopMinJumps);
+    cout << "#16 -> Set BunnyHop Maximum Successful Jumps"; printStatus(hConsole, false, true, Config::BhopMaxJumps);
+    cout << "#17 -> Toggle ESP"; printStatus(hConsole, Config::ESP);
+    cout << "#18 -> Toggle ESP Features" << endl;
+    cout << "#19 -> Toggle TriggerBot"; printStatus(hConsole, Config::Trigger);
+    cout << "#20 -> Toggle ShitTalk"; printStatus(hConsole, Config::ShitTalk);
+    cout << "#21 -> Toggle TriggerBot PSilent"; printStatus(hConsole, Config::TriggerSilent);
+    cout << "#22 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, Config::TriggerDelay);
+    cout << "#23 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, Config::TriggerChance);
+    cout << "#24 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, Config::TriggerKey);
 }
 
 void Setup(HINSTANCE hinstDLL)
@@ -384,10 +390,22 @@ void Setup(HINSTANCE hinstDLL)
             break;
 
         case 15:
-            Config::ESP = !Config::ESP;
+            cout << "Specify a number of Minimum Successful Bhops: ";
+            cin >> n;
+            Config::BhopMinJumps = n;
             break;
 
         case 16:
+            cout << "Specify a number of Maximum Successful Bhops: ";
+            cin >> n;
+            Config::BhopMaxJumps = n;
+            break;
+
+        case 17:
+            Config::ESP = !Config::ESP;
+            break;
+
+        case 18:
             do
             {
                 system("cls");
@@ -405,31 +423,31 @@ void Setup(HINSTANCE hinstDLL)
             } while (n != 9);
             break;
 
-        case 17:
+        case 19:
             Config::Trigger = !Config::Trigger;
             break;
 
-        case 18:
+        case 20:
             Config::ShitTalk = !Config::ShitTalk;
             break;
 
-        case 19:
+        case 21:
             Config::TriggerSilent = !Config::TriggerSilent;
             break;
 
-        case 20:
+        case 22:
             cout << "Specify a new trigger delay: ";
             cin >> n;
             Config::TriggerDelay = n;
             break;
 
-        case 21:
+        case 23:
             cout << "Specify a new trigger hitchance: ";
             cin >> n;
             Config::TriggerChance = n;
             break;
 
-        case 22:
+        case 24:
             cout << "Specify a new trigger key: ";
             cin.setf(ios::hex, ios::basefield);
             cin >> n;

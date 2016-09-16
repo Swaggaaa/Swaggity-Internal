@@ -22,14 +22,26 @@ void Cheat::ClampAngles()
 
 void Cheat::BunnyHop()
 {
-    static int nJumps = rand() % 10 + 2;
+    static int nJumps = Utils::RandomNumber(2, 9);
+    static int n = 0;
+    static int successfulJumps = Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
 
     if (Global::UserCmd->buttons & IN_JUMP)
     {
         if (Global::LocalPlayer->GetFlags() & FL_ONGROUND)
         {
-            Global::UserCmd->buttons |= IN_JUMP;
-            nJumps = rand() % 10 + 2;
+            if (n > successfulJumps)
+            {
+                Global::UserCmd->buttons &= ~IN_JUMP;
+                n = 0;
+                successfulJumps = Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
+            }
+            else
+            {
+                Global::UserCmd->buttons |= IN_JUMP;
+                ++n;
+            }
+            nJumps = Utils::RandomNumber(2, 9);
         }
         else
         {
@@ -205,23 +217,16 @@ void Cheat::TriggerBot()
                 {
                     if (Config::TriggerSilent)
                     {
-                        Vector headPos = trace.m_pEnt->GetBonePosition(6); //HEAD
-                        QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+                        Vector aimPos;
+                        aimPos = Global::LocalPlayer->GetWeapon()->IsSniper() ?
+                            trace.m_pEnt->GetBonePosition(4) :
+                            trace.m_pEnt->GetBonePosition(6);
+                        QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), aimPos);
                         QAngle origin = Global::UserCmd->viewangles;
                         destination.Clamp();
                         Vector tmp(destination.x, destination.y, destination.z);
 
-                        switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
-                        {
-                        case WEAPON_USP_SILENCER:
-                        case WEAPON_P250:
-                        case WEAPON_DEAGLE:
-                        case WEAPON_FIVESEVEN:
-                        case WEAPON_TEC9:
-                        case WEAPON_CZ75A:
-                        case WEAPON_SSG08:
-                        case WEAPON_NOVA:
-                        case WEAPON_MAG7:
+                        if (Global::LocalPlayer->GetWeapon()->IsPistol() || Global::LocalPlayer->GetWeapon()->IsSniper())
                         {
                             if (Utils::GetFOV(tmp) < 1.5f)
                             {
@@ -237,11 +242,6 @@ void Cheat::TriggerBot()
                                 else
                                     Global::UserCmd->buttons |= IN_ATTACK;
                             }
-                            break;
-                        }
-                        default:
-                                Global::UserCmd->buttons |= IN_ATTACK;
-                                break;
                         }
                     }
                     else
