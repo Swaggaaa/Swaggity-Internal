@@ -1,7 +1,18 @@
 #include "Utils.h"
 #include "Cheat.h"
+#include <random>
 
 #pragma warning (disable : 4244)
+
+int Utils::RandomNumber(int min, int max)
+{
+    std::random_device rd;
+    std::mt19937 eng(rd());
+    std::uniform_int_distribution<> distr(min, max);
+
+    return distr(eng);
+
+}
 
 bool Utils::ScreenTransform(const Vector &point, Vector &screen) // tots not pasted
 {
@@ -82,18 +93,21 @@ void Utils::VectorAngles(const Vector& forward, QAngle& angles) //Converts Vecto
     angles[2] = 0.0f;
 }
 
-QAngle Utils::CalcAngle(const Vector& source, const Vector& destination) //Not normalized tho
+QAngle Utils::CalcAngle(const Vector& source, const Vector& destination)
 {
     QAngle angles;
     Vector direction = source - destination;
     VectorAngles(direction, angles);
+    angles.Normalize();
     return angles;
 }
 
 float Utils::GetFOV(const Vector& aimAngle)
 {
     Vector ang, aim;
-    AngleVectors(Global::UserCmd->viewangles, &ang);
+    QAngle punch = Global::LocalPlayer->GetPunch() * 2.f;
+    Vector vPunch(punch.x, punch.y, punch.z);
+    AngleVectors(Global::UserCmd->viewangles + vPunch, &ang);
     AngleVectors(aimAngle, &aim);
 
     return RAD2DEG(acos(aim.Dot(ang) / aim.LengthSqr()));

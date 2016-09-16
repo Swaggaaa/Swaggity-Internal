@@ -1,3 +1,4 @@
+
 #include "Cheat.h"
 #include "Entity.h"
 #include "RayTrace.h"
@@ -7,7 +8,7 @@
 #include <iostream>
 #include "Utils.h"
 
-void Cheat::ClampAngles()
+    void Cheat::ClampAngles()
 {
     if (Global::UserCmd->viewangles.x < -89)
         Global::UserCmd->viewangles.x = -89;
@@ -22,14 +23,26 @@ void Cheat::ClampAngles()
 
 void Cheat::BunnyHop()
 {
-    static int nJumps = rand() % 10 + 2;
+    static int nJumps = Utils::RandomNumber(2, 9);
+    static int n = 0;
+    static int successfulJumps = Config::BhopMinJumps == 0 ? 1337 : Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
 
     if (Global::UserCmd->buttons & IN_JUMP)
     {
         if (Global::LocalPlayer->GetFlags() & FL_ONGROUND)
         {
-            Global::UserCmd->buttons |= IN_JUMP;
-            nJumps = rand() % 10 + 2;
+            if (n > successfulJumps)
+            {
+                Global::UserCmd->buttons &= ~IN_JUMP;
+                n = 0;
+                successfulJumps = Config::BhopMinJumps == 0 ? 1337 : Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
+            }
+            else
+            {
+                Global::UserCmd->buttons |= IN_JUMP;
+                ++n;
+            }
+            nJumps = Utils::RandomNumber(2, 9);
         }
         else
         {
@@ -52,8 +65,8 @@ Vector oldPunch(0.f, 0.f, 0.f);
 
 void Cheat::NoRecoil()
 {
-    if (Global::LocalPlayer->GetShotsFired() < 2)
-        return;		        
+    if (Global::LocalPlayer->GetShotsFired() < Config::MinBullets)
+        return;
 
     if (Global::LocalPlayer->GetWeapon() == nullptr)
         return;
@@ -93,7 +106,6 @@ void Cheat::NoRecoil()
         angles.z = tmp.z;
 
         angles.Clamp();
-
         Interfaces::Engine->SetViewAngles(angles);
         oldPunch = newPunch;
         ClampAngles();
@@ -140,128 +152,13 @@ void Cheat::RageNoRecoil()
     }
 }
 
-
-/*
-void Cheat::TriggerBot()
-{
-    int dep = General.getTriggerKey();
-    if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
-    {
-        if (General.getRageAimbot()) //Holding trigger makes it autofire when visible
-        {
-            RageAimbot();
-            return;
-        }
-
-        trace_t trace;
-        Ray_t ray;
-        CTraceFilter filter;
-
-        Vector viewAngle = Global::UserCmd->viewangles;
-        if (!General.getRageRCS())
-            viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
-
-        float cy, sy, cx, sx;
-        Vector forward, src, dst;
-
-        SinCos(DEG2RAD(viewAngle.y), &sx, &cx);
-        SinCos(DEG2RAD(viewAngle.x), &sy, &cy);
-
-        forward.x = cy*cx;
-        forward.y = cy*sx;
-        forward.z = -sy;
-
-        forward *= 8192;
-        filter.pSkip = Global::LocalPlayer;
-        src = Global::LocalPlayer->GetEyePosition();
-        dst = src + forward;
-
-        ray.Init(src, dst);
-        Interfaces::EngineTrace->TraceRay(ray, 0x4600400B, &filter, &trace);
-
-        if (!trace.m_pEnt)
-            return;
-
-        /*if ((Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AWP &&
-        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_SSG08 &&
-        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_G3SG1 &&
-        Global::LocalPlayer->GetWeapon()->GetWeaponID() != WEAPON_AUG) &&
-        trace.hitgroup != HITGROUP_HEAD)
-        return;
-        
-
-        if (trace.m_pEnt->IsValid())
-        {
-            float hitchance = 75.f + General.getTriggerChance() / 4;
-            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= General.getTriggerDelay()))
-            {
-                /*if (Global::LocalPlayer->GetShotsFired() == 0)
-                {
-                Interfaces::Engine->
-                }
-                
-                tick = GetTickCount();
-                if (Global::LocalPlayer->GetWeapon()->GetWeaponID() == WEAPON_KNIFE || Global::LocalPlayer->GetWeapon()->GetWeaponID() == WEAPON_KNIFE_T)
-                    Global::UserCmd->buttons |= IN_ATTACK2;
-                else
-                {
-                    if (General.getTriggerSilent())
-                    {
-                        Vector headPos = trace.m_pEnt->GetBonePosition(6); //HEAD
-                        QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
-                        QAngle origin = Global::UserCmd->viewangles;
-                        destination.Clamp();
-                        Vector tmp(destination.x, destination.y, destination.z);
-
-                        switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
-                        {
-                        case WEAPON_USP_SILENCER:
-                        case WEAPON_P250:
-                        case WEAPON_DEAGLE:
-                        case WEAPON_FIVESEVEN:
-                        case WEAPON_TEC9:
-                        case WEAPON_CZ75A:
-                        case WEAPON_SSG08:
-                        {
-                            if (Utils::GetFOV(tmp) < 1.5f)
-                            {
-                                Global::OldAngles = Global::UserCmd->viewangles;
-                                Global::bSendPackets = false;
-                                Global::NextTick = true;
-                                Global::UserCmd->viewangles = tmp;
-                            }
-                            else
-                                Global::UserCmd->buttons |= IN_ATTACK;
-                            break;
-                        }
-                        default:
-                            Global::UserCmd->buttons |= IN_ATTACK;
-                            break;
-                        }
-                    }
-                    else
-                        Global::UserCmd->buttons |= IN_ATTACK;
-                }
-
-                Global::LastShot = tick;
-            }
-            else if (tick == 0)
-                tick = GetTickCount();
-        }
-    }
-}
-
-*/
-
-
 UINT tick = 0;
 
 void Cheat::TriggerBot()
 {
-   // General.setTriggerKey(0x50);
-    if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
+    if (GetAsyncKeyState(Config::TriggerKey) & 0x8000)
     {
-        if (General.getRageAimbot()) //Holding trigger makes it autofire when visible
+        if (Config::RageAimbot) //Holding trigger makes it autofire when visible
         {
             RageAimbot();
             return;
@@ -272,7 +169,7 @@ void Cheat::TriggerBot()
         CTraceFilter filter;
 
         Vector viewAngle = Global::UserCmd->viewangles;
-        if (!General.getRageRCS())
+        if (!Config::RageRCS)
             viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
         float cy, sy, cx, sx;
@@ -306,8 +203,8 @@ void Cheat::TriggerBot()
 
         if (trace.m_pEnt->IsValid())
         {
-            float hitchance = 75.f + General.getTriggerChance() / 4;
-            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= General.getTriggerDelay()))
+            float hitchance = 75.f + Config::TriggerChance / 4;
+            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= Config::TriggerDelay))
             {
                 /*if (Global::LocalPlayer->GetShotsFired() == 0)
                 {
@@ -319,23 +216,21 @@ void Cheat::TriggerBot()
                     Global::UserCmd->buttons |= IN_ATTACK2;
                 else
                 {
-                    if (General.getTriggerSilent())
+                    if (Config::TriggerSilent)
                     {
-                        Vector headPos = trace.m_pEnt->GetBonePosition(6); //HEAD
-                        QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+                        Vector aimPos;
+                        aimPos = Global::LocalPlayer->GetWeapon()->IsSniper() ?
+                            trace.m_pEnt->GetBonePosition(4) :
+                            trace.m_pEnt->GetBonePosition(6);
+                        QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), aimPos);
+                        destination -= Global::LocalPlayer->GetPunch() * 2.f;
                         QAngle origin = Global::UserCmd->viewangles;
                         destination.Clamp();
                         Vector tmp(destination.x, destination.y, destination.z);
 
-                        switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
-                        {
-                        case WEAPON_USP_SILENCER:
-                        case WEAPON_P250:
-                        case WEAPON_DEAGLE:
-                        case WEAPON_FIVESEVEN:
-                        case WEAPON_TEC9:
-                        case WEAPON_CZ75A:
-                        case WEAPON_SSG08:
+                        if (Global::LocalPlayer->GetWeapon()->IsPistol() ||
+                            Global::LocalPlayer->GetWeapon()->IsSniper() ||
+                            Global::LocalPlayer->GetWeapon()->IsShotgun())
                         {
                             if (Utils::GetFOV(tmp) < 1.5f)
                             {
@@ -345,12 +240,12 @@ void Cheat::TriggerBot()
                                 Global::UserCmd->viewangles = tmp;
                             }
                             else
-                                Global::UserCmd->buttons |= IN_ATTACK;
-                            break;
-                        }
-                        default:
-                            Global::UserCmd->buttons |= IN_ATTACK;
-                            break;
+                            {
+                                if (Global::UserCmd->buttons & IN_ATTACK)
+                                    Global::UserCmd->buttons &= ~IN_ATTACK;
+                                else
+                                    Global::UserCmd->buttons |= IN_ATTACK;
+                            }
                         }
                     }
                     else
@@ -367,11 +262,35 @@ void Cheat::TriggerBot()
 
 void Cheat::RageAimbot()
 {
-    if (Global::LocalPlayer->GetShotsFired() < 2)
-        return;		   
-
     float distance = 1337.f;
     uint id = 1337;
+
+    switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
+    {
+    case WEAPON_USP_SILENCER:
+    case WEAPON_P250:
+    case WEAPON_DEAGLE:
+    case WEAPON_FIVESEVEN:
+    case WEAPON_TEC9:
+    case WEAPON_SSG08:
+    case WEAPON_AWP:
+    case WEAPON_SCAR20:
+    case WEAPON_KNIFE:
+    case WEAPON_KNIFE_T:
+    case WEAPON_DECOY:
+    case WEAPON_HEGRENADE:
+    case WEAPON_FLASHBANG:
+    case WEAPON_SMOKEGRENADE:
+    case WEAPON_MOLOTOV:
+    case WEAPON_C4:
+    case WEAPON_INCGRENADE:
+    case WEAPON_G3SG1:
+        return;
+
+    default:
+        break;
+    }
+
 
     for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
     {
@@ -393,28 +312,30 @@ void Cheat::RageAimbot()
     CBaseEntity* ent = Interfaces::EntityList->GetClientEntity(id);
     if (!ent || id == -1337)
         return;
- //   Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
+    //Vector dst = ent->GetOrigin() - Global::LocalPlayer->Get      No hacemos el smooth aun. Hacemos rage sin steps.
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
 
-    if (!General.getRageRCS())
+    if (!Config::RageRCS)
         angle -= Global::LocalPlayer->GetPunch() * 2.f;
 
     angle.Clamp();
 
     Vector vAngle(angle.x, angle.y, angle.z);
 
-    if (!General.getSilentAim())
+    if (!Config::SilentAim)
         Interfaces::Engine->SetViewAngles(angle);
 
     Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
-
     if (!(Global::UserCmd->buttons & IN_ATTACK))
         Global::UserCmd->buttons |= IN_ATTACK;
 }
 
 void Cheat::LegitAimbot()
 {
+    if (Global::LocalPlayer->GetShotsFired() < Config::MinBullets)
+        return;
+
     float fov = 1337.f;
     uint id = 1337;
 
@@ -425,8 +346,11 @@ void Cheat::LegitAimbot()
         if (!entity->IsValid() || !entity->IsVisible(6))
             continue;
 
-        Vector headPos = entity->GetBonePosition(6);
-        QAngle angles = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
+        Vector aimPos = Global::LocalPlayer->GetShotsFired() > Config::MaxBullets && entity->IsVisible(4) ?
+            entity->GetBonePosition(4) :
+            entity->GetBonePosition(6);
+
+        QAngle angles = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), aimPos);
         float tmp = Utils::GetFOV(Vector(angles.x, angles.y, angles.z));
 
         if (fov == 1337.f || tmp < fov)
@@ -441,18 +365,27 @@ void Cheat::LegitAimbot()
     if (!entity || id == 1337)
         return;
 
-    if (fov > General.getAimbotFOV())
+    if (fov > Config::AimbotFOV)
         return;
 
-    QAngle dst = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
+    QAngle dst = Global::LocalPlayer->GetShotsFired() > Config::MaxBullets && entity->IsVisible(4) ?
+        Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(4)) :
+        Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
+
     dst -= Global::LocalPlayer->GetPunch() * 2.f;
-    dst.Clamp();
     QAngle origin = Global::UserCmd->viewangles;
     QAngle delta = dst - origin;
+    delta.Clamp();
 
-    dst = origin + delta / 10.f;
+    dst = origin + delta / float(Config::SmoothFactor);
     dst.Clamp();
     Vector vAngles(dst.x, dst.y, dst.z);
     Interfaces::Engine->SetViewAngles(dst);
     Global::UserCmd->viewangles = vAngles;
 }
+
+void Cheat::AutoPistol()
+{
+}
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc.Terms Privacy Security Status Help

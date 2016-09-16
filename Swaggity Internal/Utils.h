@@ -4,6 +4,8 @@
 
 namespace Utils
 {
+    int RandomNumber(int min, int max);
+
     bool ScreenTransform(const Vector &point, Vector &screen); // tots not pasted
 
     void AngleVectors(const QAngle & angles, Vector * forward);
@@ -15,6 +17,4 @@ namespace Utils
     QAngle CalcAngle(const Vector &source, const Vector &destination);
 
     float GetFOV(const Vector & aimAngle);
-
-    extern bool controlmenu;
 }
