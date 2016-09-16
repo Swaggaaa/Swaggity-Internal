@@ -25,7 +25,7 @@ void Cheat::BunnyHop()
 {
     static int nJumps = Utils::RandomNumber(2, 9);
     static int n = 0;
-    static int successfulJumps = Config::BhopMinJumps == 0 ? 1337 : Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
+    static int successfulJumps = General.getMinBhops() == 0 ? 1337 : Utils::RandomNumber(General.getMinBhops(), General.getMaxBhops());
 
     if (Global::UserCmd->buttons & IN_JUMP)
     {
@@ -35,7 +35,7 @@ void Cheat::BunnyHop()
             {
                 Global::UserCmd->buttons &= ~IN_JUMP;
                 n = 0;
-                successfulJumps = Config::BhopMinJumps == 0 ? 1337 : Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
+                successfulJumps = General.getMinBhops() == 0 ? 1337 : Utils::RandomNumber(General.getMinBhops(), General.getMaxBhops());
             }
             else
             {
@@ -65,7 +65,7 @@ Vector oldPunch(0.f, 0.f, 0.f);
 
 void Cheat::NoRecoil()
 {
-    if (Global::LocalPlayer->GetShotsFired() < Config::MinBullets)
+    if (Global::LocalPlayer->GetShotsFired() < General.getMinBullets())
         return;
 
     if (Global::LocalPlayer->GetWeapon() == nullptr)
@@ -156,9 +156,9 @@ UINT tick = 0;
 
 void Cheat::TriggerBot()
 {
-    if (GetAsyncKeyState(Config::TriggerKey) & 0x8000)
+    if (GetAsyncKeyState(General.getTriggerKey()) & 0x8000)
     {
-        if (Config::RageAimbot) //Holding trigger makes it autofire when visible
+        if (General.getRageAimbot()) //Holding trigger makes it autofire when visible
         {
             RageAimbot();
             return;
@@ -169,7 +169,7 @@ void Cheat::TriggerBot()
         CTraceFilter filter;
 
         Vector viewAngle = Global::UserCmd->viewangles;
-        if (!Config::RageRCS)
+        if (!General.getRageRCS())
             viewAngle += Global::LocalPlayer->GetPunch() * 2.f;
 
         float cy, sy, cx, sx;
@@ -203,8 +203,8 @@ void Cheat::TriggerBot()
 
         if (trace.m_pEnt->IsValid())
         {
-            float hitchance = 75.f + Config::TriggerChance / 4;
-            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= Config::TriggerDelay))
+            float hitchance = 75.f + General.getTriggerChance() / 4;
+            if ((1.0f - Global::LocalPlayer->GetWeapon()->GetAccuracyPenalty()) * 100.f >= hitchance && (GetTickCount() - tick >= General.getTriggerDelay()))
             {
                 /*if (Global::LocalPlayer->GetShotsFired() == 0)
                 {
@@ -216,7 +216,7 @@ void Cheat::TriggerBot()
                     Global::UserCmd->buttons |= IN_ATTACK2;
                 else
                 {
-                    if (Config::TriggerSilent)
+                    if (General.getTriggerSilent())
                     {
                         Vector aimPos;
                         aimPos = Global::LocalPlayer->GetWeapon()->IsSniper() ?
@@ -316,14 +316,14 @@ void Cheat::RageAimbot()
     Vector headPos = ent->GetBonePosition(6);
     QAngle angle = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), headPos);
 
-    if (!Config::RageRCS)
+    if (!General.getRageRCS())
         angle -= Global::LocalPlayer->GetPunch() * 2.f;
 
     angle.Clamp();
 
     Vector vAngle(angle.x, angle.y, angle.z);
 
-    if (!Config::SilentAim)
+    if (!General.getSilentAim())
         Interfaces::Engine->SetViewAngles(angle);
 
     Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
@@ -333,7 +333,7 @@ void Cheat::RageAimbot()
 
 void Cheat::LegitAimbot()
 {
-    if (Global::LocalPlayer->GetShotsFired() < Config::MinBullets)
+    if (Global::LocalPlayer->GetShotsFired() < General.getMinBullets())
         return;
 
     float fov = 1337.f;
@@ -346,7 +346,7 @@ void Cheat::LegitAimbot()
         if (!entity->IsValid() || !entity->IsVisible(6))
             continue;
 
-        Vector aimPos = Global::LocalPlayer->GetShotsFired() > Config::MaxBullets && entity->IsVisible(4) ?
+        Vector aimPos = Global::LocalPlayer->GetShotsFired() > General.getMaxBullets() && entity->IsVisible(4) ?
             entity->GetBonePosition(4) :
             entity->GetBonePosition(6);
 
@@ -365,10 +365,10 @@ void Cheat::LegitAimbot()
     if (!entity || id == 1337)
         return;
 
-    if (fov > Config::AimbotFOV)
+    if (fov > General.getAimbotFOV())
         return;
 
-    QAngle dst = Global::LocalPlayer->GetShotsFired() > Config::MaxBullets && entity->IsVisible(4) ?
+    QAngle dst = Global::LocalPlayer->GetShotsFired() > General.getMaxBullets() && entity->IsVisible(4) ?
         Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(4)) :
         Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), entity->GetBonePosition(6));
 
@@ -377,7 +377,7 @@ void Cheat::LegitAimbot()
     QAngle delta = dst - origin;
     delta.Clamp();
 
-    dst = origin + delta / float(Config::SmoothFactor);
+    dst = origin + delta / float(1); //Smooth Factor
     dst.Clamp();
     Vector vAngles(dst.x, dst.y, dst.z);
     Interfaces::Engine->SetViewAngles(dst);
@@ -387,5 +387,3 @@ void Cheat::LegitAimbot()
 void Cheat::AutoPistol()
 {
 }
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc.Terms Privacy Security Status Help

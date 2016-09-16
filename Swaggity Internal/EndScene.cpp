@@ -10,7 +10,7 @@
 #include "Utils.h"
 
 
-bool Utils::controlmenu = false;
+
 
 enum COLORS
 { // Normal Colors
@@ -37,6 +37,9 @@ void drawRage(){
 	Direct3D.vpages[0].checkboxes[1].checked = General.getAutoShoot();
 	Direct3D.vpages[0].checkboxes[1].write = "AutoShoot";
 	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[1], General.movex, General.movey, true);
+
+
+    Direct3D.DrawSlider(Direct3D.vpages[0].sliders[0].x, Direct3D.vpages[0].sliders[0].y, Direct3D.vpages[0].sliders[0].pos, Direct3D.vpages[0].sliders[0].width, Direct3D.vpages[0].sliders[0].height, Direct3D.vpages[0].sliders[0].slidecolor, BLACK, YELLOW, D3D::BLUE2, false, 1, GREEN);
 }
 
 void checkRage(POINT kek)

@@ -261,6 +261,26 @@ void Config::setAutoShoot(bool dep)
 	Aimbot[4].second = dep;
 }
 
+void Config::setMinBullets(uint dep)
+{
+    Aimbotuint[1].second = dep;
+}
+
+uint Config::getMinBullets()
+{
+    return Aimbotuint[1].second;
+}
+
+void Config::setMaxBullets(uint dep)
+{
+    Aimbotuint[2].second = dep;
+}
+
+uint Config::getMaxBullets()
+{
+    return Aimbotuint[2].second;
+}
+
 bool Config::getNoFlash()
 {
 	return Stuff[0].second;
@@ -274,6 +294,26 @@ bool Config::getBhop()
 bool Config::getShitTalk()
 {
 	return Stuff[2].second;
+}
+
+uint Config::getMinBhops()
+{
+    return Stuffint[0].second;
+}
+
+uint Config::getMaxBhops()
+{
+    return Stuffint[1].second;
+}
+
+void Config::setMinBhops(uint dep)
+{
+    Stuffint[0].second = dep;
+}
+
+void Config::setMaxBhops(uint dep)
+{
+    Stuffint[1].second = dep;
 }
 
 void Config::setNoFlash(bool dep)
@@ -451,7 +491,9 @@ Config::Config()
 
 
       Aimbotuint = {
-          pair<string, uint>("AimbotFOV", 0)
+          pair<string, uint>("AimbotFOV", 0),
+          pair<string, uint>("MinBullets", 2),
+          pair<string, uint>("MaxBullets", 9)
       };
       
       Triggerint = {
@@ -471,6 +513,11 @@ Config::Config()
           pair<string, bool>("Visual", false),
           pair<string,bool>("Misc",false),
 
+      };
+
+      Stuffint = {
+          pair<string, uint>("MinBhops", 4),
+          pair<string,uint>("MaxBhops", 6)
       };
 
 

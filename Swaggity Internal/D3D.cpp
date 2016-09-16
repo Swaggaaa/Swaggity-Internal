@@ -93,9 +93,10 @@ void D3D::DrawRect(float X, float Y, float Width, float Height, float LineWidth,
         }
 }
 
-void D3D::DrawSlider(float X, float Y, float pos, float height, float width, float YY, D3DCOLOR LineColor, D3DCOLOR SliderColor, D3DCOLOR LabelColor,  bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
+void D3D::DrawSlider(float X, float Y, float pos, float height, float width, float xlider, D3DCOLOR LineColor, D3DCOLOR SliderColor, D3DCOLOR LabelColor,  bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
 {
-     
+    DrawRect(X, Y, height, width, 1, LineColor, true, false, 1, LineColor);
+    DrawRect(X + xlider, Y - 10, 10, 40, 1, LineColor, true, false, 1, LineColor);
 }
 
 
@@ -288,6 +289,45 @@ void D3D::addlabel(int howmany, int x, int y, int xx, int yy, bool horizontal, i
 
 }
 
+void D3D::addslider(int howmany, int x, int y, int width, int height, bool horizontal, int middle, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor)
+{
+    if (vpages.size() <= 0)return;
+
+    for (int i = 0; i < howmany; ++i)
+    {
+
+        slider el1;
+        if (horizontal)
+        {
+            el1.pos = 0;
+            el1.x = x + middle*i;
+            el1.y = y;
+            el1.height = height;
+            el1.width = width;
+            el1.slidecolor = slidecolor;
+            el1.poscolor = RegColor;
+
+        }
+        else
+        {
+            el1.pos = 0;
+           
+            el1.x = x;
+            el1.height = height;
+            el1.width = width;
+            el1.slidecolor = slidecolor;
+            el1.poscolor = RegColor;
+            el1.y = y + middle*i;
+
+        }
+        vpages[actpage].sliders.push_back(el1);
+
+
+    }
+
+}
+
+
 void D3D::addcheckbox(int howmany, int x, int y, int size, D3DCOLOR boxcolor,D3DCOLOR checkcolor, D3DCOLOR labelcolor, bool horizontal, int middle)
 {
 	if (vpages.size() <= 0)return;
@@ -431,15 +471,14 @@ void D3D::initui()
 
     setpage(1);
    
-   this->addcheckbox(1, 150,90, 15, BLACK, BLUE2, BLACK, false, 20);
-   this->addcheckbox(1, 150,130, 15, BLACK, BLUE2, BLACK, false, 20);
+   this->addcheckbox(1, 150,90, 15, BLACK, BLUE2, WHITE, false, 20);
+   this->addslider(1, 150, 120, 90, 10, false, 20, BLUE2, RED, WHITE);
+   this->addcheckbox(1, 150,150, 15, BLACK, BLUE2, WHITE, false, 20);
 }
 
 void D3D::makerage()
 {
     setpage(0);
-
-
 
 }
 

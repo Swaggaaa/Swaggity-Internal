@@ -82,13 +82,18 @@ WeaponInfo_t* CBaseCombatWeapon::GetCSWpnData()
 
 void CBaseEntity::SetFlashDuration()
 {
-    *reinterpret_cast<float*>(DWORD(this) + offsets.m_flFlashDuration) = GetFlashDuration() ? 0.f : 25.f;
+    *reinterpret_cast<float*>(DWORD(this) + offsets.m_flFlashDuration) =General.getNoFlash() ? 0.f : 25.f;
 
 }
 
 int& CBaseCombatWeapon::GetWeaponID()
 {
     return *reinterpret_cast<int*>(DWORD(this) + offsets.m_iItemDefinitionIndex);
+}
+
+float& CBaseCombatWeapon::GetNextPrimaryAttack()
+{
+    return *reinterpret_cast<float*>(DWORD(this) + offsets.m_flNextPrimaryAttack);
 }
 
 float & CBaseCombatWeapon::GetAccuracyPenalty()
@@ -229,6 +234,23 @@ bool CBaseCombatWeapon::IsSniper()
     case WEAPON_SSG08:
     case WEAPON_SCAR20:
     case WEAPON_G3SG1:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool CBaseCombatWeapon::IsShotgun()
+{
+    if (!this)
+        return false;
+
+    switch (this->GetWeaponID())
+    {
+    case WEAPON_NOVA:
+    case WEAPON_XM1014:
+    case WEAPON_MAG7:
+    case WEAPON_SAWEDOFF:
         return true;
     default:
         return false;

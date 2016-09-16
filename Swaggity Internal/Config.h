@@ -176,6 +176,7 @@ private:
 		*/
 
 		 vector<pair<string, bool> > Stuff;
+         vector<pair<string, uint> > Stuffint;
 		 vector<pair<string, bool> > Trigger;
 		 vector<pair<string, uint> > Triggerint;
 
@@ -235,9 +236,21 @@ public:
 		 void setSilentAim(bool dep);
 		 void setAutoShoot(bool dep);
 
+         void setMinBullets(uint dep);
+         uint getMinBullets();
+
+         void setMaxBullets(uint dep);
+         uint getMaxBullets();
+
 		 bool getNoFlash();
 		 bool getBhop();
 		 bool getShitTalk();
+
+         uint getMinBhops();
+         uint getMaxBhops();
+
+         void setMinBhops(uint dep);
+         void setMaxBhops(uint dep);
 		 
 		 void setNoFlash(bool dep);
 		 void setBhop(bool dep);
