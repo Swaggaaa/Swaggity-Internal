@@ -19,4 +19,6 @@ namespace Global
     extern int          CurrentTargetID;
 
     extern int          CurrentSmoothStep;
+
+    extern HFont        textFont;
 }

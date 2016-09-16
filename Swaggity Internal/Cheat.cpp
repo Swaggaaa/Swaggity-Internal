@@ -24,7 +24,7 @@ void Cheat::BunnyHop()
 {
     static int nJumps = Utils::RandomNumber(2, 9);
     static int n = 0;
-    static int successfulJumps = Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
+    static int successfulJumps = Config::BhopMinJumps == 0 ? 1337 : Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
 
     if (Global::UserCmd->buttons & IN_JUMP)
     {
@@ -34,7 +34,7 @@ void Cheat::BunnyHop()
             {
                 Global::UserCmd->buttons &= ~IN_JUMP;
                 n = 0;
-                successfulJumps = Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
+                successfulJumps = Config::BhopMinJumps == 0 ? 1337 : Utils::RandomNumber(Config::BhopMinJumps, Config::BhopMaxJumps);
             }
             else
             {

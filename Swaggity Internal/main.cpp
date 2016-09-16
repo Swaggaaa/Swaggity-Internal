@@ -6,6 +6,7 @@
 #include <TlHelp32.h>
 #include "Offsets.h"
 #include "Config.h"
+#include "Global.h"
 #include "IEngineTrace.h"
 #include "OnDeath.h"
 
@@ -117,6 +118,11 @@ void LoadHooks()
     cout << "oPaintTraverse -> 0x" << DWORD(oPaintTraverse) << endl;
     cout << "oEndScene -> 0x" << DWORD(oEndScene) << endl;
     cout << "oReset -> 0x" << DWORD(oReset) << endl;
+}
+
+void LoadFonts()
+{
+    Interfaces::Surface->SetFontGlyphSet(Global::textFont = Interfaces::Surface->Create_Font(), "Verdana", 12, FW_DONTCARE, 0, 0, FONTFLAG_OUTLINE);
 }
 
 void writeFile(ofstream& ofs)
@@ -279,6 +285,8 @@ void Setup(HINSTANCE hinstDLL)
     LoadOffsets();
     LoadHooks();
     LoadSettings();
+    LoadFonts();
+
 
     bool leave = false;
     cout << "\n\n\n";

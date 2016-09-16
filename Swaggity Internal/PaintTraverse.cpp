@@ -84,7 +84,6 @@ void SetVisibleColor(bool visible)
 
 void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int panel, bool forceRepaint, bool allowForce)
 {
-
     if (!Global::LocalPlayer || !Interfaces::Engine->IsInGame() || Global::LocalPlayer->GetTeam() == 0)
     {
         oPaintTraverse(thisptr, edx, panel, forceRepaint, allowForce);
@@ -115,15 +114,34 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
             bool visible = entity->IsVisible(6);
             SetVisibleColor(visible);
 
-            /*int lastX, lastY; //They specify latest ESP feature position aka to make it dynamic
+            int lastX = top.x - width - 40;
+            int lastY = top.y + height/2; //They specify latest ESP feature position aka to make it dynamic
+ 
+            Interfaces::Surface->DrawSetTextFont(Global::textFont);
+            SetVisibleColor(visible);
 
             if (Config::ESPFeatures[0])
             {
-                const wchar_t* name = wstring(entity->GetName().begin(), entity->GetName().end()).c_str();   //I love casting
-                Interfaces::Surface->DrawSetTextPos(top.x - width - 50, top.y);
-                Interfaces::Surface->DrawPrintText(name, sizeof(name));
+                wchar_t name[1024];
+                char buf[1024];
+                strcpy(buf, entity->GetName().c_str());
+                MultiByteToWideChar(CP_UTF8, NULL, buf, 256, name, 256);
+                Interfaces::Surface->DrawSetTextPos(lastX, lastY);
+                Interfaces::Surface->DrawPrintText(name, wcslen(name));
+
+                lastY += 10;
             }
-            */
+
+            if (Config::ESPFeatures[1])
+            {
+                int iHealth = entity->GetHealth();
+                wchar_t health[256];
+
+                swprintf_s(health, L"%d", iHealth);
+                Interfaces::Surface->DrawSetTextPos(lastX, lastY);
+                Interfaces::Surface->DrawPrintText(health, wcslen(health));
+            }
+            
 
             if (Config::ESPFeatures[4]) //HeadPos
             {
@@ -148,5 +166,6 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
 
     if (Config::CrosshairRecoil && Global::LocalPlayer->GetAlive())
         CrosshairRecoil();
+
     oPaintTraverse(thisptr, edx, panel, forceRepaint, allowForce);
 }
