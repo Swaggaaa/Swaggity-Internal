@@ -93,6 +93,12 @@ void D3D::DrawRect(float X, float Y, float Width, float Height, float LineWidth,
         }
 }
 
+void D3D::DrawSlider(float X, float Y, float pos, float height, float width, float YY, D3DCOLOR LineColor, D3DCOLOR SliderColor, D3DCOLOR LabelColor,  bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
+{
+     
+}
+
+
 void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge)
 {
 
