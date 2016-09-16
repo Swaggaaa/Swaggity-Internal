@@ -226,6 +226,7 @@ struct D3D
     void DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCheck(checkbox chk, int movex, int movey, bool drawstring);
   //  void DrawCheck(checkbox ron, bool drawstring);
+   void D3D::DrawSlider(float X, float Y, float pos, float height, float width, float YY, D3DCOLOR LineColor, D3DCOLOR SliderColor, D3DCOLOR LabelColor,  bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
    
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
