@@ -240,6 +240,23 @@ bool CBaseCombatWeapon::IsSniper()
     }
 }
 
+bool CBaseCombatWeapon::IsShotgun()
+{
+    if (!this)
+        return false;
+
+    switch (this->GetWeaponID())
+    {
+    case WEAPON_NOVA:
+    case WEAPON_XM1014:
+    case WEAPON_MAG7:
+    case WEAPON_SAWEDOFF:
+        return true;
+    default:
+        return false;
+    }
+}
+
 Vector CBaseEntity::GetBonePosition(int iBone)
 {
     matrix3x4_t boneMatrixes[128];

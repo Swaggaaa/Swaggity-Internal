@@ -187,6 +187,7 @@ public:
     bool			IsGun();
     bool IsPistol();
     bool IsSniper();
+    bool IsShotgun();
     std::string		GetWeaponName();
 };
 

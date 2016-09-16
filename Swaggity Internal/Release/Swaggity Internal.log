@@ -1,12 +1,22 @@
-﻿Build started 16/09/2016 3:56:34.
+﻿Build started 16/09/2016 4:10:10.
      1>Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Cheat.cpp
+         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Cheat.cpp CreateMove.cpp EndScene.cpp Entity.cpp FrameStageNotify.cpp Global.cpp OverrideView.cpp PaintTraverse.cpp Utils.cpp
          Cheat.cpp
      1>Cheat.cpp(67): warning C4018: '<': signed/unsigned mismatch
-     1>Cheat.cpp(332): warning C4018: '<': signed/unsigned mismatch
-     1>Cheat.cpp(345): warning C4018: '>': signed/unsigned mismatch
-     1>Cheat.cpp(367): warning C4018: '>': signed/unsigned mismatch
+     1>Cheat.cpp(335): warning C4018: '<': signed/unsigned mismatch
+     1>Cheat.cpp(348): warning C4018: '>': signed/unsigned mismatch
+     1>Cheat.cpp(370): warning C4018: '>': signed/unsigned mismatch
+         CreateMove.cpp
+     1>CreateMove.cpp(50): warning C4101: 'oFrameTime': unreferenced local variable
+     1>CreateMove.cpp(50): warning C4101: 'oCurTime': unreferenced local variable
+         EndScene.cpp
+         Entity.cpp
+         FrameStageNotify.cpp
+         Global.cpp
+         OverrideView.cpp
+         PaintTraverse.cpp
+         Utils.cpp
        Link:
          D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.dll" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.lib" /MACHINE:X86 /SAFESEH /DLL Release\Cheat.obj
          Release\Config.obj
@@ -29,13 +39,13 @@
          Release\Utils.obj
          Release\VMTSwag.obj
          Generating code
-         1 of 584 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-           0 functions were new in current compilation
-           1 functions had inline decision re-evaluated but remain unchanged
+         3 of 585 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+           1 functions were new in current compilation
+           11 functions had inline decision re-evaluated but remain unchanged
          Finished generating code
          Swaggity Internal.vcxproj -> C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.dll
      1>Done Building Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.76
+Time Elapsed 00:00:06.96

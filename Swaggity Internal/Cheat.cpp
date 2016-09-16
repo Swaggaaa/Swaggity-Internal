@@ -222,18 +222,21 @@ void Cheat::TriggerBot()
                             trace.m_pEnt->GetBonePosition(4) :
                             trace.m_pEnt->GetBonePosition(6);
                         QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), aimPos);
+                        destination -= Global::LocalPlayer->GetPunch() * 2.f;
                         QAngle origin = Global::UserCmd->viewangles;
                         destination.Clamp();
                         Vector tmp(destination.x, destination.y, destination.z);
 
-                        if (Global::LocalPlayer->GetWeapon()->IsPistol() || Global::LocalPlayer->GetWeapon()->IsSniper())
+                        if (Global::LocalPlayer->GetWeapon()->IsPistol() ||
+                            Global::LocalPlayer->GetWeapon()->IsSniper() ||
+                            Global::LocalPlayer->GetWeapon()->IsShotgun())
                         {
                             if (Utils::GetFOV(tmp) < 1.5f)
                             {
                                 Global::OldAngles = Global::UserCmd->viewangles;
                                 Global::bSendPackets = false;
                                 Global::NextTick = true;
-                                Global::UserCmd->viewangles = tmp - Global::LocalPlayer->GetPunch() * 2.f;
+                                Global::UserCmd->viewangles = tmp;
                             }
                             else
                             {
