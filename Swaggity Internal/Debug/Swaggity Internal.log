@@ -1,46 +1,36 @@
-﻿  EndScene.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(70): warning C4018: '<': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(83): warning C4018: '<': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(99): warning C4018: '<': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(72): warning C4101: 'middle': unreferenced local variable
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(101): warning C4101: 'middle': unreferenced local variable
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(101): warning C4101: 'yy': unreferenced local variable
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(101): warning C4101: 'xx': unreferenced local variable
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(137): warning C4018: '<': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(139): warning C4018: '>=': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\endscene.cpp(143): warning C4018: '<': signed/unsigned mismatch
-  D3D.cpp
+﻿  D3D.cpp
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(25): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(98): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(108): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(109): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(102): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(110): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(111): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(115): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(116): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(112): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(113): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(117): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(118): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(119): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(120): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(121): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(122): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(123): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(124): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(125): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(126): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(127): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(128): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(129): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(130): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(131): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(132): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
 c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(133): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(308): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(387): warning C4018: '>': signed/unsigned mismatch
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(443): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(229): warning C4715: 'D3D::init': not all control paths return a value
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(134): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(135): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(310): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(327): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(389): warning C4018: '>': signed/unsigned mismatch
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(445): warning C4018: '<': signed/unsigned mismatch
+c:\users\titan\desktop\swaggity-internal\swaggity internal\d3d.cpp(231): warning C4715: 'D3D::init': not all control paths return a value
   Swaggity Internal.vcxproj -> C:\Users\titan\Desktop\Swaggity-Internal\Debug\Swaggity Internal.dll

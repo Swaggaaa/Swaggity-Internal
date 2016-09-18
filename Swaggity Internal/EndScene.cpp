@@ -31,10 +31,11 @@ enum COLORS
 
 void SliderMove(slider& s1,POINT rekt)
 {
-    s1.xpos += rekt.x - General.xmouse;
+   // s1.xpos += rekt.x - General.xmouse;
 
+    s1.xpos = rekt.x - s1.x ;
     if (s1.x + s1.xpos < s1.x )s1.xpos = 0 ;
-    if (s1.x + s1.xpos > s1.x + s1.width)s1.xpos = s1.width;
+    else if (s1.x + s1.xpos > s1.x + s1.width)s1.xpos = s1.width;
 
 }
 void drawRage(){
@@ -47,7 +48,9 @@ void drawRage(){
 	Direct3D.vpages[0].checkboxes[1].write = "AutoShoot";
 	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[1], General.movex, General.movey, true);
 
+    Direct3D.vpages[0].sliders[0].value = General.getAimbotFOV();
     Direct3D.DrawSlider(Direct3D.vpages[0].sliders[0]);
+
 }
 
 void checkRage(POINT kek)
@@ -231,16 +234,17 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 							General.move = true;
 						}
                        
-                        x1 = Direct3D.vpages[0].sliders[0].xpos + Direct3D.vpages[0].sliders[0].x + General.movex;
-                        x2 = Direct3D.vpages[0].sliders[0].xpos + Direct3D.vpages[0].sliders[0].x + General.movex + Direct3D.vpages[0].sliders[0].sliderwidth;
+                        x1 = Direct3D.vpages[0].sliders[0].x + General.movex;
+                        x2 = Direct3D.vpages[0].sliders[0].x + General.movex + Direct3D.vpages[0].sliders[0].width;
                         y1 = Direct3D.vpages[0].sliders[0].ypos + General.movey;
                         y2 = Direct3D.vpages[0].sliders[0].ypos + Direct3D.vpages[0].sliders[0].sliderheight + General.movey;
 
-                       if(General.viewoptions[0].second and pep.x > x1 and pep.x < (x2) and pep.y > y1 and pep.y < y2)
-                       {
-                           SliderMove(Direct3D.vpages[0].sliders[0], pep);
+                        if (General.viewoptions[0].second and pep.x > x1 and pep.x < (x2) and pep.y > y1 and pep.y < y2)
+                        {
+                            SliderMove(Direct3D.vpages[0].sliders[0], pep);
 
-                       }
+                        }
+                     
 
 					}
 					else
@@ -248,6 +252,10 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
                         if (General.mpressed) {
                             General.move = false;
                             General.slider1move = false;
+                            General.mpressed = false;
+                          
+
+                           
                         }
 					
 					}

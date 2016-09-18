@@ -191,7 +191,7 @@ struct slider
     D3DCOLOR slidecolor;
     float xpos,ypos;
     float sliderheight, sliderwidth;
-    float value;
+    int value;
     
 };
 
