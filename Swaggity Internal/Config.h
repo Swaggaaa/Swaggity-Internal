@@ -287,6 +287,7 @@ public:
 		 bool showVisual = false;
 		
 		 bool move;
+         bool slider1move;
          int movex, movey;
 		 bool mpressed;
 

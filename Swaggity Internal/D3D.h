@@ -183,14 +183,16 @@ struct label
 
 struct slider
 {
-    int x, y, height,width;
+    int x, y, height,width; //Linea
     D3DCOLOR color;
     std::string write;
     bool line;
     D3DCOLOR linecolor,poscolor;
     D3DCOLOR slidecolor;
-    int pos;
-    int value;
+    float xpos,ypos;
+    float sliderheight, sliderwidth;
+    float value;
+    
 };
 
 
@@ -227,7 +229,7 @@ struct D3D
     void DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCheck(checkbox chk, int movex, int movey, bool drawstring);
   //  void DrawCheck(checkbox ron, bool drawstring);
-   void D3D::DrawSlider(float X, float Y, float pos, float height, float width, float xlider, D3DCOLOR LineColor, D3DCOLOR SliderColor, D3DCOLOR LabelColor,  bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
+   void D3D::DrawSlider(slider s1);
    
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
@@ -238,7 +240,7 @@ struct D3D
     void addbox(int howmany, int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
 
     void addlabel(int howmany,  int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
-    void addslider(int howmany, int x, int y, int width, int height, bool horizontal, int middle, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor);
+    void addslider(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle);
   //  void addslider(int howmany, int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
 	void addcheckbox(int howmany, int x, int y, int size, D3DCOLOR boxcolor, D3DCOLOR checkcolor, D3DCOLOR labelcolor, bool horizontal, int middle);
 

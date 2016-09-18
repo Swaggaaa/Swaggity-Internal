@@ -387,6 +387,7 @@ void Config::setTriggerKey(uint dep)
 Config::Config()
  {
      movex = movey = 0;
+     slider1move = false;
       showMisc = true;
       showRage = false;
       showLegit = false;

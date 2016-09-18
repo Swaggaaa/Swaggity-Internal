@@ -28,6 +28,15 @@ enum COLORS
 
 #pragma warning (disable : 4244)
 
+
+void SliderMove(slider& s1,POINT rekt)
+{
+    s1.xpos += rekt.x - General.xmouse;
+
+    if (s1.x + s1.xpos < s1.x )s1.xpos = 0 ;
+    if (s1.x + s1.xpos > s1.x + s1.width)s1.xpos = s1.width;
+
+}
 void drawRage(){
 
 	Direct3D.vpages[0].checkboxes[0].checked = General.getRageAimbot();
@@ -38,8 +47,7 @@ void drawRage(){
 	Direct3D.vpages[0].checkboxes[1].write = "AutoShoot";
 	Direct3D.DrawCheck(Direct3D.vpages[0].checkboxes[1], General.movex, General.movey, true);
 
-
-    Direct3D.DrawSlider(Direct3D.vpages[0].sliders[0].x, Direct3D.vpages[0].sliders[0].y, Direct3D.vpages[0].sliders[0].pos, Direct3D.vpages[0].sliders[0].width, Direct3D.vpages[0].sliders[0].height, Direct3D.vpages[0].sliders[0].slidecolor, BLACK, YELLOW, D3D::BLUE2, false, 1, GREEN);
+    Direct3D.DrawSlider(Direct3D.vpages[0].sliders[0]);
 }
 
 void checkRage(POINT kek)
@@ -191,13 +199,19 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 
 				if (ScreenToClient(hWnd, &pep))
 				{
-					if (General.move)
+
+                    if (General.viewoptions[0].second and General.slider1move)
+                    {
+                      //  SliderMove(Direct3D.vpages[0].sliders[0], pep);
+                    }
+                    else if(General.move)
 					{
 						General.movex += pep.x - General.xmouse;
 						General.movey += pep.y - General.ymouse;
-						General.xmouse = pep.x;
-						General.ymouse = pep.y;
 					}
+                   
+                    
+
 					Direct3D.DrawCross(pep.x, pep.y, 10, 2, D3D::BLUE2, true, 1, BLACK);
 
 					Direct3D.DrawString(10, 10, to_string(pep.x) + ' ' + to_string(pep.y), YELLOW, true, BLACK, false, 18);
@@ -211,19 +225,35 @@ long __stdcall Hooks::EndScene(IDirect3DDevice9* pDevice)
 					else if (GetAsyncKeyState(0x01) & 0x8000)
 					{
 						General.mpressed = true;
+                        int x1, x2, y1, y2;
+
 						if (pep.x > (Direct3D.overlay.boxes[0].x + General.movex) and pep.x < (Direct3D.overlay.boxes[0].xx + General.movex) and pep.y >(Direct3D.overlay.boxes[0].y + General.movey) and pep.y < (Direct3D.overlay.boxes[1].y + General.movey)) {
-							//General.movex +=  pep.x - General.xmouse ;
-							//General.movey += pep.y - General.ymouse;
 							General.move = true;
 						}
+                       
+                        x1 = Direct3D.vpages[0].sliders[0].xpos + Direct3D.vpages[0].sliders[0].x + General.movex;
+                        x2 = Direct3D.vpages[0].sliders[0].xpos + Direct3D.vpages[0].sliders[0].x + General.movex + Direct3D.vpages[0].sliders[0].sliderwidth;
+                        y1 = Direct3D.vpages[0].sliders[0].ypos + General.movey;
+                        y2 = Direct3D.vpages[0].sliders[0].ypos + Direct3D.vpages[0].sliders[0].sliderheight + General.movey;
+
+                       if(General.viewoptions[0].second and pep.x > x1 and pep.x < (x2) and pep.y > y1 and pep.y < y2)
+                       {
+                           SliderMove(Direct3D.vpages[0].sliders[0], pep);
+
+                       }
 
 					}
 					else
 					{
-						if (General.mpressed)General.move = false;
-						General.xmouse = pep.x;
-						General.ymouse = pep.y;
+                        if (General.mpressed) {
+                            General.move = false;
+                            General.slider1move = false;
+                        }
+					
 					}
+
+                    General.xmouse = pep.x;
+                    General.ymouse = pep.y;
 
 				}
 

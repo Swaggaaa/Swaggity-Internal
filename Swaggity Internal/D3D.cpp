@@ -93,10 +93,10 @@ void D3D::DrawRect(float X, float Y, float Width, float Height, float LineWidth,
         }
 }
 
-void D3D::DrawSlider(float X, float Y, float pos, float height, float width, float xlider, D3DCOLOR LineColor, D3DCOLOR SliderColor, D3DCOLOR LabelColor,  bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor)
+void D3D::DrawSlider(slider s1)
 {
-    DrawRect(X, Y, height, width, 1, LineColor, true, false, 1, LineColor);
-    DrawRect(X + xlider, Y - 10, 10, 40, 1, LineColor, true, false, 1, LineColor);
+    DrawRect(s1.x+ General.movex,s1.y + General.movey, s1.width, s1.height, 1, s1.linecolor, true, false, 1, BLACK);
+    DrawRect(s1.x + s1.xpos + General.movex, s1.ypos + General.movey,s1.sliderwidth,s1.sliderheight, 1, YELLOW, true, false,1,BLACK);
 }
 
 
@@ -289,7 +289,7 @@ void D3D::addlabel(int howmany, int x, int y, int xx, int yy, bool horizontal, i
 
 }
 
-void D3D::addslider(int howmany, int x, int y, int width, int height, bool horizontal, int middle, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor)
+void D3D::addslider(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle)
 {
     if (vpages.size() <= 0)return;
 
@@ -299,25 +299,34 @@ void D3D::addslider(int howmany, int x, int y, int width, int height, bool horiz
         slider el1;
         if (horizontal)
         {
-            el1.pos = 0;
+            el1.xpos = 0;
             el1.x = x + middle*i;
             el1.y = y;
-            el1.height = height;
-            el1.width = width;
-            el1.slidecolor = slidecolor;
+            el1.height = 8;
+            el1.width = 180;
             el1.poscolor = RegColor;
-
+            el1.ypos = y - 8;
+            el1.sliderheight = 24;
+            el1.sliderwidth = 6;
+            el1.slidecolor = YELLOW;
+            el1.linecolor = BLACK;
+               
         }
         else
         {
-            el1.pos = 0;
+            el1.xpos = 0;
            
             el1.x = x;
-            el1.height = height;
-            el1.width = width;
-            el1.slidecolor = slidecolor;
+            el1.height = 8;
+            el1.width = 180;
+           
             el1.poscolor = RegColor;
             el1.y = y + middle*i;
+            el1.ypos = y - 8;
+            el1.sliderheight = 24;
+            el1.sliderwidth = 6;
+            el1.slidecolor = YELLOW;
+            el1.linecolor = BLACK;
 
         }
         vpages[actpage].sliders.push_back(el1);
@@ -472,7 +481,7 @@ void D3D::initui()
     setpage(1);
    
    this->addcheckbox(1, 150,90, 15, BLACK, BLUE2, WHITE, false, 20);
-   this->addslider(1, 150, 120, 90, 10, false, 20, BLUE2, RED, WHITE);
+   this->addslider(1, 150, 125, false, BLUE2, RED, WHITE,20);
    this->addcheckbox(1, 150,150, 15, BLACK, BLUE2, WHITE, false, 20);
 }
 
