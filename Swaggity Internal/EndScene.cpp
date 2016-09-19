@@ -33,7 +33,9 @@ void SliderMove(slider& s1,POINT rekt)
 {
    // s1.xpos += rekt.x - General.xmouse;
 
-    s1.xpos = rekt.x - s1.x ;
+    s1.xpos = (rekt.x - s1.x) ;
+    s1.value = (s1.xpos);
+     General.setAimbotFOV(s1.value);
     if (s1.x + s1.xpos < s1.x )s1.xpos = 0 ;
     else if (s1.x + s1.xpos > s1.x + s1.width)s1.xpos = s1.width;
 

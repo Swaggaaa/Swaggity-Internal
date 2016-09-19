@@ -99,9 +99,8 @@ void D3D::DrawSlider(slider s1)
     DrawRect(s1.x + General.movex + s1.xpos, s1.y + General.movey, s1.width - s1.xpos, s1.height, 1, s1.linecolor, true, false, 1, BLACK);
     DrawRect(s1.x + General.movex, s1.y + General.movey, s1.xpos, s1.height, 1,BLUE2, true, false, 1, BLUE2);
     DrawRect(s1.x + s1.xpos + General.movex, s1.ypos + General.movey,s1.sliderwidth,s1.sliderheight, 1, BLUE2, true, false,1,BLACK);
-    DrawString(s1.x + s1.width + 30, s1.y, to_string(s1.value), WHITE, false, BLACK, false, 18);
+    DrawString(s1.x + s1.width + 10, s1.y + General.movey - 5, to_string(s1.value), WHITE, false, BLACK, false, 18);
 }
-
 
 void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge)
 {
