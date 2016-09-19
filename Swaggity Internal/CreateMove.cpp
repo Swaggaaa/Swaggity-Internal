@@ -86,7 +86,7 @@ bool __fastcall Hooks::CreateMove(void* thisptr, void* edx, float flInputSampleT
     else if (General.getRageRCS())
         Cheat::RageNoRecoil();
 
-    Global::LocalPlayer->SetFlashDuration();
+    Global::LocalPlayer->SetFlashDuration();  //It checks property and sets value according to it
 
     //RestorePrediction(oCurTime, oFrameTime);
 

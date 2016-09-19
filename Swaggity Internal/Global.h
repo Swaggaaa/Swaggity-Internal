@@ -16,5 +16,9 @@ namespace Global
 
     extern Vector       OldAngles;
 
-  
+    extern int          CurrentTargetID;
+
+    extern int          CurrentSmoothStep;
+
+    extern HFont        textFont;
 }

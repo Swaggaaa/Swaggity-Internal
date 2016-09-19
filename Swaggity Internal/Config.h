@@ -185,13 +185,13 @@ public:
 		 bool getRageRCS();
 		 bool getLegitRCS();
 		 bool getNoVisRecoil();
-		 bool getCorsshairRecoil();
+		 bool getCrosshairRecoil();
 
 		 void setActiveRCS(bool dep);
 		 void setRageRCS(bool dep);
 		 void setLegitRCS(bool dep);
 		 void setNoVisRecoil(bool dep);
-		 void setCorsshairRecoil(bool dep);
+		 void setCrosshairRecoil(bool dep);
 
 		 bool getKill();
 		 bool getOvrkey();

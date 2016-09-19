@@ -1,36 +1,72 @@
-﻿  Cheat.cpp
-  Config.cpp
-Config.cpp(28): fatal error C1001: An internal error has occurred in the compiler.
-  (compiler file 'f:\dd\vctools\compiler\cxxfe\sl\p1\c\constexpr.h', line 630)
-   To work around this problem, try simplifying or changing the program near the locations listed above.
-  Please choose the Technical Support command on the Visual C++ 
-   Help menu, or open the Technical Support help file for more information
-  CreateMove.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  D3D.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\stdafx.h(13): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  EndScene.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  Entity.cpp
-  FrameStageNotify.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  Global.cpp
-  Hooks.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  IBaseClientDll.cpp
-  IClientModeShared.cpp
-  Interfaces.cpp
-  ISurface.cpp
-  main.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  NetVarManager.cpp
-  Offsets.cpp
-  OverrideView.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  PaintTraverse.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\Hooks.h(5): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  stdafx.cpp
-c:\users\titan\desktop\swaggity-internal\swaggity internal\stdafx.h(13): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
-  Utils.cpp
-  Compiling...
-  VMTSwag.cpp
+﻿Build started 19/09/2016 14:25:58.
+     1>Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Cheat.cpp Config.cpp CreateMove.cpp D3D.cpp EndScene.cpp Entity.cpp FrameStageNotify.cpp Global.cpp Hooks.cpp IBaseClientDll.cpp IClientModeShared.cpp Interfaces.cpp ISurface.cpp main.cpp NetVarManager.cpp Offsets.cpp OverrideView.cpp PaintTraverse.cpp Reset.cpp stdafx.cpp Utils.cpp VMTSwag.cpp
+         Cheat.cpp
+     1>Cheat.cpp(67): warning C4018: '<': signed/unsigned mismatch
+     1>Cheat.cpp(312): warning C4018: '<': signed/unsigned mismatch
+     1>Cheat.cpp(325): warning C4018: '>': signed/unsigned mismatch
+     1>Cheat.cpp(347): warning C4018: '>': signed/unsigned mismatch
+         Config.cpp
+     1>Config.cpp(283): warning C4800: 'uint': forcing value to bool 'true' or 'false' (performance warning)
+         CreateMove.cpp
+     1>CreateMove.cpp(50): warning C4101: 'oFrameTime': unreferenced local variable
+     1>CreateMove.cpp(50): warning C4101: 'oCurTime': unreferenced local variable
+         D3D.cpp
+         EndScene.cpp
+     1>EndScene.cpp(75): warning C4101: 'middle': unreferenced local variable
+     1>EndScene.cpp(104): warning C4101: 'middle': unreferenced local variable
+     1>EndScene.cpp(104): warning C4101: 'yy': unreferenced local variable
+     1>EndScene.cpp(104): warning C4101: 'xx': unreferenced local variable
+         Entity.cpp
+         FrameStageNotify.cpp
+         Global.cpp
+         Hooks.cpp
+         IBaseClientDll.cpp
+         IClientModeShared.cpp
+         Interfaces.cpp
+         ISurface.cpp
+         main.cpp
+         NetVarManager.cpp
+         Offsets.cpp
+         OverrideView.cpp
+         PaintTraverse.cpp
+         Reset.cpp
+         stdafx.cpp
+         Compiling...
+         Utils.cpp
+         VMTSwag.cpp
+       Link:
+         D:\Archivos de programa (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.dll" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.lib" /MACHINE:X86 /SAFESEH /DLL Release\Cheat.obj
+         Release\Config.obj
+         Release\CreateMove.obj
+         Release\D3D.obj
+         Release\EndScene.obj
+         Release\Entity.obj
+         Release\FrameStageNotify.obj
+         Release\Global.obj
+         Release\Hooks.obj
+         Release\IBaseClientDll.obj
+         Release\IClientModeShared.obj
+         Release\Interfaces.obj
+         Release\ISurface.obj
+         Release\main.obj
+         Release\NetVarManager.obj
+         Release\Offsets.obj
+         Release\OverrideView.obj
+         Release\PaintTraverse.obj
+         Release\Reset.obj
+         Release\stdafx.obj
+         Release\Utils.obj
+         Release\VMTSwag.obj
+         Generating code
+         1059 of 1315 functions (80.5%) were compiled, the rest were copied from previous compilation.
+           897 functions were new in current compilation
+           37 functions had inline decision re-evaluated but remain unchanged
+         Finished generating code
+         Swaggity Internal.vcxproj -> C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Release\Swaggity Internal.dll
+     1>Done Building Project "C:\Users\sergi\Documents\Visual Studio 2015\Projects\Swaggity Internal\Swaggity Internal\Swaggity Internal.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:16.61

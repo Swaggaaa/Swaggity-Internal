@@ -1,4 +1,3 @@
-
 #include "Cheat.h"
 #include "Entity.h"
 #include "RayTrace.h"
@@ -8,7 +7,7 @@
 #include <iostream>
 #include "Utils.h"
 
-    void Cheat::ClampAngles()
+void Cheat::ClampAngles()
 {
     if (Global::UserCmd->viewangles.x < -89)
         Global::UserCmd->viewangles.x = -89;
@@ -219,7 +218,7 @@ void Cheat::TriggerBot()
                     if (General.getTriggerSilent())
                     {
                         Vector aimPos;
-                        aimPos = Global::LocalPlayer->GetWeapon()->IsSniper() ?
+                        aimPos = Global::LocalPlayer->GetWeapon()->IsSniper() && !(Global::LocalPlayer->GetWeapon()->GetWeaponID() == WEAPON_SSG08) && trace.m_pEnt->IsVisible(4) ?
                             trace.m_pEnt->GetBonePosition(4) :
                             trace.m_pEnt->GetBonePosition(6);
                         QAngle destination = Utils::CalcAngle(Global::LocalPlayer->GetEyePosition(), aimPos);
@@ -265,31 +264,8 @@ void Cheat::RageAimbot()
     float distance = 1337.f;
     uint id = 1337;
 
-    switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
-    {
-    case WEAPON_USP_SILENCER:
-    case WEAPON_P250:
-    case WEAPON_DEAGLE:
-    case WEAPON_FIVESEVEN:
-    case WEAPON_TEC9:
-    case WEAPON_SSG08:
-    case WEAPON_AWP:
-    case WEAPON_SCAR20:
-    case WEAPON_KNIFE:
-    case WEAPON_KNIFE_T:
-    case WEAPON_DECOY:
-    case WEAPON_HEGRENADE:
-    case WEAPON_FLASHBANG:
-    case WEAPON_SMOKEGRENADE:
-    case WEAPON_MOLOTOV:
-    case WEAPON_C4:
-    case WEAPON_INCGRENADE:
-    case WEAPON_G3SG1:
+    if (!Global::LocalPlayer->GetWeapon()->IsGun())
         return;
-
-    default:
-        break;
-    }
 
 
     for (uint i = 0; i < uint(Interfaces::EntityList->GetHighestEntityIndex()); ++i)
@@ -377,7 +353,7 @@ void Cheat::LegitAimbot()
     QAngle delta = dst - origin;
     delta.Clamp();
 
-    dst = origin + delta / float(1); //Smooth Factor
+    dst = origin + delta / float(General.getSmoothFactor());
     dst.Clamp();
     Vector vAngles(dst.x, dst.y, dst.z);
     Interfaces::Engine->SetViewAngles(dst);

@@ -3,6 +3,8 @@
 #define _INCL_D3D
 
 #include "stdafx.h"
+#pragma warning (disable : 4244)  //int to float casting
+#pragma warning (disable : 4018)  //signed unsigned comparison
 
 #define AliceBlue D3DCOLOR_ARGB ( 255, 240, 248, 255 )
 #define AntiqueWhite D3DCOLOR_ARGB ( 255, 250, 235, 215 )

@@ -144,7 +144,7 @@ void writeFile(ofstream& ofs)
 	ofs << "DistanceBasedFOV=" << General.getDistanceBasedFOV() << endl;
 	ofs << "SmoothFactor=" << General.getSmoothFactor() << endl;
 	ofs << "SilentAim=" << General.getSilentAim() << endl;
-	ofs << "CrosshairRecoil=" << General.getCorsshairRecoil() << endl;
+	ofs << "CrosshairRecoil=" << General.getCrosshairRecoil() << endl;
 	ofs << "NoFlash=" << General.getNoFlash() << endl;
 	ofs << "BunnyHop=" << General.getBhop() << endl;
     ofs << "BunnyHop_MinJumps" << General.getMinBhops() << endl;
@@ -190,7 +190,7 @@ void LoadSettings()
 		General.setDistanceBasedFOV(GetPrivateProfileInt("General", "DistanceBasedFOV", 1, settings.c_str()) != 0);
 		General.setSmoothFactor(GetPrivateProfileInt("General", "SmoothFactor", 6, settings.c_str()));
 		General.setSilentAim( GetPrivateProfileInt("General", "SilentAim", 1, settings.c_str()) != 0);
-		General.setCorsshairRecoil(GetPrivateProfileInt("General", "CrosshairRecoil", 0, settings.c_str()) != 0);
+		General.setCrosshairRecoil(GetPrivateProfileInt("General", "CrosshairRecoil", 0, settings.c_str()) != 0);
 		General.setNoFlash( GetPrivateProfileInt("General", "NoFlash", 1, settings.c_str()) != 0);
 		General.setBhop( GetPrivateProfileInt("General", "BunnyHop", 1, settings.c_str()) != 0);
         General.setMinBhops(GetPrivateProfileInt("General", "BunnyHop_MinJumps", 3, settings.c_str()));
@@ -264,7 +264,7 @@ void printMenu(HANDLE& hOut)
     cout << "#7  -> Set Distance Based FOV"; printStatus(hConsole, General.getDistanceBasedFOV());
 	cout << "#8  -> Set Smooth Factor"; printStatus(hConsole, false, true, General.getSmoothFactor(), false);
 	cout << "#9  -> Toggle Silent Aim"; printStatus(hConsole, General.getSilentAim());
-	cout << "#10 -> Toggle Recoil Crosshair"; printStatus(hConsole, General.getCorsshairRecoil());
+	cout << "#10 -> Toggle Recoil Crosshair"; printStatus(hConsole, General.getCrosshairRecoil());
 	cout << "#11 -> Toggle NoFlash"; printStatus(hConsole, General.getNoFlash());
 	cout << "#12 -> Toggle BunnyHop"; printStatus(hConsole, General.getBhop());
     cout << "#16 -> Set BunnyHop Minimum Successful Jumps"; printStatus(hConsole, false, true, General.getMinBhops());
@@ -353,98 +353,157 @@ void Setup(HINSTANCE hinstDLL)
 			}
 			break;
 
-		case 6:
-			cout << "Specify a new Aimbot FOV: ";
-			cin >> n;
-			General.setAimbotFOV(n);
-			break;
+        case 6:
+            cout << "Specify Min Bullets to start Aimbotting: ";
+            cin >> n;
+            General.setMinBullets(n);
+            break;
 
-		case 7:
-			//Config::DistanceBasedFOV = !Config::DistanceBasedFOV;
-			break;
 
-		case 8:
-			cout << "Specify a new Aimbot Smooth Factor: ";
-			cin >> n;
-			//Config::SmoothFactor = n;
-			break;
+        case 7:
+            cout << "Specify Max Bullets to the Head when Aimbotting: ";
+            cin >> n;
+            General.setMaxBullets(n);
+            break;
 
-		case 9:
-			General.setSilentAim(!General.getSilentAim());
-			if (General.getSilentAim())
-			{
-				if (General.getLegitRCS())
-				{
-					General.setLegitRCS(false);
-					General.setRageRCS(true);
-				}
-			}
-			break;
+        case 8:
+            cout << "Specify a new Aimbot FOV: ";
+            cin >> n;
+            General.setAimbotFOV(n);
+            break;
 
-		case 10:
-			General.setCorsshairRecoil(!General.getCorsshairRecoil());
-			break;
+        case 9:
+            General.setDistanceBasedFOV(!General.getDistanceBasedFOV());
+            break;
 
-		case 11:
-			General.setNoFlash(!General.getNoFlash());
-			break;
+        case 10:
+            cout << "Specify a new Aimbot Smooth Factor: ";
+            cin >> n;
+            General.setSmoothFactor(n);
+            break;
 
-		case 12:
-			General.setBhop(!General.getBhop());
-			break;
+        case 11:
+            General.setSilentAim(!General.getSilentAim());
+            if (General.getSilentAim())
+            {
+                if (General.getLegitRCS())
+                {
+                    General.setLegitRCS(false);
+                    General.setRageRCS(true);
+                }
+            }
+            break;
 
-		case 13:
-			General.setESP(!General.getESP());
-			break;
+        case 12:
+            General.setCrosshairRecoil(!General.getCrosshairRecoil());
+            break;
 
-		case 14:
-			do
-			{
-				system("cls");
-				cout << "#1 -> ESP Name"; printStatus(h, General.getESPName());
-				cout << "#2 -> ESP Health"; printStatus(h, General.getESPHealth());
-				cout << "#3 -> ESP Distance"; printStatus(h, General.getESPDistance());
-				cout << "#4 -> ESP Gun"; printStatus(h, General.getESPGun());
-				cout << "#5 -> ESP Head"; printStatus(h, General.getESPHead());
-				cout << "Choose a feature to toggle (9 TO GO BACK TO MAIN MENU): ";
-				cin >> n;
+        case 13:
+            General.setNoFlash(!General.getNoFlash());
+            break;
 
-				if (n != 9){}
-				//	Config::ESPFeatures[n - 1] = !Config::ESPFeatures[n - 1];
+        case 14:
+            General.setBhop(!General.getBhop());
+            break;
 
-			} while (n != 9);
-			break;
+        case 15:
+            cout << "Specify a number of Minimum Successful Bhops: ";
+            cin >> n;
+            General.setMinBhops(n);
+            break;
 
-		case 15:
-			General.setActiveTrigger(!General.getActiveTrigger());
-			break;
+        case 16:
+            cout << "Specify a number of Maximum Successful Bhops: ";
+            cin >> n;
+            General.setMaxBhops(n);
+            break;
 
-		case 16:
-			General.setShitTalk(!General.getShitTalk());
-			break;
+        case 17:
+            General.setESP(!General.getESP());
+            break;
 
-		case 17:
-			General.setTriggerSilent(!General.getTriggerSilent());
-			break;
+        case 18:
+            do
+            {
+                system("cls");
+                cout << "#1 -> ESP Name"; printStatus(h, General.getESPName());
+                cout << "#2 -> ESP Health"; printStatus(h, General.getESPHealth());
+                cout << "#3 -> ESP Distance"; printStatus(h, General.getESPDistance());
+                cout << "#4 -> ESP Gun"; printStatus(h, General.getESPGun());
+                cout << "#5 -> ESP Head"; printStatus(h, General.getESPHead());
+                cout << "Choose a feature to toggle (9 TO GO BACK TO MAIN MENU): ";
+                cin >> n;
 
-		case 18:
-			cout << "Specify a new trigger delay: ";
-			cin >> n;
-			General.setTriggerDelay(n);
-			break;
+                switch (n)
+                {
+                case 1:
+                {
+                    General.setESPName(!General.getESPName());
+                    break;
+                }
 
-		case 19:
-			cout << "Specify a new trigger hitchance: ";
-			cin >> n;
-			General.setTriggerChance(n);
-			break;
+                case 2:
+                {
+                    General.setESPHealth(!General.getESPHealth());
+                    break;
+                }
 
-		case 20:
-			cout << "Specify a new trigger key: ";
-			cin.setf(ios::hex, ios::basefield);
-			cin >> n;
-			General.setTriggerKey(n);
-			cin.setf(ios::dec, ios::basefield);
+                case 3:
+                {
+                    General.setESPDistance(!General.getESPDistance());
+                    break;
+                }
+
+                case 4:
+                {
+                    General.setESPGun(!General.getESPGun());
+                    break;
+                }
+
+                case 5:
+                {
+                    General.setESPHead(!General.getESPHead());
+                    break;
+                }
+
+                default:
+                    break;
+                }
+
+            } while (n != 9);
+            break;
+
+        case 19:
+            General.setActiveTrigger(General.getActiveTrigger());
+            break;
+
+        case 20:
+            General.setShitTalk(!General.getShitTalk());
+            break;
+
+        case 21:
+            General.setTriggerSilent(!General.getTriggerSilent());
+            break;
+
+        case 22:
+            cout << "Specify a new trigger delay: ";
+            cin >> n;
+            General.setTriggerDelay(n);
+            break;
+
+        case 23:
+            cout << "Specify a new trigger hitchance: ";
+            cin >> n;
+            General.setTriggerChance(n);
+            break;
+
+        case 24:
+            cout << "Specify a new trigger key: ";
+            cin.setf(ios::hex, ios::basefield);
+            cin >> n;
+            General.setTriggerKey(n);
+            cin.setf(ios::dec, ios::basefield);
+            break;
        
         case 99:
             cout << "Done" << endl;

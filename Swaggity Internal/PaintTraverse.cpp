@@ -98,10 +98,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
             CBaseEntity* entity = Interfaces::EntityList->GetClientEntity(i);
 
 
-            if (!entity || entity == Global::LocalPlayer ||
-                entity->GetTeam() == Global::LocalPlayer->GetTeam() ||
-                entity->GetHealth() <= 0 || entity->GetDormant() ||
-                entity->GetEyePosition() == Global::LocalPlayer->GetEyePosition())
+            if (!entity->IsValid())
                 continue;
 
             Vector max = entity->GetCollideable()->OBBMaxs();
@@ -117,16 +114,33 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
 
             bool visible = entity->IsVisible(6);
             SetVisibleColor(visible);
+            int lastX = top.x - width - 40;
+            int lastY = top.y + height / 2; //They specify latest ESP feature position aka to make it dynamic
 
-            /*int lastX, lastY; //They specify latest ESP feature position aka to make it dynamic
+            Interfaces::Surface->DrawSetTextFont(Global::textFont);
+            SetVisibleColor(visible);
 
-            if (Config::ESPFeatures[0])
+            if (General.getESPName())
             {
-                const wchar_t* name = wstring(entity->GetName().begin(), entity->GetName().end()).c_str();   //I love casting
-                Interfaces::Surface->DrawSetTextPos(top.x - width - 50, top.y);
-                Interfaces::Surface->DrawPrintText(name, sizeof(name));
+                wchar_t name[1024];
+                char buf[1024];
+                strcpy(buf, entity->GetName().c_str());
+                MultiByteToWideChar(CP_UTF8, NULL, buf, 256, name, 256);
+                Interfaces::Surface->DrawSetTextPos(lastX, lastY);
+                Interfaces::Surface->DrawPrintText(name, wcslen(name));
+
+                lastY += 10;
             }
-            */
+
+            if (General.getESPHealth())
+            {
+                int iHealth = entity->GetHealth();
+                wchar_t health[256];
+
+                swprintf_s(health, L"%d", iHealth);
+                Interfaces::Surface->DrawSetTextPos(lastX, lastY);
+                Interfaces::Surface->DrawPrintText(health, wcslen(health));
+            }
 
             if (General.getESPHead()) //HeadPos
             {
@@ -149,7 +163,7 @@ void __fastcall Hooks::PaintTraverse(void* thisptr, void* edx, unsigned int pane
         }
     }
 
-    if (General.getCorsshairRecoil() && Global::LocalPlayer->GetAlive())
+    if (General.getCrosshairRecoil() && Global::LocalPlayer->GetAlive())
         CrosshairRecoil();
     oPaintTraverse(thisptr, edx, panel, forceRepaint, allowForce);
 }

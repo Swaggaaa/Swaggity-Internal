@@ -226,7 +226,7 @@ bool D3D::init(IDirect3DDevice9 *pDevice)
                     MessageBoxW(NULL, L"CreateDeviceEx failed!", L"Fatal Error", MB_OK);
                 }
 
-    
+     return false;
 
 }
 

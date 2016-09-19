@@ -49,7 +49,7 @@ bool Config::getNoVisRecoil()
 	return RCS[3].second;
 }
 
-bool Config::getCorsshairRecoil()
+bool Config::getCrosshairRecoil()
 {
 	return RCS[4].second;
 }
@@ -75,7 +75,7 @@ void Config::setNoVisRecoil(bool dep)
 	RCS[3].second = dep;
 }
 
-void Config::setCorsshairRecoil(bool dep)
+void Config::setCrosshairRecoil(bool dep)
 {
 	RCS[4].second = dep;
 }
