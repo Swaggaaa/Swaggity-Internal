@@ -64,11 +64,11 @@ Vector oldPunch(0.f, 0.f, 0.f);
 
 void Cheat::NoRecoil()
 {
-    if (Global::LocalPlayer->GetShotsFired() < General.getMinBullets())
+    if (Global::LocalPlayer->GetShotsFired() < General.getMinBullets() || Global::LocalPlayer->GetWeapon() == nullptr)
+    {
+        oldPunch = Global::LocalPlayer->GetPunch() * 2.f;
         return;
-
-    if (Global::LocalPlayer->GetWeapon() == nullptr)
-        return;
+    }
 
     switch (Global::LocalPlayer->GetWeapon()->GetWeaponID())
     {
@@ -90,7 +90,10 @@ void Cheat::NoRecoil()
     case WEAPON_CZ75A:
         break;
     default:
+    {
+        oldPunch = Global::LocalPlayer->GetPunch() * 2.f;
         return;
+    }
     }
 
     if (Global::UserCmd->buttons & IN_ATTACK)
@@ -107,11 +110,10 @@ void Cheat::NoRecoil()
         angles.Clamp();
         Interfaces::Engine->SetViewAngles(angles);
         oldPunch = newPunch;
-        ClampAngles();
     }
     else
     {
-        oldPunch.Zero();
+        oldPunch = Global::LocalPlayer->GetPunch() * 2.f;
     }
 
 }
