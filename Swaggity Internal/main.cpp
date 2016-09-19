@@ -260,23 +260,23 @@ void printMenu(HANDLE& hOut)
 	cout << "#5  -> Toggle Legit Aimbot"; printStatus(hConsole, General.getLegitAimbot());
     cout << "#6  -> Set Aimbot MinBullets to Start"; printStatus(hConsole, false, true, General.getMinBullets());
     cout << "#7  -> Set Aimbot MaxBullets to Head"; printStatus(hConsole, false, true, General.getMaxBullets());
-	cout << "#6  -> Set Aimbot FOV"; printStatus(hConsole, false, true, General.getAimbotFOV(), false);
-    cout << "#7  -> Set Distance Based FOV"; printStatus(hConsole, General.getDistanceBasedFOV());
-	cout << "#8  -> Set Smooth Factor"; printStatus(hConsole, false, true, General.getSmoothFactor(), false);
-	cout << "#9  -> Toggle Silent Aim"; printStatus(hConsole, General.getSilentAim());
-	cout << "#10 -> Toggle Recoil Crosshair"; printStatus(hConsole, General.getCrosshairRecoil());
-	cout << "#11 -> Toggle NoFlash"; printStatus(hConsole, General.getNoFlash());
-	cout << "#12 -> Toggle BunnyHop"; printStatus(hConsole, General.getBhop());
-    cout << "#16 -> Set BunnyHop Minimum Successful Jumps"; printStatus(hConsole, false, true, General.getMinBhops());
+	cout << "#8  -> Set Aimbot FOV"; printStatus(hConsole, false, true, General.getAimbotFOV(), false);
+    cout << "#9  -> Set Distance Based FOV"; printStatus(hConsole, General.getDistanceBasedFOV());
+	cout << "#10 -> Set Smooth Factor"; printStatus(hConsole, false, true, General.getSmoothFactor(), false);
+	cout << "#11 -> Toggle Silent Aim"; printStatus(hConsole, General.getSilentAim());
+	cout << "#12 -> Toggle Recoil Crosshair"; printStatus(hConsole, General.getCrosshairRecoil());
+	cout << "#13 -> Toggle NoFlash"; printStatus(hConsole, General.getNoFlash());
+	cout << "#14 -> Toggle BunnyHop"; printStatus(hConsole, General.getBhop());
+    cout << "#15 -> Set BunnyHop Minimum Successful Jumps"; printStatus(hConsole, false, true, General.getMinBhops());
     cout << "#16 -> Set BunnyHop Maximum Successful Jumps"; printStatus(hConsole, false, true, General.getMaxBhops());
-	cout << "#13 -> Toggle ESP"; printStatus(hConsole, General.getESP());
-	cout << "#14 -> Toggle ESP Features" << endl;
-	cout << "#15 -> Toggle TriggerBot"; printStatus(hConsole, General.getActiveTrigger());
-	cout << "#16 -> Toggle ShitTalk"; printStatus(hConsole, General.getShitTalk());
-	cout << "#17 -> Toggle TriggerBot PSilent"; printStatus(hConsole, General.getTriggerSilent());
-	cout << "#18 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, General.getTriggerDelay(), false);
-	cout << "#19 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, General.getTriggerChance(), false);
-	cout << "#20 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, General.getTriggerKey(), true);
+	cout << "#17 -> Toggle ESP"; printStatus(hConsole, General.getESP());
+	cout << "#18 -> Toggle ESP Features" << endl;
+	cout << "#19 -> Toggle TriggerBot"; printStatus(hConsole, General.getActiveTrigger());
+	cout << "#20 -> Toggle ShitTalk"; printStatus(hConsole, General.getShitTalk());
+	cout << "#21 -> Toggle TriggerBot PSilent"; printStatus(hConsole, General.getTriggerSilent());
+	cout << "#22 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, General.getTriggerDelay(), false);
+	cout << "#23 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, General.getTriggerChance(), false);
+	cout << "#24 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, General.getTriggerKey(), true);
 }
 
 void Setup(HINSTANCE hinstDLL)
