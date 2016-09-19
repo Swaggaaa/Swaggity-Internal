@@ -17,6 +17,16 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#ugly shit
+*.pdb
+*.ipdb
+*.ilk
+*.obj
+*.tlog
+*.idb
+*.iobj
+*.ilk
+
 # =========================
 # Operating System Files
 # =========================

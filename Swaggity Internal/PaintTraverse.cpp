@@ -55,6 +55,7 @@ void CrosshairRecoil()
 
     ray.Init(src, dst);
     Interfaces::EngineTrace->TraceRay(ray, MASK_SHOT, &filter, &trace);
+    Interfaces::EngineTrace->TraceRay(ray, MASK_SHOT, &filter, &trace);
 
     Vector screenPos;
     Utils::WorldToScreen(trace.endpos, screenPos);

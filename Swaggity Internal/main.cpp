@@ -150,7 +150,7 @@ void writeFile(ofstream& ofs)
     ofs << "BunnyHop_MinJumps" << General.getMinBhops() << endl;
     ofs << "BunnyHop_MaxJumps" << General.getMaxBhops() << endl;
 	ofs << "ESP=" << General.getESP() << endl;
-	ofs << "ESPName=" << General.getESP() << endl;
+	ofs << "ESPName=" << General.getESPName() << endl;
 	ofs << "ESPHealth=" << General.getESPHealth() << endl;
 	ofs << "ESPDistance=" << General.getESPDistance() << endl;
 	ofs << "ESPGun=" << General.getESPGun() << endl;
@@ -292,6 +292,7 @@ void Setup(HINSTANCE hinstDLL)
 	LoadInterfaces();
 	LoadOffsets();
 	LoadHooks();
+    LoadFonts();
     int height, width;
     Interfaces::Engine->GetScreenSize(width, height);
     General.setwidth(width);
