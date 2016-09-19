@@ -9,6 +9,7 @@
 #include "IEngineTrace.h"
 #include "OnDeath.h"
 #include "D3D.h"
+#include "Global.h"
 
 using namespace std;
 Config General;
@@ -124,6 +125,11 @@ void LoadHooks()
 	cout << "oReset -> 0x" << DWORD(oReset) << endl;
 }
 
+void LoadFonts()
+{
+    Interfaces::Surface->SetFontGlyphSet(Global::textFont = Interfaces::Surface->Create_Font(), "Verdana", 12, FW_DONTCARE, 0, 0, FONTFLAG_OUTLINE);
+}
+
 void writeFile(ofstream& ofs)
 {
 	ofs << "[General]" << endl;
@@ -132,13 +138,17 @@ void writeFile(ofstream& ofs)
 	ofs << "NoVisRecoil=" << General.getNoVisRecoil() << endl;
 	ofs << "RageAimbot=" << General.getRageAimbot() << endl;
 	ofs << "LegitAimbot=" << General.getLegitAimbot() << endl;
+    ofs << "MinBullets=" << General.getMinBullets() << endl;
+    ofs << "MaxBullets=" << General.getMaxBullets() << endl;
 	ofs << "AimbotFOV=" << General.getAimbotFOV() << endl;
-//	ofs << "DistanceBasedFOV=" << General.getDistanceBasedFOV << endl;
-//	ofs << "SmoothFactor=" << General.getSmoothFactor << endl;
+	ofs << "DistanceBasedFOV=" << General.getDistanceBasedFOV() << endl;
+	ofs << "SmoothFactor=" << General.getSmoothFactor() << endl;
 	ofs << "SilentAim=" << General.getSilentAim() << endl;
 	ofs << "CrosshairRecoil=" << General.getCorsshairRecoil() << endl;
 	ofs << "NoFlash=" << General.getNoFlash() << endl;
 	ofs << "BunnyHop=" << General.getBhop() << endl;
+    ofs << "BunnyHop_MinJumps" << General.getMinBhops() << endl;
+    ofs << "BunnyHop_MaxJumps" << General.getMaxBhops() << endl;
 	ofs << "ESP=" << General.getESP() << endl;
 	ofs << "ESPName=" << General.getESP() << endl;
 	ofs << "ESPHealth=" << General.getESPHealth() << endl;
@@ -174,13 +184,17 @@ void LoadSettings()
 		General.setNoVisRecoil(GetPrivateProfileInt("General", "NoVisRecoil", 1, settings.c_str()) != 0);
 		General.setRageAimbot( GetPrivateProfileInt("General", "RageAimbot", 1, settings.c_str()) != 0);
 		General.setLegitAimbot(GetPrivateProfileInt("General", "LegitAimbot", 0, settings.c_str()) != 0);
+        General.setMinBullets(GetPrivateProfileInt("General", "MinBullets", 2, settings.c_str()));
+        General.setMaxBullets(GetPrivateProfileInt("General", "MaxBullets", 11, settings.c_str()));
 		General.setAimbotFOV(GetPrivateProfileInt("General", "AimbotFOV", 6, settings.c_str()));
-		//General.getDistanceBasedFOV = GetPrivateProfileInt("General", "DistanceBasedFOV", 1, settings.c_str()) != 0;
-		//General.getSmoothFactor = GetPrivateProfileInt("General", "SmoothFactor", 8, settings.c_str());
+		General.setDistanceBasedFOV(GetPrivateProfileInt("General", "DistanceBasedFOV", 1, settings.c_str()) != 0);
+		General.setSmoothFactor(GetPrivateProfileInt("General", "SmoothFactor", 6, settings.c_str()));
 		General.setSilentAim( GetPrivateProfileInt("General", "SilentAim", 1, settings.c_str()) != 0);
 		General.setCorsshairRecoil(GetPrivateProfileInt("General", "CrosshairRecoil", 0, settings.c_str()) != 0);
 		General.setNoFlash( GetPrivateProfileInt("General", "NoFlash", 1, settings.c_str()) != 0);
 		General.setBhop( GetPrivateProfileInt("General", "BunnyHop", 1, settings.c_str()) != 0);
+        General.setMinBhops(GetPrivateProfileInt("General", "BunnyHop_MinJumps", 3, settings.c_str()));
+        General.setMaxBhops(GetPrivateProfileInt("General", "BunnyHop_MaxJumps", 5, settings.c_str()));
 		General.setESPName(GetPrivateProfileInt("General", "ESPName", 1, settings.c_str()) != 0);  //Name
 		General.setESPHealth(GetPrivateProfileInt("General", "ESPHealth", 1, settings.c_str()) != 0);  //Health
 		General.setESPDistance(GetPrivateProfileInt("General", "ESPDistance", 1, settings.c_str()) != 0);  //Distance
@@ -244,13 +258,17 @@ void printMenu(HANDLE& hOut)
 	cout << "#3  -> Toggle NoVis Recoil"; printStatus(hConsole, General.getNoVisRecoil());
 	cout << "#4  -> Toggle Rage Aimbot"; printStatus(hConsole, General.getRageAimbot());
 	cout << "#5  -> Toggle Legit Aimbot"; printStatus(hConsole, General.getLegitAimbot());
-//	cout << "#6  -> Set Aimbot FOV"; printStatus(hConsole, false, true, General., false);
-//	cout << "#7  -> Set Distance Based FOV"; printStatus(hConsole, Config::DistanceBasedFOV);
-//	cout << "#8  -> Set Smooth Factor"; printStatus(hConsole, false, true, Config::SmoothFactor, false);
+    cout << "#6  -> Set Aimbot MinBullets to Start"; printStatus(hConsole, false, true, General.getMinBullets());
+    cout << "#7  -> Set Aimbot MaxBullets to Head"; printStatus(hConsole, false, true, General.getMaxBullets());
+	cout << "#6  -> Set Aimbot FOV"; printStatus(hConsole, false, true, General.getAimbotFOV(), false);
+    cout << "#7  -> Set Distance Based FOV"; printStatus(hConsole, General.getDistanceBasedFOV());
+	cout << "#8  -> Set Smooth Factor"; printStatus(hConsole, false, true, General.getSmoothFactor(), false);
 	cout << "#9  -> Toggle Silent Aim"; printStatus(hConsole, General.getSilentAim());
 	cout << "#10 -> Toggle Recoil Crosshair"; printStatus(hConsole, General.getCorsshairRecoil());
 	cout << "#11 -> Toggle NoFlash"; printStatus(hConsole, General.getNoFlash());
 	cout << "#12 -> Toggle BunnyHop"; printStatus(hConsole, General.getBhop());
+    cout << "#16 -> Set BunnyHop Minimum Successful Jumps"; printStatus(hConsole, false, true, General.getMinBhops());
+    cout << "#16 -> Set BunnyHop Maximum Successful Jumps"; printStatus(hConsole, false, true, General.getMaxBhops());
 	cout << "#13 -> Toggle ESP"; printStatus(hConsole, General.getESP());
 	cout << "#14 -> Toggle ESP Features" << endl;
 	cout << "#15 -> Toggle TriggerBot"; printStatus(hConsole, General.getActiveTrigger());

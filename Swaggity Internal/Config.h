@@ -226,15 +226,19 @@ public:
 		 bool getLegitAimbot();
 		 bool getSilentAim();
 		 bool getAutoShoot();
+         uint getSmoothFactor();
 
 		 uint getAimbotFOV();
+         bool getDistanceBasedFOV();
 		 void setAimbotFOV(uint dep);
+         void setDistanceBasedFOV(bool dep);
 
 		 void setActiveAimbot(bool dep);
 		 void setRageAimbot(bool dep);
 		 void setLegitAimbot(bool dep);
 		 void setSilentAim(bool dep);
 		 void setAutoShoot(bool dep);
+         void setSmoothFactor(uint dep);
 
          void setMinBullets(uint dep);
          uint getMinBullets();

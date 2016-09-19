@@ -226,15 +226,32 @@ bool Config::getAutoShoot()
 	return Aimbot[4].second;
 }
 
+uint Config::getSmoothFactor()
+{
+    return Aimbotuint[3].second;
+}
+
 uint Config::getAimbotFOV()
 {
 	return Aimbotuint[0].second;
 }
 
+bool Config::getDistanceBasedFOV()
+{
+    return Aimbot[5].second;
+}
+
+
 void Config::setAimbotFOV(uint dep)
 {
 	Aimbotuint[0].second = dep;
 }
+
+void Config::setDistanceBasedFOV(bool dep)
+{
+    Aimbot[5].second = dep;
+}
+
 
 void Config::setActiveAimbot(bool dep)
 {
@@ -260,6 +277,12 @@ void Config::setAutoShoot(bool dep)
 {
 	Aimbot[4].second = dep;
 }
+
+void Config::setSmoothFactor(uint dep)
+{
+    Aimbot[5].second = dep;
+}
+
 
 void Config::setMinBullets(uint dep)
 {
@@ -481,12 +504,13 @@ Config::Config()
 
       };
      
-	  Aimbot = {
-		  pair<string, bool>("Active", true),
-		  pair<string, bool>("Aimbot", false), //Rage
-		  pair<string, bool>("Aimbot", false), //Aimbot
-		  pair<string, bool>("SilentAim",false),
-		  pair<string,bool>("AutoShoot",false)
+      Aimbot = {
+          pair<string, bool>("Active", true),
+          pair<string, bool>("Aimbot", false), //Rage
+          pair<string, bool>("Aimbot", false), //Aimbot
+          pair<string, bool>("SilentAim",false),
+          pair<string,bool>("AutoShoot",false),
+          pair<string, bool>("DistanceBasedFOV", false)
 		  
       };
 
@@ -494,7 +518,8 @@ Config::Config()
       Aimbotuint = {
           pair<string, uint>("AimbotFOV", 0),
           pair<string, uint>("MinBullets", 2),
-          pair<string, uint>("MaxBullets", 9)
+          pair<string, uint>("MaxBullets", 9),
+          pair<string, uint>("SmoothFactor", 6)
       };
       
       Triggerint = {
