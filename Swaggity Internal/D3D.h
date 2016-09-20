@@ -198,6 +198,17 @@ struct slider
 };
 
 
+struct combobox
+{
+    int x, y, height, width;
+    D3DCOLOR background;
+    int value;
+    bool opened;
+    int boxheight, boxwidth;
+    std::vector<int> input;
+};
+
+
 
 struct page
 {
@@ -233,6 +244,8 @@ struct D3D
   //  void DrawCheck(checkbox ron, bool drawstring);
    void D3D::DrawSlider(slider s1);
    
+   void DrawCombo(combobox c1);
+
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge);
@@ -243,7 +256,7 @@ struct D3D
 
     void addlabel(int howmany,  int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
     void addslider(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle);
-  //  void addslider(int howmany, int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
+    void addcombobox(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle);
 	void addcheckbox(int howmany, int x, int y, int size, D3DCOLOR boxcolor, D3DCOLOR checkcolor, D3DCOLOR labelcolor, bool horizontal, int middle);
 
 
