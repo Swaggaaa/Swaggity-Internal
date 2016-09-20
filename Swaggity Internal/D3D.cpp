@@ -102,6 +102,10 @@ void D3D::DrawSlider(slider s1)
     DrawString(s1.x + s1.width + 10 + General.movex, s1.y + General.movey - 5, to_string(s1.value), WHITE, false, BLACK, false, 18);
 }
 
+void D3D::DrawCombo(combobox c1)
+{
+}
+
 void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge)
 {
 
@@ -335,6 +339,10 @@ void D3D::addslider(int howmany, int x, int y, bool horizontal, D3DCOLOR slideco
 
     }
 
+}
+
+void D3D::addcombobox(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle)
+{
 }
 
 
