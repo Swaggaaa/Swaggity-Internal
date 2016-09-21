@@ -93,7 +93,7 @@ void D3D::DrawRect(float X, float Y, float Width, float Height, float LineWidth,
         }
 }
 
-void D3D::DrawSlider(slider s1)
+void D3D::DrawSlider(slider& s1)
 {
    
     DrawRect(s1.x + General.movex + s1.xpos, s1.y + General.movey, s1.width - s1.xpos, s1.height, 1, s1.linecolor, true, false, 1, BLACK);
@@ -102,8 +102,15 @@ void D3D::DrawSlider(slider s1)
     DrawString(s1.x + s1.width + 10 + General.movex, s1.y + General.movey - 5, to_string(s1.value), WHITE, false, BLACK, false, 18);
 }
 
-void D3D::DrawCombo(combobox c1)
+void D3D::DrawCombo(combobox& c1)
 {
+	DrawRect(c1.x + General.movex , c1.y + General.movey, c1.width, c1.height, 1, c1.linecolor, true, false, 1, BLACK);
+	for (int i = 0; i < c1.input.size();++i)
+	{
+		DrawRect(c1.x + General.movex, c1.y + General.movey + c1.height * i, c1.width, c1.height, 1, c1.background, true, false, 1, BLACK);
+		DrawString(c1.x + c1.width + 10 + General.movex, c1.y + General.movey - 5 + c1.height *i, to_string(c1.input[i]), WHITE, false, BLACK, false, 18);
+	}
+
 }
 
 void D3D::DrawString(float X, float Y, std::string Text, D3DCOLOR TextColor, bool Outlined, D3DCOLOR OutlineColor, bool Centered, int huge)
@@ -341,8 +348,19 @@ void D3D::addslider(int howmany, int x, int y, bool horizontal, D3DCOLOR slideco
 
 }
 
-void D3D::addcombobox(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle)
+void D3D::addcombobox(int howmany, int x, int y, D3DCOLOR boxcolors,  D3DCOLOR linecolor, std::vector<int> values)
 {
+	combobox c1;
+	c1.x = x;
+	c1.y = y;
+	c1.height = 20;
+	c1.width = 180;
+	c1.linecolor = linecolor;
+	c1.input = values;
+	c1.background = YELLOW;
+	c1.arrowcolor = BLUE2;
+	c1.linecolor = BLACK;
+
 }
 
 

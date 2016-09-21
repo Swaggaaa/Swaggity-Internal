@@ -201,8 +201,11 @@ struct slider
 struct combobox
 {
     int x, y, height, width;
-    D3DCOLOR background;
+    D3DCOLOR background,linecolor;
+	D3DCOLOR arrowcolor;
     int value;
+	int howmany;
+
     bool opened;
     int boxheight, boxwidth;
     std::vector<int> input;
@@ -216,6 +219,7 @@ struct page
     std::vector<label> labels;
 	std::vector<checkbox> checkboxes;
     std::vector<slider> sliders;
+	std::vector<combobox> comboboxes;
 	
 };
 
@@ -242,9 +246,9 @@ struct D3D
     void DrawCircle(float X, float Y, float Radius, float LineWidth, D3DCOLOR LineColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCheck(checkbox chk, int movex, int movey, bool drawstring);
   //  void DrawCheck(checkbox ron, bool drawstring);
-   void D3D::DrawSlider(slider s1);
+   void D3D::DrawSlider(slider& s1);
    
-   void DrawCombo(combobox c1);
+   void DrawCombo(combobox& c1);
 
     void DrawRect(float X, float Y, float Width, float Height, float LineWidth, D3DCOLOR LineColor, bool Filled, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
     void DrawCross(float X, float Y, float Size, float LineWidth, D3DCOLOR CrossColor, bool Outlined, float OutlineWidth, D3DCOLOR OutlineColor);
@@ -256,7 +260,8 @@ struct D3D
 
     void addlabel(int howmany,  int x, int y, int xx, int yy, bool horizontal, int middle, int whr);
     void addslider(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle);
-    void addcombobox(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle);
+	void addcombobox(int howmany, int x, int y, D3DCOLOR boxcolors, D3DCOLOR linecolor, std::vector<int> values);
+   // void addcombobox(int howmany, int x, int y, bool horizontal, D3DCOLOR slidecolor, D3DCOLOR RegColor, D3DCOLOR linecolor, int middle);
 	void addcheckbox(int howmany, int x, int y, int size, D3DCOLOR boxcolor, D3DCOLOR checkcolor, D3DCOLOR labelcolor, bool horizontal, int middle);
 
 
