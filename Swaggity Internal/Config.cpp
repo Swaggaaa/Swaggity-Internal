@@ -1,7 +1,5 @@
 #include "Config.h"
 
-using namespace Confg;
-
 /*vector<pair<string, bool> > Visual::lbool;
 vector<pair<string, bool> > Trigger::lbool;
 vector<pair<string, bool> > Misc::lbool;
@@ -241,6 +239,10 @@ bool Config::getDistanceBasedFOV()
     return Aimbot[5].second;
 }
 
+uint Config::getAimStep()
+{
+    return Aimbotuint[4].second;
+}
 
 void Config::setAimbotFOV(uint dep)
 {
@@ -252,6 +254,10 @@ void Config::setDistanceBasedFOV(bool dep)
     Aimbot[5].second = dep;
 }
 
+void Config::setAimStep(uint step)
+{
+    Aimbotuint[4].second = step;
+}
 
 void Config::setActiveAimbot(bool dep)
 {
@@ -519,7 +525,8 @@ Config::Config()
           pair<string, uint>("AimbotFOV", 0),
           pair<string, uint>("MinBullets", 2),
           pair<string, uint>("MaxBullets", 9),
-          pair<string, uint>("SmoothFactor", 6)
+          pair<string, uint>("SmoothFactor", 6),
+          pair<string, uint>("AimStep", 14)
       };
       
       Triggerint = {

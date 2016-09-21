@@ -137,6 +137,7 @@ void writeFile(ofstream& ofs)
 	ofs << "LegitRCS=" << General.getLegitRCS() << endl;
 	ofs << "NoVisRecoil=" << General.getNoVisRecoil() << endl;
 	ofs << "RageAimbot=" << General.getRageAimbot() << endl;
+    ofs << "AimStep" << General.getAimStep() << endl;
 	ofs << "LegitAimbot=" << General.getLegitAimbot() << endl;
     ofs << "MinBullets=" << General.getMinBullets() << endl;
     ofs << "MaxBullets=" << General.getMaxBullets() << endl;
@@ -183,6 +184,7 @@ void LoadSettings()
 		General.setLegitRCS(GetPrivateProfileInt("General", "LegitRCS", 0, settings.c_str()) != 0);
 		General.setNoVisRecoil(GetPrivateProfileInt("General", "NoVisRecoil", 1, settings.c_str()) != 0);
 		General.setRageAimbot( GetPrivateProfileInt("General", "RageAimbot", 1, settings.c_str()) != 0);
+		General.setAimStep( GetPrivateProfileInt("General", "AimStep", 14, settings.c_str()));
 		General.setLegitAimbot(GetPrivateProfileInt("General", "LegitAimbot", 0, settings.c_str()) != 0);
         General.setMinBullets(GetPrivateProfileInt("General", "MinBullets", 2, settings.c_str()));
         General.setMaxBullets(GetPrivateProfileInt("General", "MaxBullets", 11, settings.c_str()));
@@ -277,6 +279,7 @@ void printMenu(HANDLE& hOut)
 	cout << "#22 -> Set TriggerBot Delay (ms)"; printStatus(hConsole, false, true, General.getTriggerDelay(), false);
 	cout << "#23 -> Set TriggerBot Hitchance (%)"; printStatus(hConsole, false, true, General.getTriggerChance(), false);
 	cout << "#24 -> Set TriggerBot Key (VK_KEY CODE)"; printStatus(hConsole, false, true, General.getTriggerKey(), true);
+	cout << "#25 -> Set AimStep (degrees) (Recommended under 15)"; printStatus(hConsole, false, true, General.getAimStep(), true);
 }
 
 void Setup(HINSTANCE hinstDLL)
@@ -504,6 +507,12 @@ void Setup(HINSTANCE hinstDLL)
             cin >> n;
             General.setTriggerKey(n);
             cin.setf(ios::dec, ios::basefield);
+            break;
+
+        case 25:
+            cout << "Specify a new aimstep: ";
+            cin >> n;
+            General.setAimStep(n);
             break;
        
         case 99:

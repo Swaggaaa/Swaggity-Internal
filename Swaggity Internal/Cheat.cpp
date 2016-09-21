@@ -300,12 +300,40 @@ void Cheat::RageAimbot()
     angle.Clamp();
 
     Vector vAngle(angle.x, angle.y, angle.z);
+    Vector original = Global::UserCmd->viewangles;
+    Vector delta = vAngle - original;
+
+    bool finished, finishx, finishy;
+    finished = finishx = finishy = false;
+    int step = General.getAimStep();
+
+    if (delta.x > step)
+        original.x += step;
+    else if (delta.x < -step)
+        original.x -= step;
+    else
+    {
+        original.x += delta.x;
+        finishx = true;
+    }
+
+    if (delta.y > step)
+        original.y += step;
+    else if (delta.y < -step)
+        original.y -= step;
+    else
+    {
+        original.y += delta.y;
+        finishy = true;
+    }
+
+    finished = finishx && finishy;
 
     if (!General.getSilentAim())
         Interfaces::Engine->SetViewAngles(angle);
 
     Global::UserCmd->viewangles = vAngle; //So LegitRCS works without SilentAim
-    if (!(Global::UserCmd->buttons & IN_ATTACK))
+    if (!(Global::UserCmd->buttons & IN_ATTACK) && finished)
         Global::UserCmd->buttons |= IN_ATTACK;
 }
 

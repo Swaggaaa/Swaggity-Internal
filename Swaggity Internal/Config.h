@@ -230,8 +230,10 @@ public:
 
 		 uint getAimbotFOV();
          bool getDistanceBasedFOV();
+         uint getAimStep();
 		 void setAimbotFOV(uint dep);
          void setDistanceBasedFOV(bool dep);
+         void setAimStep(uint step);
 
 		 void setActiveAimbot(bool dep);
 		 void setRageAimbot(bool dep);
